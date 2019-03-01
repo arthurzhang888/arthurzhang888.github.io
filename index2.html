@@ -49,7 +49,11 @@
 			background: skyblue;
 		}
 	</style>
+
+     <link href="./css/bootstrap.min.css" rel="stylesheet">
 </head>
+
+
 <body>
 	<div id="music">
 		<div id="container">
@@ -64,6 +68,17 @@
 			</div>
 		</div>
 	</div>
+
+
+<ul class="list-group">
+    <li class="list-group-item" > <button  class="button" id="hd1" >play</button>Track%3F1.wav.mp3 </li>
+    <li class="list-group-item" > <button  class="button" id="hd2" >play</button>Track%3F2.wav.mp3 </li>
+    <li class="list-group-item" > <button  class="button" id="hd3" >play</button>Track%3F3.wav.mp3 </li>
+    <li class="list-group-item" > <button  class="button" id="hd4" >play</button>Track%3F4.wav.mp3 </li>
+    <li class="list-group-item" > <button  class="button" id="hd5" >play</button>Track%3F5.wav.mp3 </li>
+</ul>
+
+
 	<script type="text/javascript">
 		var play = document.getElementById('play'),
 			pause = document.getElementById('pause'),
@@ -116,6 +131,35 @@
 		audio.addEventListener('ended',function(){
 			next.onclick();
 		},false);
+
+
+		var hd1 = document.getElementById('hd1');
+
+		hd1.onclick = function(){
+			audio.src = './grade3/mp3hd/' + 'Track%3F1.wav.mp3';
+			musicName.innerHTML = 'Track%3F1.wav.mp3';
+			bgImage.style.backgroundImage = 'url(./image/' + '1.jpg)';
+			musicImg.src = './image/'  + '1.jpg';
+			audio.play();
+		}
+
+		hd2.onclick = function(){
+			audio.src = './grade3/mp3hd/' + 'Track%3F1.wav.mp3';
+			musicName.innerHTML = 'Track%3F2.wav.mp3';
+			bgImage.style.backgroundImage = 'url(./image/' + '1.jpg)';
+			musicImg.src = './image/'  + '1.jpg';
+			audio.play();
+		}
+
+		 
 	</script>
+
+
+
+
+
+
+
+
 </body>
 </html>
