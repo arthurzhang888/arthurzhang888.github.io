@@ -97,18 +97,18 @@
 			num = (num + len - 1) % len;
 			audio.src = './grade3/mp3hd/' + music[num] ;//+ '.mp3';
 			musicName.innerHTML = music[num];
-			bgImage.style.backgroundImage = 'url(./image/' + '1.jpg)' //+ music[num] + '.jpg)';
-			musicImg.src = './image/' + music[num] + '.jpg';
+			bgImage.style.backgroundImage = 'url(./image/' + '1.jpg)'; //+ music[num] + '.jpg)';
+			musicImg.src = './image/'  + '1.jpg)'; //+ music[num] + '.jpg';
 			audio.play();
 		}
 
 		// 下一首
 		next.onclick = function(){
 			num = (num + 1) % len;
-			audio.src = './music/' + music[num] + '.mp3';
+			audio.src = './music/' + music[num];// + '.mp3';
 			musicName.innerHTML = music[num];
-			bgImage.style.backgroundImage = 'url(./image/' + '1.jpg)' //+ music[num] + '.jpg)';
-			musicImg.src = './image/' + music[num] + '.jpg';
+			bgImage.style.backgroundImage = 'url(./image/' + '1.jpg)'; //+ music[num] + '.jpg)';
+			musicImg.src = './image/'  + '1.jpg)'; //+ music[num] + '.jpg';
 			audio.play();
 		}
 
