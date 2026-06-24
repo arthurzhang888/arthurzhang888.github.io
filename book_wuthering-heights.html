@@ -1,0 +1,97 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>呼啸山庄 · 荒原上的暴烈之爱</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Noto+Serif+SC:wght@300;400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}body{background:#0b0908;color:#d4cfc8;font-family:'Noto Serif SC','Cinzel',serif;overflow-x:hidden}
+#particles{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5}
+.hero{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:2rem}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 30%,rgba(60,30,20,.4) 0%,transparent 60%),radial-gradient(ellipse at 70% 80%,rgba(20,30,50,.3) 0%,transparent 60%),radial-gradient(ellipse at 50% 50%,rgba(10,8,6,.6) 0%,transparent 80%);z-index:-1}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:200px;background:linear-gradient(to top,rgba(10,8,6,1),transparent);z-index:-1}
+.hero-badge{font-family:'Cormorant Garamond',serif;font-size:.85rem;letter-spacing:.6em;color:#c8b8a0;text-transform:uppercase;margin-bottom:1.5rem;animation:fadeUp 1.5s ease both}
+.hero h1{font-family:'Cinzel',serif;font-size:clamp(2.5rem,8vw,6rem);font-weight:700;letter-spacing:.08em;background:linear-gradient(135deg,#a89880 0%,#6a5a4a 30%,#8a7a6a 60%,#b8a898 100%);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.1;animation:fadeUp 1.5s .2s ease both}
+.hero-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(1rem,2vw,1.6rem);font-weight:300;font-style:italic;color:#b8a898;margin-top:.5rem;letter-spacing:.3em;animation:fadeUp 1.5s .35s ease both}
+.hero-author{font-size:.9rem;color:#9a8a7a;margin-top:.3rem;letter-spacing:.2em;animation:fadeUp 1.5s .5s ease both}
+.hero-quote{margin-top:3rem;font-size:clamp(1rem,1.8vw,1.3rem);font-style:italic;color:#b8a898;max-width:640px;line-height:1.9;animation:fadeUp 1.5s .6s ease both;position:relative;padding:0 1.5rem}
+.hero-quote::before{content:'\201C';font-size:5rem;position:absolute;top:-2rem;left:-.2rem;color:rgba(100,80,60,.15);font-family:'Cinzel',serif}
+.scroll-indicator{margin-top:4rem;width:1px;height:50px;background:linear-gradient(to bottom,#5a4a3a,transparent);animation:pulseDown 2.5s ease-in-out infinite}
+.section-divider{position:relative;z-index:1;height:2px;max-width:300px;margin:0 auto;background:linear-gradient(to right,transparent,rgba(100,80,60,.2),transparent)}
+.section{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:5rem 2rem}
+.section-tag{font-family:'Cormorant Garamond',serif;font-size:.75rem;letter-spacing:.5em;color:#b8a898;text-transform:uppercase;margin-bottom:1.2rem}
+.section-title{font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:#b8a898;margin-bottom:1rem;line-height:1.2;letter-spacing:.03em}
+.section-desc{color:#8a7a6a;line-height:2;font-size:1.02rem;margin-bottom:2.5rem}
+.reveal{opacity:0;transform:translateY(40px);transition:all .9s cubic-bezier(.4,0,.2,1)}.reveal.visible{opacity:1;transform:translateY(0)}
+.timeline{position:relative;padding-left:2.8rem}.timeline::before{content:'';position:absolute;left:.7rem;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,rgba(100,80,60,.2),transparent)}
+.timeline-item{position:relative;margin-bottom:3rem;padding-left:1.5rem;opacity:0;transform:translateX(-20px);transition:all .7s ease}.timeline-item.visible{opacity:1;transform:translateX(0)}
+.timeline-item::before{content:'';position:absolute;left:-2.4rem;top:.5rem;width:10px;height:10px;border-radius:50%;background:#5a4a3a;border:2px solid #2a1a0a;box-shadow:0 0 15px rgba(90,74,58,.2)}
+.timeline-item:nth-child(1)::before{background:#6a4a3a}.timeline-item:nth-child(2)::before{background:#5a5a3a}.timeline-item:nth-child(3)::before{background:#3a4a5a}.timeline-item:nth-child(4)::before{background:#4a3a5a}
+.timeline-year{font-family:'Cormorant Garamond',serif;font-size:.8rem;letter-spacing:.15em;color:#b8a898;margin-bottom:.3rem}
+.timeline-title{font-size:1.1rem;font-weight:700;color:#b8a898;margin-bottom:.5rem}
+.timeline-text{color:#b8a898;line-height:1.9;font-size:.93rem}
+.char-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;margin-top:2rem}
+.char-card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);border-radius:16px;padding:1.5rem;transition:all .4s ease;opacity:0;transform:translateY(20px)}.char-card.visible{opacity:1;transform:translateY(0)}
+.char-card:hover{background:rgba(255,255,255,.04);border-color:rgba(150,120,100,.2);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.4)}
+.char-name{font-family:'Cinzel',serif;font-size:1.1rem;font-weight:600;color:#b8a898;margin-bottom:.2rem}
+.char-role{font-size:.7rem;letter-spacing:.2em;color:#b8a898;text-transform:uppercase;margin-bottom:.7rem}
+.char-desc{color:#b8a898;font-size:.88rem;line-height:1.8}
+.theme-list{margin-top:2rem}.theme-item{padding:1.5rem 0;border-bottom:1px solid rgba(255,255,255,.03);opacity:0;transform:translateY(15px);transition:all .5s ease;display:flex;gap:1.5rem;align-items:flex-start}.theme-item.visible{opacity:1;transform:translateY(0)}
+.theme-icon{font-size:1.8rem;flex-shrink:0;width:2.5rem;text-align:center;margin-top:.2rem}
+.theme-name{font-family:'Cinzel',serif;font-size:1rem;font-weight:600;color:#b8a898;margin-bottom:.4rem}
+.theme-text{color:#b8a898;font-size:.9rem;line-height:1.8}
+.quote-divider{position:relative;z-index:1;max-width:680px;margin:0 auto;padding:5rem 2rem;text-align:center}
+.quote-divider blockquote{font-family:'Cormorant Garamond',serif;font-size:clamp(1.2rem,2.5vw,1.8rem);font-style:italic;color:#8a7a6a;line-height:1.9}
+.quote-divider cite{display:block;margin-top:1.5rem;font-size:.85rem;font-style:normal;color:#9a8a7a;letter-spacing:.15em}
+.closing{position:relative;z-index:1;max-width:700px;margin:0 auto;padding:6rem 2rem 8rem;text-align:center}
+.closing h2{font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:700;background:linear-gradient(135deg,#b8a898,#6a5a4a);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:2rem;letter-spacing:.05em}
+.closing p{color:#b8a898;line-height:2;font-size:1.02rem;margin-bottom:3rem}.closing-line{width:80px;height:1px;background:linear-gradient(to right,transparent,#5a4a3a,transparent);margin:0 auto}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulseDown{0%,100%{opacity:.6;transform:scaleY(1)}50%{opacity:.2;transform:scaleY(.5)}}
+.storm-overlay{position:fixed;inset:0;z-index:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 40px,rgba(255,255,255,.005) 40px,rgba(255,255,255,.005) 41px)}
+@media(max-width:640px){.section{padding:3rem 1.5rem}.timeline{padding-left:1.8rem}.char-grid{grid-template-columns:1fr}}
+</style></head><body>
+<canvas id="particles"></canvas><div class="storm-overlay"></div>
+
+<section class="hero"><div class="hero-badge">Emily Brontë · 1847</div><h1>Wuthering&nbsp;Heights</h1><p class="hero-sub">— 呼啸山庄 —</p><p class="hero-author">一部关于风暴、荒原与永不熄灭的灵魂的小说</p><p class="hero-quote">我这么爱他，并不是因为他长得英俊，<br>而是因为他比我更像我自己。<br>不管我们的灵魂是什么做的，他的和我的是一模一样的。</p><div class="scroll-indicator"></div></section>
+
+<section class="section"><div class="reveal"><div class="section-tag">Synopsis</div><h2 class="section-title">荒原上的暴烈之爱</h2><p class="section-desc">《呼啸山庄》是艾米莉·勃朗特一生中唯一的小说，也是英国文学史上最猛烈、最狂野的爱情故事。它超越了维多利亚时代的一切文学惯例——没有道德教条，没有温柔感伤，只有赤裸裸的激情、复仇与毁灭。小说以约克郡的荒原为背景，讲述了两个家族跨越两代人的恩怨纠葛。它的核心，是两个灵魂之间如同荒原风暴般不可驯服的吸引力。</p></div></section>
+
+<div class="section-divider"></div>
+
+<section class="section"><div class="reveal"><div class="section-tag">Timeline</div><h2 class="section-title">两代人的狂风暴雨</h2></div><div class="timeline">
+<div class="timeline-item"><div class="timeline-year">第一卷 · 风暴的起源</div><div class="timeline-title">恩萧先生带回希斯克利夫</div><div class="timeline-text">老恩萧从利物浦街头带回一个吉普赛弃儿，取名希斯克利夫。这个来历不明的孩子与凯瑟琳·恩萧之间形成了超越兄妹的深刻羁绊。但老恩萧的偏爱引起了长子辛德雷的嫉恨，为未来的悲剧埋下种子。</div></div>
+<div class="timeline-item"><div class="timeline-year">第一卷 · 裂痕</div><div class="timeline-title">凯瑟琳的背叛</div><div class="timeline-text">老恩萧去世后，辛德雷将希斯克利夫降为仆人，百般凌辱。凯瑟琳在画眉田庄遇见优雅的林顿一家，被文明世界所吸引。她对女仆说出那句"嫁给他会降低我的身份"——被希斯克利夫听到——成为全书最致命的转折点。希斯克利夫在暴风雨中消失，凯瑟琳嫁给了埃德加·林顿。</div></div>
+<div class="timeline-item"><div class="timeline-year">第二卷 · 复仇</div><div class="timeline-title">归来与毁灭</div><div class="timeline-text">数年后，希斯克利夫以神秘富商的身份归来。他通过赌博夺取呼啸山庄，诱骗伊莎贝拉·林顿与之结婚并虐待她。凯瑟琳在激情与愧疚的双重折磨下病倒，生下女儿小凯瑟琳后死去——那场雨夜，希斯克利夫在旷野中呼唤她的灵魂，终生不曾停止。</div></div>
+<div class="timeline-item"><div class="timeline-year">第三卷 · 和解</div><div class="timeline-title">下一代的和解</div><div class="timeline-text">十八年后，希斯克利夫的复仇延伸到下一代。他强迫小凯瑟琳与病弱的儿子林顿结婚。林顿死后，画眉田庄与呼啸山庄尽归他手。然而小凯瑟琳与哈里顿·恩萧之间生长出不可阻挡的爱情——希斯克利夫在他们身上看到自己与凯瑟琳的影子，终于放弃了复仇。他在暴风雪之夜死去，葬在凯瑟琳身旁。</div></div>
+</div></section>
+
+<div class="quote-divider reveal"><blockquote>但愿我是在你怀里被埋葬的，凯瑟琳。<br>只要你在荒原的那一头，我就无法安息。<br>我不愿独自躺在这冰冷的泥土里。</blockquote><cite>— 希斯克利夫，在凯瑟琳墓前</cite></div>
+
+<section class="section"><div class="reveal"><div class="section-tag">Characters</div><h2 class="section-title">荒原上的面孔</h2></div><div class="char-grid">
+<div class="char-card"><div class="char-name">希斯克利夫</div><div class="char-role">反英雄 · 复仇者</div><div class="char-desc">英国文学中最黑暗的浪漫英雄。一个被遗弃、被侮辱、被剥夺所爱之人，转而以毕生之力执行冷酷复仇的吉普赛孤儿。他的爱是燃烧的、摧毁性的、超越死亡本身的。他不是一个好人，但没有人能不被他的痛苦所震动。</div></div>
+<div class="char-card"><div class="char-name">凯瑟琳·恩萧</div><div class="char-role">自由灵魂</div><div class="char-desc">"我就是希斯克利夫——他永远在我心里。"她是全书最复杂的女性角色：既渴望文明世界的优雅，又被荒原的野性所定义。她的悲剧在于她清晰地知道自己与希斯克利夫是同一个灵魂的两半，却选择了背叛。</div></div>
+<div class="char-card"><div class="char-name">埃德加·林顿</div><div class="char-role">画眉田庄主人</div><div class="char-desc">温和、优雅、有教养——他是文明世界的完美代表。但在希斯克利夫与凯瑟琳的暴烈爱情面前，他的温柔显得如此无力。他爱凯瑟琳，但永远无法真正理解她的灵魂。</div></div>
+<div class="char-card"><div class="char-name">小凯瑟琳</div><div class="char-role">第二代 · 希望</div><div class="char-desc">凯瑟琳与埃德加之女。她继承了母亲的美貌与倔强，却多了一份弹性与生命力。她是被希斯克利夫折磨的下一代，却最终以爱与耐心驯服了仇恨——与哈里顿一起书写了新的结局。</div></div>
+<div class="char-card"><div class="char-name">哈里顿·恩萧</div><div class="char-role">第二代 · 重生</div><div class="char-desc">辛德雷之子，被希斯克利夫故意养大为粗野的文盲。但他保留着恩萧家族的善良与坚韧。小凯瑟琳的爱情唤醒了他沉睡的灵魂——他是全书中最温暖的角色。</div></div>
+<div class="char-card"><div class="char-name">洛克伍德</div><div class="char-role">叙事者</div><div class="char-desc">来自伦敦的租户，偶然闯入呼啸山庄的世界。他以一个外来者的视角记录了这个疯狂而迷人的故事。他的梦境——被凯瑟琳的鬼魂抓住手腕——是全书最令人不寒而栗的场景之一。</div></div>
+</div></section>
+
+<div class="quote-divider reveal"><blockquote>我的一生就像一场残忍的笑话。<br>我曾经爱过他，胜过爱这世上的一切——<br>我的灵魂与他同根同源，<br>可我背叛了他，也背叛了自己。</blockquote><cite>— 凯瑟琳·恩萧</cite></div>
+
+<section class="section"><div class="reveal"><div class="section-tag">Themes</div><h2 class="section-title">永恒的回响</h2></div><div class="theme-list">
+<div class="theme-item"><div class="theme-icon">🌪️</div><div class="theme-theme"><div class="theme-name">自然的狂暴 vs 文明的脆弱</div><div class="theme-text">荒原不仅是一个地理背景，它是人物内心的外化。呼啸山庄的狂风、终年不散的阴云——一切自然力量都在映照着人类情感的原始与不可驯服。画眉田庄的温室花园是对这种狂暴的徒劳抵抗。</div></div></div>
+<div class="theme-item"><div class="theme-icon">⛓️</div><div class="theme-theme"><div class="theme-name">阶级与归属</div><div class="theme-text">希斯克利夫的悲剧根源在于他"没有出身"——一个被遗弃的吉普赛孤儿，无论他的灵魂多么高贵，在阶级社会里永远是一个异类。凯瑟琳的背叛本质上是对社会规训的屈服。复仇是希斯克利夫对这个不公世界的回答。</div></div></div>
+<div class="theme-item"><div class="theme-icon">💀</div><div class="theme-theme"><div class="theme-name">超越死亡的爱情</div><div class="theme-text">《呼啸山庄》中，爱情不是温柔的情感，而是一种形而上的力量。凯瑟琳说"我就是希斯克利夫"，不是比喻，而是存在论上的宣告。他们的爱超越了道德、超越了死亡——希斯克利夫在与凯瑟琳重逢的渴望中死去。</div></div></div>
+<div class="theme-item"><div class="theme-icon">🌱</div><div class="theme-theme"><div class="theme-name">仇恨的传递与爱的治愈</div><div class="theme-text">希斯克利夫的复仇像病毒一样感染了两代人。但在故事的最后，小凯瑟琳和哈里顿以他们的爱情打破了仇恨的循环。荒原上终于开出了花。这不是一个和解的结局，而是一个"在毁灭之后，生命依然继续"的结局。</div></div></div>
+</div></section>
+
+<div class="quote-divider reveal"><blockquote>我在那温柔的旷野上漫步，<br>听见夜风在石楠丛中叹息。<br>他的坟墓与她的坟墓相邻——<br>谁能相信，在那片宁静的土地下，<br>安睡着两颗永不安静的灵魂？</blockquote><cite>— 尾声</cite></div>
+
+<section class="closing reveal"><h2>荒原上的灵魂，从未安息</h2><p>《呼啸山庄》不是一部让人"喜欢"的小说——它让人被震撼、被刺痛、被不安所笼罩。它拒绝一切温和的道德说教，拒绝将爱情美化为甜蜜的童话。<br><br>它是关于两个人——他们的灵魂由同一种材料铸成——如何在阶级、背叛与死亡的阻隔下，成为彼此永恒的风暴。<br><br><em style="color:#5a4a3a;">"无论你的灵魂是什么做的，我的和你的是一样的。"</em></p><div class="closing-line"></div><p style="margin-top:2rem;font-size:.8rem;color:#3a2a1a;">艾米莉·勃朗特 · 1818–1848 · 荒野中唯一的声息</p></section>
+
+<script>
+const canvas=document.getElementById('particles'),ctx=canvas.getContext('2d');let particles=[];const COUNT=70;
+function resize(){canvas.width=innerWidth;canvas.height=innerHeight}resize();addEventListener('resize',resize);
+class Particle{constructor(){this.reset()}reset(){this.x=Math.random()*canvas.width;this.y=Math.random()*canvas.height;this.size=Math.random()*2+.3;this.speedX=(Math.random()-.5)*.15;this.speedY=(Math.random()-.5)*.15;this.opacity=Math.random()*.4+.05}update(){this.x+=this.speedX;this.y+=this.speedY;if(this.x<0||this.x>canvas.width)this.speedX*=-1;if(this.y<0||this.y>canvas.height)this.speedY*=-1}draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fillStyle='rgba(180,160,140,'+this.opacity+')';ctx.fill()}}
+for(let i=0;i<COUNT;i++)particles.push(new Particle);
+function animate(){ctx.clearRect(0,0,canvas.width,canvas.height);particles.forEach(p=>{p.update();p.draw()});for(let i=0;i<particles.length;i++){for(let j=i+1;j<particles.length;j++){const dx=particles[i].x-particles[j].x,dy=particles[i].y-particles[j].y,dist=Math.sqrt(dx*dx+dy*dy);if(dist<120){ctx.beginPath();ctx.moveTo(particles[i].x,particles[i].y);ctx.lineTo(particles[j].x,particles[j].y);ctx.strokeStyle='rgba(180,160,140,'+(.03*(1-dist/120))+')';ctx.lineWidth=.3;ctx.stroke()}}}requestAnimationFrame(animate)}animate();
+const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add('visible')})},{threshold:.08});
+document.querySelectorAll('.reveal,.timeline-item,.char-card,.theme-item').forEach(el=>observer.observe(el));
+</script></body></html>

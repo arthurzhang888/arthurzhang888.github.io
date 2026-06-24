@@ -1,0 +1,81 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>西厢记 · 王实甫</title>
+<style>@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Noto+Serif+SC:wght@300;400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}body{background:#0c0a10;color:#c8b8d4;font-family:'Noto Serif SC','Cinzel',serif;overflow-x:hidden}#particles{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.25}
+.hero{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:2rem}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,rgba(100,60,140,.12) 0%,transparent 60%),radial-gradient(ellipse at 70% 80%,rgba(160,100,180,.06) 0%,transparent 60%),radial-gradient(ellipse at 50% 50%,rgba(10,8,14,.6) 0%,transparent 80%);z-index:-1}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:200px;background:linear-gradient(to top,rgba(10,8,14,1),transparent);z-index:-1}
+.hero-badge{font-family:'Cormorant Garamond',serif;font-size:.85rem;letter-spacing:.6em;color:#c8b8d4;text-transform:uppercase;margin-bottom:1.5rem;animation:fadeUp 1.5s ease both}
+.hero h1{font-family:'Cinzel',serif;font-size:clamp(2.5rem,8vw,6rem);font-weight:700;letter-spacing:.1em;background:linear-gradient(135deg,#d8b8e8 0%,#704090 30%,#b080c8 60%,#d8b8e8 100%);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.1;animation:fadeUp 1.5s .2s ease both}
+.hero-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(1rem,2vw,1.6rem);font-weight:300;font-style:italic;color:#c8b8d4;margin-top:.5rem;letter-spacing:.3em;animation:fadeUp 1.5s .35s ease both}
+.hero-author{font-size:.9rem;color:#b8a0c8;margin-top:.3rem;letter-spacing:.2em;animation:fadeUp 1.5s .5s ease both}
+.hero-quote{margin-top:3rem;font-size:clamp(1rem,1.8vw,1.3rem);font-style:italic;color:#c8b8d4;max-width:620px;line-height:2;animation:fadeUp 1.5s .6s ease both;position:relative;padding:0 1.5rem}
+.hero-quote::before{content:'\201C';font-size:5rem;position:absolute;top:-2rem;left:-.2rem;color:rgba(112,64,144,.1);font-family:'Cinzel',serif}
+.scroll-indicator{margin-top:4rem;width:1px;height:50px;background:linear-gradient(to bottom,#704090,transparent);animation:pulseDown 2.5s ease-in-out infinite}
+.section-divider{height:2px;max-width:300px;margin:0 auto;background:linear-gradient(to right,transparent,rgba(112,64,144,.1),transparent)}
+.section{max-width:860px;margin:0 auto;padding:5rem 2rem}.section-tag{font-family:'Cormorant Garamond',serif;font-size:.75rem;letter-spacing:.5em;color:#c8b8d4;text-transform:uppercase;margin-bottom:1.2rem}
+.section-title{font-family:'Noto Serif SC',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;color:#c8b8d4;margin-bottom:1rem;line-height:1.2}
+.section-desc{color:#b8a0c8;line-height:2;font-size:1.02rem;margin-bottom:2.5rem}
+.reveal{opacity:0;transform:translateY(40px);transition:all .9s cubic-bezier(.4,0,.2,1)}.reveal.visible{opacity:1;transform:translateY(0)}
+.timeline{position:relative;padding-left:2.8rem}.timeline::before{content:'';position:absolute;left:.7rem;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,rgba(112,64,144,.1),transparent)}
+.timeline-item{position:relative;margin-bottom:3rem;padding-left:1.5rem;opacity:0;transform:translateX(-20px);transition:all .7s ease}.timeline-item.visible{opacity:1;transform:translateX(0)}
+.timeline-item::before{content:'';position:absolute;left:-2.4rem;top:.5rem;width:10px;height:10px;border-radius:50%;background:#704090;border:2px solid #0c0a10;box-shadow:0 0 15px rgba(112,64,144,.1)}
+.timeline-item:nth-child(1)::before{background:#d8b8e8}.timeline-item:nth-child(2)::before{background:#c090d0}.timeline-item:nth-child(3)::before{background:#a070b8}.timeline-item:nth-child(4)::before{background:#704090}
+.timeline-year{font-family:'Cormorant Garamond',serif;font-size:.8rem;letter-spacing:.15em;color:#c8b8d4;margin-bottom:.3rem}.timeline-title{font-family:'Noto Serif SC',serif;font-size:1.1rem;font-weight:700;color:#c8b8d4;margin-bottom:.5rem}.timeline-text{color:#b8a0c8;line-height:1.9;font-size:.93rem}
+.char-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;margin-top:2rem}.char-card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);border-radius:16px;padding:1.5rem;transition:all .4s ease;opacity:0;transform:translateY(20px)}.char-card.visible{opacity:1;transform:translateY(0)}.char-card:hover{background:rgba(255,255,255,.04);border-color:rgba(192,176,208,.2);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.4)}
+.char-name{font-family:'Noto Serif SC',serif;font-size:1.1rem;font-weight:700;color:#c8b8d4;margin-bottom:.2rem}.char-role{font-size:.7rem;letter-spacing:.2em;color:#c8b8d4;text-transform:uppercase;margin-bottom:.7rem}.char-desc{color:#b8a0c8;font-size:.88rem;line-height:1.8}
+.theme-list{margin-top:2rem}.theme-item{padding:1.5rem 0;border-bottom:1px solid rgba(255,255,255,.03);opacity:0;transform:translateY(15px);transition:all .5s ease;display:flex;gap:1.5rem;align-items:flex-start}.theme-item.visible{opacity:1;transform:translateY(0)}.theme-icon{font-size:1.8rem;flex-shrink:0;width:2.5rem;text-align:center;margin-top:.2rem}.theme-name{font-family:'Noto Serif SC',serif;font-size:1rem;font-weight:700;color:#c8b8d4;margin-bottom:.4rem}.theme-text{color:#b8a0c8;font-size:.9rem;line-height:1.8}
+.quote-divider{max-width:680px;margin:0 auto;padding:5rem 2rem;text-align:center}.quote-divider blockquote{font-family:'Cormorant Garamond',serif;font-size:clamp(1.2rem,2.5vw,1.8rem);font-style:italic;color:#b8a0c8;line-height:2}.quote-divider cite{display:block;margin-top:1.5rem;font-size:.85rem;font-style:normal;color:#b8a0c8;letter-spacing:.15em}
+.closing{max-width:700px;margin:0 auto;padding:6rem 2rem 8rem;text-align:center}.closing h2{font-family:'Noto Serif SC',serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:900;background:linear-gradient(135deg,#d8b8e8,#704090);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:2rem;letter-spacing:.05em}.closing p{color:#b8a0c8;line-height:2.2;font-size:1.02rem;margin-bottom:3rem}.closing-line{width:80px;height:1px;background:linear-gradient(to right,transparent,#704090,transparent);margin:0 auto}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}@keyframes pulseDown{0%,100%{opacity:.6;transform:scaleY(1)}50%{opacity:.2;transform:scaleY(.5)}}
+.moon-overlay{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse at 80% 20%,rgba(112,64,144,.015) 0%,transparent 50%)}
+</style></head><body>
+<div id="particles"></div><div class="moon-overlay"></div>
+<div class="hero"><div class="hero-badge">📍 Yuan Dynasty · 元代杂剧</div>
+<h1>西厢记</h1><p class="hero-sub">Romance of the Western Chamber</p><p class="hero-author">王实甫 · Wang Shifu · 1260-1336</p>
+<div class="hero-quote">愿天下有情人终成眷属。</div><div class="scroll-indicator"></div></div>
+
+<div class="section-divider"></div>
+<div class="section" id="timeline"><div class="reveal"><p class="section-tag">📜 剧情脉络</p><h2 class="section-title">一见钟情，终成眷属</h2><p class="section-desc">《西厢记》全名《崔莺莺待月西厢记》，共五本二十一折，演绎了张生与崔莺莺冲破礼教藩篱的千古爱情。</p></div>
+<div class="timeline">
+<div class="timeline-item"><p class="timeline-year">📖 第一本 · 惊艳</p><p class="timeline-title">佛殿奇逢，一见倾心</p><p class="timeline-text">书生张珙（张君瑞）赴京赶考，途经蒲关，游览普救寺。在佛殿偶遇随母亲扶柩回乡暂住寺中的崔莺莺，惊为天人。张生为追求莺莺，放弃赶考，借口温习经史，也借住在普救寺中。月夜之下，莺莺烧香祝祷，张生隔墙吟诗试探，莺莺和诗相应，两人互通心意。</p></div>
+<div class="timeline-item"><p class="timeline-year">📖 第二本 · 白马解围</p><p class="timeline-title">孙飞虎兵围普救，张生修书退敌</p><p class="timeline-text">叛将孙飞虎听说莺莺美貌，率兵围困普救寺，要强娶莺莺为妻。崔母情急之下许诺：谁人能退贼兵，便将莺莺许配于谁。张生挺身而出，修书请来故交白马将军杜确，击退孙飞虎。然而崔母在危机解除后背信弃义，嫌张生是白衣书生，只让二人以兄妹相称，拒不成婚。</p></div>
+<div class="timeline-item"><p class="timeline-year">📖 第三本 · 红娘传书</p><p class="timeline-title">月下听琴，诗简传情</p><p class="timeline-text">张生相思成疾，莺莺心中亦苦闷不已。丫鬟红娘在二人之间穿针引线，传递书信。张生月夜弹琴倾诉衷情，莺莺闻琴知意。莺莺表面矜持，写信约张生相会，却又临时变卦责骂张生。经过一番波折，两人终于冲破心理防线，私下结合。红娘虽被崔母拷问，却以理相争，揭露崔母背信弃义之举。</p></div>
+<div class="timeline-item"><p class="timeline-year">📖 第四至五本 · 长亭送别</p><p class="timeline-title">十里长亭，金榜题名，终成眷属</p><p class="timeline-text">崔母无奈之下允婚，但要求张生必须进京考取功名。长亭送别，两人依依不舍——"碧云天，黄花地，西风紧，北雁南飞"。张生高中状元，却被莺莺的表兄郑恒从中作梗，谎称张生已另娶。最终张生及时赶回，真相大白，郑恒羞愧自尽。张生与莺莺历经磨难，如愿成婚，"愿天下有情人终成眷属"。</p></div>
+</div></div>
+
+<div class="section-divider"></div>
+<div class="section" id="characters"><div class="reveal"><p class="section-tag">🎭 人物群像</p><h2 class="section-title">才子佳人，红娘为媒</h2></div>
+<div class="char-grid">
+<div class="char-card"><p class="char-name">崔莺莺</p><p class="char-role">女主角 · 相国千金</p><p class="char-desc">已故崔相国之女，容貌倾国，诗书满腹。她深受礼教束缚，内心却燃烧着对自由爱情的渴望。她的性格复杂而真实——既有少女的矜持与犹豫，又有冲破礼教的勇气。她表面上的"赖简"（违背约定）不是变心，而是内心矛盾的自然流露。她是最早的中国文学中兼具诗意与血肉的贵族少女形象。</p></div>
+<div class="char-card"><p class="char-name">张君瑞</p><p class="char-role">男主角 · 痴情才子</p><p class="char-desc">西洛书生，才高八斗，温文尔雅。初见莺莺便一见倾心，从此一切行为皆因情而动。他为爱情放弃功名，为解围挺身而出，为相思卧病在床。他的痴情不是轻浮，而是真挚的投入。但在莺莺面前又常显呆气，这种"痴"与"才"的结合，使他成为元杂剧中最动人的书生形象。</p></div>
+<div class="char-card"><p class="char-name">红娘</p><p class="char-role">丫鬟 · 机智灵巧</p><p class="char-desc">中国文学史上最著名的丫鬟形象。她聪明伶俐、正直勇敢，穿梭于张生与莺莺之间传递情意。她不仅牵线搭桥，更是二人爱情的守护者。面对崔母的拷问，她据理力争，以"信者人之根本"驳得崔母哑口无言。"红娘"从此成为天下媒人的代名词——她代表了下层人物的智慧与正义感。</p></div>
+<div class="char-card"><p class="char-name">崔母</p><p class="char-role">莺莺之母 · 封建家长</p><p class="char-desc">相国遗孀，恪守门第观念，一心想为女儿寻一个门当户对的姻缘。她许诺退兵者婚配，却在危机解除后反悔。她不是简单的"反派"，而是一个被封建礼教和家族责任扭曲的母亲——她的所作所为，在当时的礼教体系中其实"合理"，却也因此显得更加可悲。</p></div>
+<div class="char-card"><p class="char-name">白马将军</p><p class="char-role">张生之友 · 义薄云天</p><p class="char-desc">杜确，张生的故交，官拜征西大将军。收到张生的求救信后，立即率兵解围。他代表了一种江湖义气和仗义相助的传统美德。在关键时刻的出现，既是剧情的转折点，也象征着正义的力量最终会帮助有情人。</p></div>
+<div class="char-card"><p class="char-name">法本</p><p class="char-role">普救寺长老 · 慈悲为怀</p><p class="char-desc">普救寺主持，德高望重，对张生和莺莺的爱情持同情态度。他收留了寄居寺中的崔家母女，又为张生提供住处。在佛门清净之地滋生的这段情缘，因他的宽容而得以发展。他代表了一种超越世俗成见的慈悲智慧。</p></div>
+</div></div>
+
+<div class="section-divider"></div>
+<div class="section" id="themes"><div class="reveal"><p class="section-tag">🌸 主题探讨</p><h2 class="section-title">愿天下有情人终成眷属</h2></div>
+<div class="theme-list">
+<div class="theme-item"><span class="theme-icon">💑</span><div><p class="theme-name">爱情自主——冲破礼教的自由恋歌</p><p class="theme-text">《西厢记》的核心主题是追求爱情自主。在"父母之命，媒妁之言"的封建婚姻制度下，张生和莺莺的私情是对礼教的直接挑战。王实甫以极大的热情赞美了这种"非法"的爱情——正因为它发自内心、出于自然，才比任何"合法"的婚姻更真实、更动人。这是中国文学史上第一次以如此正面的态度歌颂青年男女的自由结合。</p></div></div>
+<div class="theme-item"><span class="theme-icon">🎯</span><div><p class="theme-name">功名与爱情——人生的双重追求</p><p class="theme-text">张生为了莺莺放弃赶考，这本身就颠覆了"学而优则仕"的传统价值观。但剧作并未简单否定功名——崔母要求张生中举才许婚，而张生最终也通过科举获得了与莺莺匹配的社会地位。这里暗含了一种平衡：真挚的爱情可以超越功名，但现实中的幸福需要一定的社会条件作为保障。</p></div></div>
+<div class="theme-item"><span class="theme-icon">🗣️</span><div><p class="theme-name">红娘精神——底层人物的智慧与正义</p><p class="theme-text">红娘是全剧最闪光的角色之一。她出身卑微，却拥有远超其身份的智慧与勇气。她冒风险为二人传书，又敢于在崔母面前据理力争。她的名言"信者人之根本"以最朴素的语言道出了最深刻的道理。红娘的存在表明：真正的智慧和美德并不一定在所谓的高贵者身上，底层人物同样可以闪耀出人性之光。</p></div></div>
+<div class="theme-item"><span class="theme-icon">📖</span><div><p class="theme-name">语言艺术——诗剧的巅峰</p><p class="theme-text">《西厢记》的语言是中国古典戏曲的巅峰。王实甫以诗入剧，文辞华丽而不失自然，情感充沛而韵味悠长。"碧云天，黄花地，西风紧，北雁南飞"——寥寥数语就勾勒出一幅深秋送别的绝美画卷。全剧融诗词、曲词、宾白于一炉，既是戏曲文学的高峰，也是中国语言艺术的瑰宝。</p></div></div>
+<div class="theme-item"><span class="theme-icon">⚖️</span><div><p class="theme-name">情与理的冲突——从对抗到调和</p><p class="theme-text">全剧贯穿了"情"与"理"的深刻冲突。莺莺的内心挣扎——既想爱又怕越礼——是这种冲突的直接体现。崔母的背信弃义代表了"理"的冷酷。但王实甫的高明之处在于：他没有简单地让"情"战胜"理"（如私奔），也没有让"理"压制"情"（如悲剧），而是通过张生中举和皇帝赐婚，实现了情与理的和解。这种调和反映了元代市民阶层既追求爱情自由又希望获得社会认可的双重心理。</p></div></div>
+</div></div>
+
+<div class="quote-divider"><blockquote>碧云天，黄花地，西风紧，北雁南飞。晓来谁染霜林醉？总是离人泪。<cite>—— 王实甫 · 《西厢记·长亭送别》</cite></blockquote></div>
+<div class="quote-divider"><blockquote>愿天下有情人终成眷属。<cite>—— 王实甫 · 《西厢记》</cite></blockquote></div>
+<div class="quote-divider"><blockquote>待月西厢下，迎风户半开。隔墙花影动，疑是玉人来。<cite>—— 崔莺莺 · 《西厢记》</cite></blockquote></div>
+
+<div class="closing"><h2>愿天下有情人终成眷属</h2><p>《西厢记》是中国古典爱情文学的最高成就之一。王实甫以瑰丽的文笔，书写了一段跨越礼教藩篱的千古恋歌。张生与崔莺莺的故事，不只是才子佳人的浪漫传奇，更是一曲对人性自由与真情至性的深沉礼赞。红娘的形象更是深入人心，"红娘"二字从此成为爱情媒人的代名词，流传至今。六百年来，这段西厢之恋，依然照亮着每一个渴望真爱的人心。</p><div class="closing-line"></div></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>const scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,.1,1e3),renderer=new THREE.WebGLRenderer({alpha:true,antialias:true});renderer.setSize(window.innerWidth,window.innerHeight);renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));document.getElementById('particles').appendChild(renderer.domElement);
+const geom=new THREE.BufferGeometry(),count=1400;const pos=new Float32Array(count*3);for(let i=0;i<count*3;i++)pos[i]=(Math.random()-.5)*80;geom.setAttribute('position',new THREE.BufferAttribute(pos,3));
+const mat=new THREE.PointsMaterial({color:0xc8b8d4,size:.14,transparent:true,opacity:.5,blending:THREE.AdditiveBlending});const particles=new THREE.Points(geom,mat);scene.add(particles);
+camera.position.z=35;let t=0;function animate(){requestAnimationFrame(animate);t+=.001;particles.rotation.y=Math.sin(t)*.05;particles.rotation.x=Math.sin(t*.7)*.03;renderer.render(scene,camera)}animate();
+window.addEventListener('resize',()=>{camera.aspect=window.innerWidth/window.innerHeight;camera.updateProjectionMatrix();renderer.setSize(window.innerWidth,window.innerHeight)});
+const obs=new IntersectionObserver(e=>{e.forEach(e=>{e.isIntersecting?e.target.classList.add('visible'):e.target.classList.remove('visible')})},{threshold:.1});
+document.querySelectorAll('.reveal,.timeline-item,.char-card,.theme-item').forEach(e=>obs.observe(e));</script>
+</body></html>

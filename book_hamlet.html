@@ -1,0 +1,98 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>哈姆雷特 · 生存还是毁灭</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Noto+Serif+SC:wght@300;400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}body{background:#0a080a;color:#d0c8c0;font-family:'Noto Serif SC','Cinzel',serif;overflow-x:hidden}
+#particles{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.4}
+.hero{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:2rem}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 30%,rgba(40,40,60,.4) 0%,transparent 60%),radial-gradient(ellipse at 70% 80%,rgba(40,20,20,.3) 0%,transparent 60%),radial-gradient(ellipse at 50% 50%,rgba(10,8,10,.6) 0%,transparent 80%);z-index:-1}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:200px;background:linear-gradient(to top,rgba(10,8,10,1),transparent);z-index:-1}
+.hero-badge{font-family:'Cormorant Garamond',serif;font-size:.85rem;letter-spacing:.6em;color:#a098b0;text-transform:uppercase;margin-bottom:1.5rem;animation:fadeUp 1.5s ease both}
+.hero h1{font-family:'Cinzel',serif;font-size:clamp(2.5rem,8vw,6rem);font-weight:700;letter-spacing:.08em;background:linear-gradient(135deg,#a098b0 0%,#403060 30%,#605080 60%,#b0a0c0 100%);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.1;animation:fadeUp 1.5s .2s ease both}
+.hero-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(1rem,2vw,1.6rem);font-weight:300;font-style:italic;color:#a098b0;margin-top:.5rem;letter-spacing:.3em;animation:fadeUp 1.5s .35s ease both}
+.hero-author{font-size:.9rem;color:#8a8098;margin-top:.3rem;letter-spacing:.2em;animation:fadeUp 1.5s .5s ease both}
+.hero-quote{margin-top:3rem;font-size:clamp(1rem,1.8vw,1.3rem);font-style:italic;color:#a098b0;max-width:640px;line-height:1.9;animation:fadeUp 1.5s .6s ease both;position:relative;padding:0 1.5rem}
+.hero-quote::before{content:'\201C';font-size:5rem;position:absolute;top:-2rem;left:-.2rem;color:rgba(64,48,96,.15);font-family:'Cinzel',serif}
+.scroll-indicator{margin-top:4rem;width:1px;height:50px;background:linear-gradient(to bottom,#403060,transparent);animation:pulseDown 2.5s ease-in-out infinite}
+.section-divider{position:relative;z-index:1;height:2px;max-width:300px;margin:0 auto;background:linear-gradient(to right,transparent,rgba(64,48,96,.2),transparent)}
+.section{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:5rem 2rem}
+.section-tag{font-family:'Cormorant Garamond',serif;font-size:.75rem;letter-spacing:.5em;color:#a098b0;text-transform:uppercase;margin-bottom:1.2rem}
+.section-title{font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:#a098b0;margin-bottom:1rem;line-height:1.2;letter-spacing:.03em}
+.section-desc{color:#8a8098;line-height:2;font-size:1.02rem;margin-bottom:2.5rem}
+.reveal{opacity:0;transform:translateY(40px);transition:all .9s cubic-bezier(.4,0,.2,1)}.reveal.visible{opacity:1;transform:translateY(0)}
+.timeline{position:relative;padding-left:2.8rem}.timeline::before{content:'';position:absolute;left:.7rem;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,rgba(64,48,96,.2),transparent)}
+.timeline-item{position:relative;margin-bottom:3rem;padding-left:1.5rem;opacity:0;transform:translateX(-20px);transition:all .7s ease}.timeline-item.visible{opacity:1;transform:translateX(0)}
+.timeline-item::before{content:'';position:absolute;left:-2.4rem;top:.5rem;width:10px;height:10px;border-radius:50%;background:#403060;border:2px solid #1a0a2a;box-shadow:0 0 15px rgba(64,48,96,.2)}
+.timeline-item:nth-child(1)::before{background:#8060a0}.timeline-item:nth-child(2)::before{background:#403060}.timeline-item:nth-child(3)::before{background:#c04040}.timeline-item:nth-child(4)::before{background:#608060}
+.timeline-year{font-family:'Cormorant Garamond',serif;font-size:.8rem;letter-spacing:.15em;color:#a098b0;margin-bottom:.3rem}
+.timeline-title{font-size:1.1rem;font-weight:700;color:#a098b0;margin-bottom:.5rem}
+.timeline-text{color:#a098b0;line-height:1.9;font-size:.93rem}
+.char-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;margin-top:2rem}
+.char-card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);border-radius:16px;padding:1.5rem;transition:all .4s ease;opacity:0;transform:translateY(20px)}.char-card.visible{opacity:1;transform:translateY(0)}
+.char-card:hover{background:rgba(255,255,255,.04);border-color:rgba(160,150,180,.2);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.4)}
+.char-name{font-family:'Cinzel',serif;font-size:1.1rem;font-weight:600;color:#a098b0;margin-bottom:.2rem}
+.char-role{font-size:.7rem;letter-spacing:.2em;color:#a098b0;text-transform:uppercase;margin-bottom:.7rem}
+.char-desc{color:#a098b0;font-size:.88rem;line-height:1.8}
+.theme-list{margin-top:2rem}.theme-item{padding:1.5rem 0;border-bottom:1px solid rgba(255,255,255,.03);opacity:0;transform:translateY(15px);transition:all .5s ease;display:flex;gap:1.5rem;align-items:flex-start}.theme-item.visible{opacity:1;transform:translateY(0)}
+.theme-icon{font-size:1.8rem;flex-shrink:0;width:2.5rem;text-align:center;margin-top:.2rem}
+.theme-name{font-family:'Cinzel',serif;font-size:1rem;font-weight:600;color:#a098b0;margin-bottom:.4rem}
+.theme-text{color:#a098b0;font-size:.9rem;line-height:1.8}
+.quote-divider{position:relative;z-index:1;max-width:680px;margin:0 auto;padding:5rem 2rem;text-align:center}
+.quote-divider blockquote{font-family:'Cormorant Garamond',serif;font-size:clamp(1.2rem,2.5vw,1.8rem);font-style:italic;color:#8a8098;line-height:1.9}
+.quote-divider cite{display:block;margin-top:1.5rem;font-size:.85rem;font-style:normal;color:#8a8098;letter-spacing:.15em}
+.closing{position:relative;z-index:1;max-width:700px;margin:0 auto;padding:6rem 2rem 8rem;text-align:center}
+.closing h2{font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:700;background:linear-gradient(135deg,#a098b0,#403060);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:2rem;letter-spacing:.05em}
+.closing p{color:#a098b0;line-height:2;font-size:1.02rem;margin-bottom:3rem}.closing-line{width:80px;height:1px;background:linear-gradient(to right,transparent,#403060,transparent);margin:0 auto}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulseDown{0%,100%{opacity:.6;transform:scaleY(1)}50%{opacity:.2;transform:scaleY(.5)}}
+.skull-overlay{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse at 50% 60%,rgba(64,48,96,.06) 0%,transparent 50%)}
+@media(max-width:640px){.section{padding:3rem 1.5rem}.timeline{padding-left:1.8rem}.char-grid{grid-template-columns:1fr}}
+</style></head><body>
+<canvas id="particles"></canvas><div class="skull-overlay"></div>
+
+<section class="hero"><div class="hero-badge">William Shakespeare · 约1600</div><h1>Hamlet</h1><p class="hero-sub">— 哈姆雷特 —</p><p class="hero-author">生存还是毁灭，这是一个问题</p><p class="hero-quote">生存还是毁灭，这是一个问题：<br>哪一种更高贵？忍受命运暴虐的毒箭，<br>还是拿起武器反抗无尽的苦难，<br>通过斗争把它们全部扫清？</p><div class="scroll-indicator"></div></section>
+
+<section class="section"><div class="reveal"><div class="section-tag">Synopsis</div><h2 class="section-title">生存还是毁灭，这是一个问题</h2><p class="section-desc">丹麦王子哈姆雷特的父王暴毙，母亲乔特鲁德在丧夫不到两个月就嫁给了叔父克劳狄斯。一天深夜，父王的鬼魂显现，告诉哈姆雷特：克劳狄斯趁他午睡时将毒药灌入他耳中，夺走了他的王位、王后和性命。哈姆雷特发誓复仇，但从此陷入"该不该做"的深渊。他装疯卖傻，安排戏中戏验证叔父的罪行，误杀了恋人奥菲莉亚的父亲，被流放英国，最终在宫廷决斗中与所有人同归于尽。这不是一部关于复仇的戏剧——它是一部关于"思想"的戏剧：一个人想得太多，反而无法行动。</p></div></section>
+
+<div class="section-divider"></div>
+
+<section class="section"><div class="reveal"><div class="section-tag">Timeline</div><h2 class="section-title">丹麦宫廷的沉沦</h2></div><div class="timeline">
+<div class="timeline-item"><div class="timeline-year">第一幕 · 开端</div><div class="timeline-title">鬼魂的启示</div><div class="timeline-text">艾尔西诺城堡的露台上，午夜刚过。哨兵们已经两次看到了已故国王的鬼魂——身披铠甲，面色阴沉。哈姆雷特来到露台，鬼魂向他招手。在无人的角落，鬼魂开口了："我是你父亲的灵魂——被判在夜间游荡直到白昼的罪孽被洗清。听着……你的叔父趁我熟睡时，把毒药灌入我的耳朵——夺走了我的王冠、我的王后和我的性命。你要替我复仇，但不要玷污你的灵魂——不要伤害你的母亲，让上天来审判她。"哈姆雷特的手在发抖，他对天地宣布："我要记住你——从我的记忆中将擦去所有无谓的记录。"但他没有想到，记住一件事和做一件事之间，隔着多么遥远的距离。</div></div>
+<div class="timeline-item"><div class="timeline-year">第二幕 · 疯癫与试探</div><div class="timeline-title">戏中戏</div><div class="timeline-text">哈姆雷特决定装疯——他的疯癫是真假难辨的：有时候他说出令人窒息的真理，有时候他的话语像碎玻璃一样锋利而混乱。克劳狄斯派大臣波洛涅斯和哈姆雷特的同学罗森克兰茨与吉尔登斯特恩去试探他。波洛涅斯认为哈姆雷特是因为爱情而发疯——他的女儿奥菲莉亚已经奉父亲之命回避了哈姆雷特。但克劳狄斯更警觉："他的疯癫有某种方法——他的话语虽然癫狂，但不像是疯话。"哈姆雷特安排了一群流浪演员在王宫表演一桩谋杀故事——"捕鼠器"——他亲自加了一段台词，让戏中情节与鬼魂描述的暗杀一模一样。演出中，克劳狄斯猛地站起，面色惨白，下令熄灯。</div></div>
+<div class="timeline-item"><div class="timeline-year">第三幕 · 错误与坠落</div><div class="timeline-title">误杀 · 流放</div><div class="timeline-text">哈姆雷特在母亲房中与乔特鲁德激烈争吵，帘幕后有人喊叫——他以为是克劳狄斯在偷听，拔剑刺去。倒下的却是波洛涅斯——奥菲莉亚的父亲。鬼魂再次显现，提醒哈姆雷特不要忘记复仇，但乔特鲁德看不到鬼魂，坚信儿子已经彻底疯了。克劳狄斯以此为借口将哈姆雷特送往英国，密函中命令英国国王处死他。奥菲莉亚在父亲被爱人杀死后彻底崩溃，她头戴花环落水——唱着歌沉入了溪流。她的哥哥雷欧提斯从法国赶回，发誓要为父亲和妹妹报仇。</div></div>
+<div class="timeline-item"><div class="timeline-year">第五幕 · 终局</div><div class="timeline-title">四具尸体</div><div class="timeline-text">哈姆雷特在海上发现了克劳狄斯的密信，改写内容让罗森克兰茨和吉尔登斯特恩代他去死，然后跳船逃回丹麦。在墓地为奥菲莉亚掘坟时，他遇见了雷欧提斯——两人在墓穴中扭打。克劳狄斯安排了一场毒剑毒酒的决斗。雷欧提斯用毒剑刺伤了哈姆雷特，随后两人的剑被交换，哈姆雷特也用毒剑刺中了雷欧提斯。乔特鲁德误饮了克劳狄斯为哈姆雷特准备的毒酒——倒下之前她说："酒里有毒。"哈姆雷特用最后的力气刺穿克劳狄斯，将毒酒灌入他的喉咙。当福丁布拉斯率军来到时，舞台上躺着四具尸体。他说："这幕场景令人悲恸——把尸体抬到高台上，用军礼安葬这位王子——如果他能登上王位，他一定是位英明的君主。"</div></div>
+</div></section>
+
+<div class="quote-divider reveal"><blockquote>上帝给了你们一张脸，<br>你们却自己再造了一张。<br>你们跳舞，你们摇摆，<br>你们把上帝造物叫做愚蠢——<br>够了，从此我不愿再多说。</blockquote><cite>— 哈姆雷特对奥菲莉亚（装疯中的告示）</cite></div>
+
+<section class="section"><div class="reveal"><div class="section-tag">Characters</div><h2 class="section-title">宫廷中的人性光谱</h2></div><div class="char-grid">
+<div class="char-card"><div class="char-name">哈姆雷特</div><div class="char-role">丹麦王子</div><div class="char-desc">文学史上第一个现代人。他不是英雄——他犹豫、反复、自我折磨。他一边痛恨自己的犹豫，一边继续犹豫。他对母亲说"我要用言语像刀一样割你"，却迟迟无法对克劳狄斯下手。他在祈祷的克劳狄斯背后举剑又放下——因为不想让他在祈祷中死去而上天堂。这是一个绝妙的借口：他用神学为自己的犹豫找到了完美的理由。哈姆雷特的悲剧不是他被命运碾压——而是他被自己的思想碾压。</div></div>
+<div class="char-card"><div class="char-name">克劳狄斯</div><div class="char-role">篡位者 · 国王</div><div class="char-desc">他不是一个简单的恶人。克劳狄斯在独白中痛苦地承认自己"背负着古老的诅咒——弑兄之罪"，他跪下来祈祷，但无法真正悔改——"我的言语升向天空，我的思想还留在地上。"莎士比亚给了他一个黑暗但复杂的内在世界。他爱乔特鲁德——这未必是谎言。他对待政务相当精明——丹麦在他的统治下井井有条。但他的原罪从一开始就让整个王国的空气都腐烂了。</div></div>
+<div class="char-card"><div class="char-name">奥菲莉亚</div><div class="char-role">被牺牲的纯真</div><div class="char-desc">她是全剧中最无辜的人——被父亲利用、被爱人抛弃、被哥哥训诫，没有人在乎她怎么想。当她捧着花环出现时，她的歌声中混着童谣和淫曲——疯癫让她的无意识得以流出。她落水时"她唱着古老的歌谣，仿佛对危险毫无察觉——就像一条河流中的生物"。莎士比亚安排了最残酷的讽刺：她的葬礼上，神父拒绝为她举行完整的仪式，因为"她的死亡存疑"。奥菲莉亚死于悲伤——但在丹麦宫廷里，悲伤不被允许。</div></div>
+<div class="char-card"><div class="char-name">波洛涅斯</div><div class="char-role">大臣 · 父亲</div><div class="char-desc">他以"忠言"包裹的控制欲令人窒息——他派间谍监视儿子、命令女儿断绝与哈姆雷特的来往、自告奋勇去偷听哈姆雷特和母亲的谈话。"对自己忠实"是他的名言——但他自己从未做到。他躲在帘幕后被一剑刺死——滑稽而屈辱的结局。但莎士比亚不让他成为一个纯粹的笑柄：他是一个溺爱孩子的父亲，他的方法或许错了，但他的动机——保护家人——并不卑劣。</div></div>
+<div class="char-card"><div class="char-name">乔特鲁德</div><div class="char-role">王后 · 母亲</div><div class="char-desc">她在这场风暴中是最茫然的人。她是否知道克劳狄斯杀害了前夫？莎士比亚故意不告诉我们。她选择不去看——她用华丽的衣袍、盛大的婚礼和欢宴来掩盖心底的疑问。哈姆雷特在卧室中将她逼到墙角时，她的恐惧是真实的。"你做了什么，让我儿子如此疯狂？"她问——她真的不知道。她的死是整部戏剧中最悲哀的一刻：她端起那杯酒，不是为了自己，而是想为儿子庆祝胜利——"我为你喝彩，哈姆雷特！"然后倒下。</div></div>
+<div class="char-card"><div class="char-name">霍拉旭</div><div class="char-role">忠实的友人</div><div class="char-desc">他是暴风雨中唯一的锚。在所有人物或疯癫、或虚伪、或疯狂的环境里，霍拉旭是那个始终清醒、始终忠诚的人。他是哈姆雷特唯一信任的人。当哈姆雷特在"生存还是毁灭"中挣扎时，他倾听；当哈姆雷特用戏中戏揭穿克劳狄斯时，他见证。全剧的最后一句话留给了他——他对着王子的尸体说："晚安，王子——愿天使的歌声伴你安息。"在满台尸体之后，这是唯一温暖的声音。</div></div>
+</div></section>
+
+<div class="quote-divider reveal"><blockquote>丹麦是一座监狱。<br>那么全世界也是一座监狱——<br>一座相当好的监狱，里面有许多囚室、地牢和地窖。</blockquote><cite>— 哈姆雷特对罗森克兰茨</cite></div>
+
+<section class="section"><div class="reveal"><div class="section-tag">Themes</div><h2 class="section-title">思想之牢笼的永恒追问</h2></div><div class="theme-list">
+<div class="theme-item"><div class="theme-icon">💀</div><div class="theme-theme"><div class="theme-name">生存还是毁灭</div><div class="theme-text">这是全世界最著名的台词，但它的真正含义经常被简化。哈姆雷特不是在问"要不要自杀"——他在问：在一个充满不公的世界里，活下去和反抗，哪个更高贵？忍受和行动，哪种更勇敢？犹豫不是懦弱，而是因为行动者必须面对行动的后果。莎士比亚的深刻在于他从未给出答案——他让一个想得太多的人死在行动之中，让这个矛盾永远不会被解决。</div></div></div>
+<div class="theme-item"><div class="theme-icon">🎭</div><div class="theme-theme"><div class="theme-name">表象与真相</div><div class="theme-text">全剧充斥着"假装"——哈姆雷特假装疯癫，克劳狄斯假装仁慈，波洛涅斯假装忠诚，奥菲莉亚假装忘记，演员们假装杀死彼此。莎士比亚在追问：在一个所有人都戴着面具的世界里，真相在哪里？"捕鼠器"是全剧的核心——戏中戏让演员假装谋杀来暴露真实的谋杀。当假戏激起了真怒，一切伪装都被撕碎了。</div></div></div>
+<div class="theme-item"><div class="theme-icon">🧠</div><div class="theme-theme"><div class="theme-name">思想瘫痪行动</div><div class="theme-text">"思虑使我们都成了懦夫。"哈姆雷特清醒地意识到自己的问题——他太会思考了。每当他准备行动时，思考就会跳出来提供一万个不去做的理由。歌德说哈姆雷特是"一个伟大的事业放在了一个不配承受它的人身上"。但或许是：一个过于丰富的灵魂被放置在一个过于简单的任务面前。复仇是粗野的，而哈姆雷特的灵魂过于精细。</div></div></div>
+<div class="theme-item"><div class="theme-icon">👑</div><div class="theme-theme"><div class="theme-name">腐败的政治</div><div class="theme-text">"丹麦是一座监狱。"王权的更替不是按照法律，而是通过谋杀。克劳狄斯之罪不仅是对一个家庭的伤害，而是对整个国家的污染。福丁布拉斯——一个通过合法战争夺取土地的外国王子——在最后走入丹麦王宫，成为了新国王。他之前的出场都在暗示：行动者统治世界，沉思者只能被历史碾过。这个结局冷峻地告诉观众：世界不属于哈姆雷特这样的人。</div></div></div>
+<div class="theme-item"><div class="theme-icon">💔</div><div class="theme-theme"><div class="theme-name">疯狂与理智的边界</div><div class="theme-text">哈姆雷特的疯是真疯还是假疯？这个问题困扰了四个世纪的读者。答案是：两者皆是。他主动装疯，但装得太久，疯癫渗入了他的骨头。奥菲莉亚的疯是真的。哈姆雷特的疯是选择性的——他的独白无比清醒。莎士比亚在暗示：在一个疯狂的世界里，清醒本身看起来就像疯狂。而有时候，选择疯癫，是清醒者最后的庇护所。</div></div></div>
+</div></section>
+
+<div class="quote-divider reveal"><blockquote>我死了，霍拉旭——<br>在你面前的这个哈姆雷特已经死去。<br>假如你曾经爱过我，<br>请你暂时放弃天堂的幸福，<br>留在这残酷的世界里，<br>讲述我的故事。</blockquote><cite>— 哈姆雷特临终前对霍拉旭</cite></div>
+
+<section class="closing reveal"><h2>晚安，王子</h2><p>《哈姆雷特》不是一部关于行动的戏剧——<br>它是一部关于"在行动之前那一瞬间"的戏剧。<br><br>在那一瞬间中，<br>哈姆雷特看到了自己、看到了母亲、<br>看到了叔父、看到了奥菲莉亚、<br>看到了死亡、看到了虚无。<br><br>他看到了太多，以至于无法行动。<br>他不是懦夫，他是一个在黑暗的房间里<br>突然睁大了眼睛的人。<br><br>"愿天使的歌声伴你安息。"<br>晚安，王子，<br>你的犹豫比千万次鲁莽的行动更接近真理。<br><br><em style="color:#4a3a5a;">"此外，全是沉默。"</em></p><div class="closing-line"></div><p style="margin-top:2rem;font-size:.8rem;color:#3a2a4a;">莎士比亚 · 1564–1616 · 英语文学的最高峰</p></section>
+
+<script>
+const canvas=document.getElementById('particles'),ctx=canvas.getContext('2d');let particles=[];const COUNT=50;
+function resize(){canvas.width=innerWidth;canvas.height=innerHeight}resize();addEventListener('resize',resize);
+class Particle{constructor(){this.reset()}reset(){this.x=Math.random()*canvas.width;this.y=Math.random()*canvas.height;this.size=Math.random()*2+.3;this.speedX=(Math.random()-.5)*.12;this.speedY=(Math.random()-.5)*.12;this.opacity=Math.random()*.4+.05}update(){this.x+=this.speedX;this.y+=this.speedY;if(this.x<0||this.x>canvas.width)this.speedX*=-1;if(this.y<0||this.y>canvas.height)this.speedY*=-1}draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fillStyle='rgba(200,180,200,'+this.opacity+')';ctx.fill()}}
+for(let i=0;i<COUNT;i++)particles.push(new Particle);
+function animate(){ctx.clearRect(0,0,canvas.width,canvas.height);particles.forEach(p=>{p.update();p.draw()});for(let i=0;i<particles.length;i++){for(let j=i+1;j<particles.length;j++){const dx=particles[i].x-particles[j].x,dy=particles[i].y-particles[j].y,dist=Math.sqrt(dx*dx+dy*dy);if(dist<120){ctx.beginPath();ctx.moveTo(particles[i].x,particles[i].y);ctx.lineTo(particles[j].x,particles[j].y);ctx.strokeStyle='rgba(200,180,200,'+(.03*(1-dist/120))+')';ctx.lineWidth=.3;ctx.stroke()}}}requestAnimationFrame(animate)}animate();
+const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add('visible')})},{threshold:.08});
+document.querySelectorAll('.reveal,.timeline-item,.char-card,.theme-item').forEach(el=>observer.observe(el));
+</script></body></html>

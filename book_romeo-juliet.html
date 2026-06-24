@@ -1,0 +1,98 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>罗密欧与朱丽叶 · 永恒的爱</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Noto+Serif+SC:wght@300;400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}body{background:#0a0608;color:#d0c0b8;font-family:'Noto Serif SC','Cinzel',serif;overflow-x:hidden}
+#particles{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.4}
+.hero{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:2rem}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 30%,rgba(80,20,30,.4) 0%,transparent 60%),radial-gradient(ellipse at 70% 80%,rgba(20,30,60,.3) 0%,transparent 60%),radial-gradient(ellipse at 50% 50%,rgba(10,6,8,.6) 0%,transparent 80%);z-index:-1}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:200px;background:linear-gradient(to top,rgba(10,6,8,1),transparent);z-index:-1}
+.hero-badge{font-family:'Cormorant Garamond',serif;font-size:.85rem;letter-spacing:.6em;color:#c0a0a8;text-transform:uppercase;margin-bottom:1.5rem;animation:fadeUp 1.5s ease both}
+.hero h1{font-family:'Cinzel',serif;font-size:clamp(2.5rem,8vw,6rem);font-weight:700;letter-spacing:.08em;background:linear-gradient(135deg,#d08080 0%,#802040 30%,#a04060 60%,#e0a0a0 100%);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.1;animation:fadeUp 1.5s .2s ease both}
+.hero-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(1rem,2vw,1.6rem);font-weight:300;font-style:italic;color:#c0a0a8;margin-top:.5rem;letter-spacing:.3em;animation:fadeUp 1.5s .35s ease both}
+.hero-author{font-size:.9rem;color:#a08088;margin-top:.3rem;letter-spacing:.2em;animation:fadeUp 1.5s .5s ease both}
+.hero-quote{margin-top:3rem;font-size:clamp(1rem,1.8vw,1.3rem);font-style:italic;color:#c0a0a8;max-width:640px;line-height:1.9;animation:fadeUp 1.5s .6s ease both;position:relative;padding:0 1.5rem}
+.hero-quote::before{content:'\201C';font-size:5rem;position:absolute;top:-2rem;left:-.2rem;color:rgba(128,32,64,.15);font-family:'Cinzel',serif}
+.scroll-indicator{margin-top:4rem;width:1px;height:50px;background:linear-gradient(to bottom,#802040,transparent);animation:pulseDown 2.5s ease-in-out infinite}
+.section-divider{position:relative;z-index:1;height:2px;max-width:300px;margin:0 auto;background:linear-gradient(to right,transparent,rgba(128,32,64,.2),transparent)}
+.section{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:5rem 2rem}
+.section-tag{font-family:'Cormorant Garamond',serif;font-size:.75rem;letter-spacing:.5em;color:#c0a0a8;text-transform:uppercase;margin-bottom:1.2rem}
+.section-title{font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:#c0a0a8;margin-bottom:1rem;line-height:1.2;letter-spacing:.03em}
+.section-desc{color:#a08088;line-height:2;font-size:1.02rem;margin-bottom:2.5rem}
+.reveal{opacity:0;transform:translateY(40px);transition:all .9s cubic-bezier(.4,0,.2,1)}.reveal.visible{opacity:1;transform:translateY(0)}
+.timeline{position:relative;padding-left:2.8rem}.timeline::before{content:'';position:absolute;left:.7rem;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,rgba(128,32,64,.2),transparent)}
+.timeline-item{position:relative;margin-bottom:3rem;padding-left:1.5rem;opacity:0;transform:translateX(-20px);transition:all .7s ease}.timeline-item.visible{opacity:1;transform:translateX(0)}
+.timeline-item::before{content:'';position:absolute;left:-2.4rem;top:.5rem;width:10px;height:10px;border-radius:50%;background:#802040;border:2px solid #2a0a1a;box-shadow:0 0 15px rgba(128,32,64,.2)}
+.timeline-item:nth-child(1)::before{background:#d08080}.timeline-item:nth-child(2)::before{background:#802040}.timeline-item:nth-child(3)::before{background:#c0a040}.timeline-item:nth-child(4)::before{background:#4080a0}
+.timeline-year{font-family:'Cormorant Garamond',serif;font-size:.8rem;letter-spacing:.15em;color:#c0a0a8;margin-bottom:.3rem}
+.timeline-title{font-size:1.1rem;font-weight:700;color:#c0a0a8;margin-bottom:.5rem}
+.timeline-text{color:#c0a0a8;line-height:1.9;font-size:.93rem}
+.char-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;margin-top:2rem}
+.char-card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);border-radius:16px;padding:1.5rem;transition:all .4s ease;opacity:0;transform:translateY(20px)}.char-card.visible{opacity:1;transform:translateY(0)}
+.char-card:hover{background:rgba(255,255,255,.04);border-color:rgba(180,150,160,.2);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.4)}
+.char-name{font-family:'Cinzel',serif;font-size:1.1rem;font-weight:600;color:#c0a0a8;margin-bottom:.2rem}
+.char-role{font-size:.7rem;letter-spacing:.2em;color:#c0a0a8;text-transform:uppercase;margin-bottom:.7rem}
+.char-desc{color:#c0a0a8;font-size:.88rem;line-height:1.8}
+.theme-list{margin-top:2rem}.theme-item{padding:1.5rem 0;border-bottom:1px solid rgba(255,255,255,.03);opacity:0;transform:translateY(15px);transition:all .5s ease;display:flex;gap:1.5rem;align-items:flex-start}.theme-item.visible{opacity:1;transform:translateY(0)}
+.theme-icon{font-size:1.8rem;flex-shrink:0;width:2.5rem;text-align:center;margin-top:.2rem}
+.theme-name{font-family:'Cinzel',serif;font-size:1rem;font-weight:600;color:#c0a0a8;margin-bottom:.4rem}
+.theme-text{color:#c0a0a8;font-size:.9rem;line-height:1.8}
+.quote-divider{position:relative;z-index:1;max-width:680px;margin:0 auto;padding:5rem 2rem;text-align:center}
+.quote-divider blockquote{font-family:'Cormorant Garamond',serif;font-size:clamp(1.2rem,2.5vw,1.8rem);font-style:italic;color:#a08088;line-height:1.9}
+.quote-divider cite{display:block;margin-top:1.5rem;font-size:.85rem;font-style:normal;color:#a08088;letter-spacing:.15em}
+.closing{position:relative;z-index:1;max-width:700px;margin:0 auto;padding:6rem 2rem 8rem;text-align:center}
+.closing h2{font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:700;background:linear-gradient(135deg,#d08080,#802040);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:2rem;letter-spacing:.05em}
+.closing p{color:#c0a0a8;line-height:2;font-size:1.02rem;margin-bottom:3rem}.closing-line{width:80px;height:1px;background:linear-gradient(to right,transparent,#802040,transparent);margin:0 auto}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulseDown{0%,100%{opacity:.6;transform:scaleY(1)}50%{opacity:.2;transform:scaleY(.5)}}
+.balcony-overlay{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse at 50% 30%,rgba(128,32,64,.04) 0%,transparent 50%)}
+@media(max-width:640px){.section{padding:3rem 1.5rem}.timeline{padding-left:1.8rem}.char-grid{grid-template-columns:1fr}}
+</style></head><body>
+<canvas id="particles"></canvas><div class="balcony-overlay"></div>
+
+<section class="hero"><div class="hero-badge">William Shakespeare · 约1597</div><h1>Romeo&nbsp;&&nbsp;Juliet</h1><p class="hero-sub">— 罗密欧与朱丽叶 —</p><p class="hero-author">最美的爱情 · 最残酷的代价</p><p class="hero-quote">轻声告诉我，那是什么光，从那边窗户透出来？<br>那是东方，朱丽叶就是太阳！<br>起来吧，美丽的太阳，把那嫉妒的月亮赶走——<br>她已经因你的美丽而苍白失色。</p><div class="scroll-indicator"></div></section>
+
+<section class="section"><div class="reveal"><div class="section-tag">Synopsis</div><h2 class="section-title">最美的爱情 · 最残酷的代价</h2><p class="section-desc">在意大利维罗纳，蒙太古家的罗密欧与凯普莱特家的朱丽叶在一次舞会上一见钟情——但他们两家是世仇。在爱情的驱动下，他们在神父劳伦斯的见证下秘密结婚。然而悲剧接踵而至：罗密欧在街头冲突中杀死了朱丽叶的表兄提伯尔特，被流放曼图亚；朱丽叶的父亲逼她嫁给帕里斯伯爵；劳伦斯神父给她服用假死药，计划让她与罗密欧私奔。但信息没有送达罗密欧——他在墓穴中看到"死去"的朱丽叶，服毒自尽；朱丽叶醒来，看到死去的罗密欧，用他的匕首刺入胸膛。两个家族的世仇，最终以两个孩子的鲜血画上了句号。</p></div></section>
+
+<div class="section-divider"></div>
+
+<section class="section"><div class="reveal"><div class="section-tag">Timeline</div><h2 class="section-title">五天的爱</h2></div><div class="timeline">
+<div class="timeline-item"><div class="timeline-year">星期日 · 相遇</div><div class="timeline-title">舞会 · 阳台 · 誓言</div><div class="timeline-text">罗密欧为罗瑟琳伤心时，他的朋友班伏里奥和墨丘西奥拉他去凯普莱特家的化装舞会"散心"。在那里，他看见了朱丽叶——她正在跳舞，像黑暗中的一团光。"我从前的爱是假的，"他说，"只有在今夜我才看见了真正的美。"朱丽叶也在同一瞬间被他吸引——他们跳了一支舞，没有知道对方的名字。舞会结束后，罗密欧翻墙潜入凯普莱特家的花园，站在朱丽叶的阳台下——朱丽叶不知道有人偷听，她对着夜空说："罗密欧，你为什么是罗密欧？……名字算什么？玫瑰不叫玫瑰，依然芬芳如故。"罗密欧从阴影中走出来。天亮之前，他们交换了誓言。</div></div>
+<div class="timeline-item"><div class="timeline-year">星期一 · 秘密婚礼</div><div class="timeline-title">神父的祈祷 · 街头的血案</div><div class="timeline-text">罗密欧一大早就去找劳伦斯神父请求证婚。神父同意了——他天真地以为这两个孩子的婚姻能化解两家的世仇。朱丽叶在奶妈的帮助下溜出家，与罗密欧在教堂秘密完婚。但婚礼的喜悦仅持续了几个小时。罗密欧在街头遇见了提伯尔特——朱丽叶的表兄、蒙太古家的仇敌。提伯尔特挑衅，罗密欧因新婚之故拒绝动手，但墨丘西奥替罗密欧接受了挑战——他被提伯尔特刺死。罗密欧在悲愤中杀死了提伯尔特。亲王判决：罗密欧被流放曼图亚——离开维罗纳，永远不准回来。</div></div>
+<div class="timeline-item"><div class="timeline-year">星期二 · 永别</div><div class="timeline-title">黎明 · 亡命</div><div class="timeline-text">罗密欧偷偷潜入朱丽叶的房间度过了他们唯一的新婚之夜。黎明时分，云雀的歌声宣告了白昼的到来——这是刽子手的铃声。朱丽叶说那不是云雀而是夜莺，罗密欧说让他留下来接受死亡——但朱丽叶最终推开他："你必须走。"他顺着绳索滑下阳台，一步一回头。朱丽叶在窗口看着他在晨雾中远去——"啊，命运，你对我太残忍了。你会把他带回来吗？"罗密欧刚走，朱丽叶的母亲就告知她：她必须嫁给帕里斯伯爵，婚礼定在星期四。</div></div>
+<div class="timeline-item"><div class="timeline-year">星期四 · 坟墓中的重逢</div><div class="timeline-title">最后的爱 · 最后的死</div><div class="timeline-text">朱丽叶拒绝出嫁后，劳伦斯神父给了她一瓶假死药——服下后她会沉睡四十二小时，然后罗密欧会在墓穴中等她醒来，带她私奔。朱丽叶喝下药水，家人以为她死了，将她葬入家族墓穴。然而劳伦斯派去送信的人没有找到罗密欧——罗密欧先一步得知了朱丽叶"死亡"的消息。他在绝望中买下毒药，返回维罗纳。在墓穴前他遇到了帕里斯——两人战斗，帕里斯倒下。罗密欧打开墓门，看见穿着婚纱的朱丽叶，说："我永远吻着你——这是永远的契约。"他饮下毒药，吻着朱丽叶的唇死去。片刻后朱丽叶醒来，看见罗密欧手中的空瓶——她将他的匕首刺入胸膛。"啊，善良的刀——这正是你的归宿。"她倒在他身上死去。</div></div>
+</div></section>
+
+<div class="quote-divider reveal"><blockquote>罗密欧，你为什么是罗密欧？<br>放弃你的父亲，抛弃你的姓氏吧——<br>如果你不愿意，只要发誓爱我，<br>我就不再是凯普莱特家的人。</blockquote><cite>— 朱丽叶在阳台上的独白</cite></div>
+
+<section class="section"><div class="reveal"><div class="section-tag">Characters</div><h2 class="section-title">情人与敌人之间</h2></div><div class="char-grid">
+<div class="char-card"><div class="char-name">罗密欧</div><div class="char-role">蒙太古之子</div><div class="char-desc">他一开始是个多愁善感的少年——为罗瑟琳"心碎"，却在看到朱丽叶的瞬间把之前的爱情忘得一干二净。但这份爱改变了他——他从一个在阴影中叹息的男孩，变成了一个翻墙、决斗、杀人的男人。莎士比亚没有把他写成一个完美的情人：他冲动、急躁、在最需要理智的时刻失去理智。但他死于对朱丽叶的爱——不是出于绝望，而是出于"我们很快会再见"的信念。</div></div>
+<div class="char-card"><div class="char-name">朱丽叶</div><div class="char-role">凯普莱特之女</div><div class="char-desc">她比罗密欧更勇敢、更成熟、更清醒。十四岁的她在四天之内完成了从女孩到女人的蜕变。她知道爱意味着什么——"我的慷慨像海一样辽阔，我的爱像海一样深——我给你越多，我拥有越多，因为两者都是无限的。"她清醒地预见了悲剧——"这太仓促了，太轻率了……像闪电一样来得太快。"但她的勇气在于：即使在预见了最坏的结局之后，她依然选择走下去。</div></div>
+<div class="char-card"><div class="char-name">墨丘西奥</div><div class="char-role">灵动之子</div><div class="char-desc">全剧最聪明、最有趣、也最短命的人。墨丘西奥是莎士比亚笔下最光彩夺目的配角——他的每一句台词都闪烁着机智与叛逆的光芒。他对两家世仇不屑一顾——他既不站蒙太古也不站凯普莱特，他站在人类理智和幽默的一边。他的"女王梅布"独白——关于梦之仙女的癫狂想象——是莎士比亚最瑰丽的诗篇之一。他的死是全剧的转折点："你们两家都在我身上吸了血——我诅咒你们。"</div></div>
+<div class="char-card"><div class="char-name">提伯尔特</div><div class="char-role">凯普莱特家的斗士</div><div class="char-desc">"和平！我恨这个词！"他是仇恨的化身——每当他在舞台上出现，剑不出鞘就不会结束。提伯尔特不是恶人，他是世仇的殉道者。他被训练成一个完美的仇恨执行者——他的剑是维罗纳最快的一把。他的死激化了悲剧，但他临死前的诅咒——"我家族的血仇，你们承受不起！"——把他变成了一个发怒的符号，而不是一个死去的人。</div></div>
+<div class="char-card"><div class="char-name">劳伦斯神父</div><div class="char-role">善良的谋士</div><div class="char-desc">他想做好事，但他的善良酿成了最坏的后果。劳伦斯神父相信爱与和解的力量——他为罗密欧和朱丽叶证婚是为了化解仇恨，他给朱丽叶假死药是为了拯救爱情。但每一个好意图都在现实中变成了灾难。他是悲剧中最令人心酸的角色——一个一生行善的老人，最后看着自己种下的善因结出了恶果。"我为你埋葬了你的妻子。"</div></div>
+<div class="char-card"><div class="char-name">奶妈</div><div class="char-role">朱丽叶的保姆</div><div class="char-desc">肥胖、粗俗、爱说话、爱笑——她是朱丽叶在这个世界上唯一可以倾诉的人。她比朱丽叶的母亲更了解朱丽叶。但当压力来临时，她建议朱丽叶屈从于安排——"嫁给帕里斯吧，你的罗密欧是个破布娃娃。"朱丽叶说："你说得好——我的心和你断交了。"奶妈不是坏人——她只是一个普通人，在风暴面前选择了妥协。</div></div>
+</div></section>
+
+<div class="quote-divider reveal"><blockquote>玫瑰花即使换了名字，依然芬芳如故。<br>罗密欧即使不叫罗密欧，<br>依然是我亲爱的、完美的罗密欧。</blockquote><cite>— 朱丽叶</cite></div>
+
+<section class="section"><div class="reveal"><div class="section-tag">Themes</div><h2 class="section-title">爱与恨的致命纠缠</h2></div><div class="theme-list">
+<div class="theme-item"><div class="theme-icon">❤️</div><div class="theme-theme"><div class="theme-name">爱情与时间</div><div class="theme-text">《罗密欧与朱丽叶》的全部事件压缩在四天之内——星期日相遇，星期一结婚，星期二永别，星期四死亡。莎士比亚用极速推进的情节完成了对"爱情需要时间"的驳斥。爱不需要时间，爱只需要相遇。但悲剧也随之而来：因为太快了，他们来不及犯错、来不及后悔、来不及被原谅。时间没有给他们第二天的机会。罗密欧的声音在墓穴中回荡——"我永远不会离开你。"他做到了。</div></div></div>
+<div class="theme-item"><div class="theme-icon">⚔️</div><div class="theme-theme"><div class="theme-name">世仇的荒谬</div><div class="theme-text">蒙太古和凯普莱特的家族仇恨源于什么？莎士比亚不告诉我们——因为仇恨的原因不重要。仇恨就是仇恨，它从祖先的血脉流入后代的血液。剧中没人知道为什么要打——他们只是打。亲王在结尾的痛斥是整部戏剧的道德判决："上天用你们的仇恨杀死了你们最心爱的孩子——并剥夺了所有人的欢乐。"两个孩子死了，世仇才化解——他们用死亡教会了活着的亲人：你们争了一辈子的东西，根本不值得争。</div></div></div>
+<div class="theme-item"><div class="theme-icon">🌙</div><div class="theme-theme"><div class="theme-name">光明与黑暗的隐喻</div><div class="theme-text">整部剧被光和暗的意象占据。罗密欧称朱丽叶为"太阳"——她让月光失色。阳台上的场景发生在最深的黑暗中——但被爱情的光照亮。他们的秘密婚礼在黎明前的晦暗中举行。罗密欧必须在白昼到来之前离开——"那刺眼的云雀宣告了夜之终结"。死亡在墓穴中——但罗密欧说朱丽叶在他眼中仍然美丽，"像灯火通明的舞厅。"爱让他们在黑暗中也看得见对方。</div></div></div>
+<div class="theme-item"><div class="theme-icon">🎲</div><div class="theme-theme"><div class="theme-name">命运的恶意</div><div class="theme-text">"我痛恨命运。"罗密欧的这句话贯穿全剧。每一次巧合都把他们推向死亡：罗密欧没有收到神父的信、门卫阻挡了送信人、罗密欧在朱丽叶醒来前五分钟饮下毒药——如果那封信早到一天、如果朱丽叶早醒片刻——但命运没有给他们这些"如果"。莎士比亚让观众自始至终站在"全知"的角度看着他们一步步走向毁灭——"如果你再等一分钟……"但戏剧的力量恰恰在于：在悲剧中，没有人能等到那一分钟。</div></div></div>
+<div class="theme-item"><div class="theme-icon">🤱</div><div class="theme-theme"><div class="theme-name">青春 vs 权威</div><div class="theme-text">全剧中的成年人——父亲、母亲、神父、亲王——没有一个真正理解年轻人。朱丽叶的父亲说"我的孩子，我替你安排了一桩好婚姻"，他从来没问过她想要什么。奶妈最终也背叛了她的信任。罗密欧和朱丽叶身后没有人支持，他们只能依靠彼此。这是他们爱情之所以如此绝对的原因——当全世界都与他们为敌时，他们只剩下了对方。<br><br>然后他们失去了最后一个人。</div></div></div>
+</div></section>
+
+<div class="quote-divider reveal"><blockquote>一个更光明的火焰燃尽在黑暗中，<br>这就是他的命运——世间最美好的一切，<br>都以最惨烈的方式失去。——<br>来吧，苦味的向导，绝望的领航人，<br>把你这艘在风暴中颠簸的船，<br>撞向那礁石吧。</blockquote><cite>— 罗密欧在得知朱丽叶"死亡"后</cite></div>
+
+<section class="closing reveal"><h2>为爱而死，比活着更接近永生</h2><p>《罗密欧与朱丽叶》不是一部关于"愚蠢的爱情"的悲剧。<br>它是一部关于"在仇恨面前，爱能走多远"的故事。<br><br>有人会说：他们太年轻了，太冲动了，太傻了。<br>是的，他们年轻。<br>是的，他们冲动。<br>是的，他们犯了很多错误。<br><br>但谁在他们那个年纪，<br>面对同样的困境，<br>能做出更好的选择？<br><br>他们用五天的生命完成了很多人一百年也做不到的事：<br>毫无保留地、不计代价地爱一个人。<br><br>当两座金像在维罗纳竖立起来时，<br>蒙太古和凯普莱特的世仇被遗忘了——<br>人们记住的只有那个夜晚，<br>阳台上的月光，<br>和两具相拥的尸体。<br><br><em style="color:#5a3a4a;">"世界上还没有一个故事，比罗密欧与朱丽叶更悲伤。"</em></p><div class="closing-line"></div><p style="margin-top:2rem;font-size:.8rem;color:#3a2a3a;">莎士比亚 · 1564–1616 · 爱情的缪斯</p></section>
+
+<script>
+const canvas=document.getElementById('particles'),ctx=canvas.getContext('2d');let particles=[];const COUNT=50;
+function resize(){canvas.width=innerWidth;canvas.height=innerHeight}resize();addEventListener('resize',resize);
+class Particle{constructor(){this.reset()}reset(){this.x=Math.random()*canvas.width;this.y=Math.random()*canvas.height;this.size=Math.random()*2+.3;this.speedX=(Math.random()-.5)*.12;this.speedY=(Math.random()-.5)*.12;this.opacity=Math.random()*.4+.05}update(){this.x+=this.speedX;this.y+=this.speedY;if(this.x<0||this.x>canvas.width)this.speedX*=-1;if(this.y<0||this.y>canvas.height)this.speedY*=-1}draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fillStyle='rgba(200,150,160,'+this.opacity+')';ctx.fill()}}
+for(let i=0;i<COUNT;i++)particles.push(new Particle);
+function animate(){ctx.clearRect(0,0,canvas.width,canvas.height);particles.forEach(p=>{p.update();p.draw()});for(let i=0;i<particles.length;i++){for(let j=i+1;j<particles.length;j++){const dx=particles[i].x-particles[j].x,dy=particles[i].y-particles[j].y,dist=Math.sqrt(dx*dx+dy*dy);if(dist<120){ctx.beginPath();ctx.moveTo(particles[i].x,particles[i].y);ctx.lineTo(particles[j].x,particles[j].y);ctx.strokeStyle='rgba(200,150,160,'+(.03*(1-dist/120))+')';ctx.lineWidth=.3;ctx.stroke()}}}requestAnimationFrame(animate)}animate();
+const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add('visible')})},{threshold:.08});
+document.querySelectorAll('.reveal,.timeline-item,.char-card,.theme-item').forEach(el=>observer.observe(el));
+</script></body></html>

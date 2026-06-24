@@ -1,0 +1,81 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>雾都孤儿 · 伦敦的暗影</title>
+<style>@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Noto+Serif+SC:wght@300;400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}body{background:#080606;color:#c8b8a8;font-family:'Noto Serif SC','Cinzel',serif;overflow-x:hidden}#particles{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.4}
+.hero{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:2rem}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 30%,rgba(40,30,20,.4) 0%,transparent 60%),radial-gradient(ellipse at 70% 80%,rgba(20,30,40,.3) 0%,transparent 60%),radial-gradient(ellipse at 50% 50%,rgba(8,6,6,.6) 0%,transparent 80%);z-index:-1}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:200px;background:linear-gradient(to top,rgba(8,6,6,1),transparent);z-index:-1}
+.hero-badge{font-family:'Cormorant Garamond',serif;font-size:.85rem;letter-spacing:.6em;color:#a8a098;text-transform:uppercase;margin-bottom:1.5rem;animation:fadeUp 1.5s ease both}
+.hero h1{font-family:'Cinzel',serif;font-size:clamp(2.5rem,8vw,6rem);font-weight:700;letter-spacing:.08em;background:linear-gradient(135deg,#c8a090 0%,#6a4030 30%,#8a6050 60%,#b8a090 100%);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.1;animation:fadeUp 1.5s .2s ease both}
+.hero-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(1rem,2vw,1.6rem);font-weight:300;font-style:italic;color:#a8a098;margin-top:.5rem;letter-spacing:.3em;animation:fadeUp 1.5s .35s ease both}
+.hero-author{font-size:.9rem;color:#8a8078;margin-top:.3rem;letter-spacing:.2em;animation:fadeUp 1.5s .5s ease both}
+.hero-quote{margin-top:3rem;font-size:clamp(1rem,1.8vw,1.3rem);font-style:italic;color:#a8a098;max-width:640px;line-height:1.9;animation:fadeUp 1.5s .6s ease both;position:relative;padding:0 1.5rem}
+.hero-quote::before{content:'\201C';font-size:5rem;position:absolute;top:-2rem;left:-.2rem;color:rgba(106,64,48,.15);font-family:'Cinzel',serif}
+.scroll-indicator{margin-top:4rem;width:1px;height:50px;background:linear-gradient(to bottom,#5a3a2a,transparent);animation:pulseDown 2.5s ease-in-out infinite}
+.section-divider{position:relative;z-index:1;height:2px;max-width:300px;margin:0 auto;background:linear-gradient(to right,transparent,rgba(106,64,48,.2),transparent)}
+.section{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:5rem 2rem}
+.section-tag{font-family:'Cormorant Garamond',serif;font-size:.75rem;letter-spacing:.5em;color:#a8a098;text-transform:uppercase;margin-bottom:1.2rem}
+.section-title{font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:#a8a098;margin-bottom:1rem;line-height:1.2;letter-spacing:.03em}
+.section-desc{color:#8a8078;line-height:2;font-size:1.02rem;margin-bottom:2.5rem}
+.reveal{opacity:0;transform:translateY(40px);transition:all .9s cubic-bezier(.4,0,.2,1)}.reveal.visible{opacity:1;transform:translateY(0)}
+.timeline{position:relative;padding-left:2.8rem}.timeline::before{content:'';position:absolute;left:.7rem;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,rgba(106,64,48,.2),transparent)}
+.timeline-item{position:relative;margin-bottom:3rem;padding-left:1.5rem;opacity:0;transform:translateX(-20px);transition:all .7s ease}.timeline-item.visible{opacity:1;transform:translateX(0)}
+.timeline-item::before{content:'';position:absolute;left:-2.4rem;top:.5rem;width:10px;height:10px;border-radius:50%;background:#6a4030;border:2px solid #2a1a0a;box-shadow:0 0 15px rgba(106,64,48,.2)}
+.timeline-year{font-family:'Cormorant Garamond',serif;font-size:.8rem;letter-spacing:.15em;color:#a8a098;margin-bottom:.3rem}
+.timeline-title{font-size:1.1rem;font-weight:700;color:#a8a098;margin-bottom:.5rem}
+.timeline-text{color:#a8a098;line-height:1.9;font-size:.93rem}
+.char-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;margin-top:2rem}
+.char-card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);border-radius:16px;padding:1.5rem;transition:all .4s ease;opacity:0;transform:translateY(20px)}.char-card.visible{opacity:1;transform:translateY(0)}
+.char-card:hover{background:rgba(255,255,255,.04);border-color:rgba(170,160,150,.2);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.4)}
+.char-name{font-family:'Cinzel',serif;font-size:1.1rem;font-weight:600;color:#a8a098;margin-bottom:.2rem}
+.char-role{font-size:.7rem;letter-spacing:.2em;color:#a8a098;text-transform:uppercase;margin-bottom:.7rem}
+.char-desc{color:#a8a098;font-size:.88rem;line-height:1.8}
+.theme-list{margin-top:2rem}.theme-item{padding:1.5rem 0;border-bottom:1px solid rgba(255,255,255,.03);opacity:0;transform:translateY(15px);transition:all .5s ease;display:flex;gap:1.5rem;align-items:flex-start}.theme-item.visible{opacity:1;transform:translateY(0)}
+.theme-icon{font-size:1.8rem;flex-shrink:0;width:2.5rem;text-align:center;margin-top:.2rem}
+.theme-name{font-family:'Cinzel',serif;font-size:1rem;font-weight:600;color:#a8a098;margin-bottom:.4rem}
+.theme-text{color:#a8a098;font-size:.9rem;line-height:1.8}
+.quote-divider{position:relative;z-index:1;max-width:680px;margin:0 auto;padding:5rem 2rem;text-align:center}
+.quote-divider blockquote{font-family:'Cormorant Garamond',serif;font-size:clamp(1.2rem,2.5vw,1.8rem);font-style:italic;color:#8a8078;line-height:1.9}
+.quote-divider cite{display:block;margin-top:1.5rem;font-size:.85rem;font-style:normal;color:#8a8078;letter-spacing:.15em}
+.closing{position:relative;z-index:1;max-width:700px;margin:0 auto;padding:6rem 2rem 8rem;text-align:center}
+.closing h2{font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:700;background:linear-gradient(135deg,#c8a090,#6a4030);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:2rem;letter-spacing:.05em}
+.closing p{color:#a8a098;line-height:2;font-size:1.02rem;margin-bottom:3rem}.closing-line{width:80px;height:1px;background:linear-gradient(to right,transparent,#6a4030,transparent);margin:0 auto}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}@keyframes pulseDown{0%,100%{opacity:.6;transform:scaleY(1)}50%{opacity:.2;transform:scaleY(.5)}}
+.london-overlay{position:fixed;inset:0;z-index:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 60px,rgba(106,64,48,.01) 60px,rgba(106,64,48,.01) 61px)}
+@media(max-width:640px){.section{padding:3rem 1.5rem}.timeline{padding-left:1.8rem}.char-grid{grid-template-columns:1fr}}
+</style></head><body><canvas id="particles"></canvas><div class="london-overlay"></div>
+<section class="hero"><div class="hero-badge">Charles Dickens · 1838</div><h1>Oliver&nbsp;Twist</h1><p class="hero-sub">— 雾都孤儿 —</p><p class="hero-author">伦敦迷雾中的纯真与黑暗</p><p class="hero-quote">先生，我还是要多一些——<br>那个瘦弱的孩子站在空荡荡的锅前，<br>手里拿着碗，勇敢地看着管事：<br>"求您，先生——我还想要一点。"</p><div class="scroll-indicator"></div></section>
+<section class="section"><div class="reveal"><div class="section-tag">Synopsis</div><h2 class="section-title">伦敦迷雾中的纯真与黑暗</h2><p class="section-desc">孤儿奥利弗·特威斯特在教区济贫院出生，他在那里受尽了饥饿与虐待——因为胆敢要求"再添一碗粥"而被视为不驯的祸害。他被卖给殡仪馆老板当学徒，不堪忍受后逃往伦敦，却落入费金盗窃团伙之手。在这群小偷和扒手中，奥利弗的天真一次次保护了他——也一次次将他推向险境。狄更斯以奥利弗的视角，撕开了19世纪伦敦的黑暗面：济贫制度的伪善、地下世界的残酷、司法机器的冷漠。但善良终有善报——奥利弗最终被富人布朗罗先生收养，找到了自己的身世和归属。</p></div></section>
+<div class="section-divider"></div>
+<section class="section"><div class="reveal"><div class="section-tag">Timeline</div><h2 class="section-title">善良穿越黑暗</h2></div><div class="timeline">
+<div class="timeline-item"><div class="timeline-year">济贫院</div><div class="timeline-title">"我还要多一些"</div><div class="timeline-text">奥利弗在济贫院出生后，母亲便去世了。他在"育儿农场"中长到九岁——挨饿、挨打、目睹其他孩子死去。济贫院管事的逻辑是：给穷人吃的只会鼓励他们更穷。一个冬天的早晨，孩子们抽签决定谁去要求加一碗粥——奥利弗抽中了。他端着自己的碗走上前："对不起，先生——我还要多一些。"管事惊骇得说不出话，他立刻认定奥利弗"将来一定会被绞死"。教区将他以五英镑的价格卖给殡仪馆老板。在那里奥利弗被年长的学徒侮辱他母亲的坟，他一拳打了过去——他被关进地窖。那个午夜，他背起包裹逃往伦敦。</div></div>
+<div class="timeline-item"><div class="timeline-year">伦敦</div><div class="timeline-title">贼窝 · 费金 · 南希</div><div class="timeline-text">奥利弗在伦敦郊外遇到一个叫机灵鬼的男孩——他被带到费金的老巢。费金是个教唆孩子偷窃的老犹太，他让奥利弗"不知道自己在偷"地参与了第一次扒窃。失主布朗罗先生看到被抓的是个面黄肌瘦的孩子，觉得其中有蹊跷——他收留了奥利弗，给他温暖和书。但费金派同伙南希和塞克斯把奥利弗抓了回去。南希是个被塞克斯控制的苦命女人——她参与了绑架，却开始逐渐同情这个孩子。费金强迫奥利弗参加一个入室盗窃——枪响了，奥利弗中弹倒下。</div></div>
+<div class="timeline-item"><div class="timeline-year">真相与救赎</div><div class="timeline-title">南希的牺牲 · 奥利弗的归宿</div><div class="timeline-text">奥利弗被梅丽太太和露丝小姐救活并收养——而巧合的是，露丝竟是奥利弗亡母的妹妹，他的亲姨妈！南希良心发现，秘密去告诉布朗罗先生关于窃贼团伙的一切。塞克斯发现后，用棍子将南希打死——然后企图逃跑时被自己吊在屋顶的绳子勒死。费金被逮捕后死在监狱中。奥利弗的过去被揭开：他的父亲生前与费金有过交易——费金一直想把奥利弗变成一个罪犯来报复他的家族。最终，奥利弗被布朗罗先生正式收养，过上了安稳的、属于一个孩子的生活。</div></div>
+</div></section>
+<div class="quote-divider reveal"><blockquote>即使是在最黑暗的伦敦街头，<br>也有一盏灯为最弱小的灵魂而亮——<br>那便是善良。</blockquote><cite>— 狄更斯</cite></div>
+<section class="section"><div class="reveal"><div class="section-tag">Characters</div><h2 class="section-title">伦敦的人性光谱</h2></div><div class="char-grid">
+<div class="char-card"><div class="char-name">奥利弗·特威斯特</div><div class="char-role">孤儿 · 主角</div><div class="char-desc">他是纯粹的善的化身——在肮脏、残酷、谎言的环境里出生，却始终保持着天真的正直。奥利弗不是一个现实主义的儿童形象，他是狄更斯心中的道德象征：一个没有被世界污染的孩子。他在贼窝里拒绝学偷窃，在被打骂后依然信任善良的人。他的存在本身就在质问社会——如果这样一个纯真的孩子都会被碾碎，那这个社会出了什么问题？</div></div>
+<div class="char-card"><div class="char-name">费金</div><div class="char-role">窃贼头目</div><div class="char-desc">狄更斯笔下最令人不安的角色之一。他不是大恶人——他是一个懦弱的、贪财的、教唆儿童犯罪的老犹太人。他对孩子们时而慈祥如祖父，时而冷酷如债主。当他在死牢中发疯时——"把他们带走——让他们走——我不想再看到孩子了"——他的恐惧令人几乎同情他。狄更斯通过费金探索了恶的起源：他不是天生的罪犯，他是被穷困和偏见一步一步教成罪犯的。</div></div>
+<div class="char-card"><div class="char-name">南希</div><div class="char-role">被拯救的受难者</div><div class="char-desc">南希是全书最具悲剧色彩的角色。她是费金的同伙，塞克斯的情妇——一个堕落的女人。当她把奥利弗交给塞克斯时她做了恶，但当她决定告密时她选择了善。她知道塞克斯会杀死她。她去见布朗罗先生时说："我不求宽恕——我只求你们救那个孩子。"她被塞克斯打死时，手中握着从布朗罗先生那里得到的十字架。狄更斯用南希告诉读者：没有人是彻底的恶，即使是一个生活在最底层的人，也能迸发出伟大的勇气。</div></div>
+<div class="char-card"><div class="char-name">比尔·塞克斯</div><div class="char-role">恶棍</div><div class="char-desc">狄更斯笔下的纯粹暴力化身。塞克斯没有费金的狡猾、没有班布尔的伪善——他是一个赤裸裸的施暴者。他打南希、打奥利弗、打一切挡他路的人。但狄更斯没有让他死得轻松：他杀了南希之后被自己的恐惧追赶，夜不能寐，最终被自己牵着的一条绳套住脖子吊死。他的死不是惩罚，而是狄更斯绝望的论证：在一个文明社会中，纯粹的暴力终究无处可逃。</div></div>
+<div class="char-card"><div class="char-name">布朗罗先生</div><div class="char-role">奥利弗的恩人</div><div class="char-desc">他是黑暗伦敦中的灯塔——一个善良、富裕、有教养的绅士。他在不知道奥利弗身世时就收留了他，在南希告密后不遗余力地追查真相。他代表着狄更斯对社会的理想：财富应该是保护弱小的力量，而不是压迫他们的工具。布朗罗先生最后发现奥利弗是他已故好友的儿子——善良最终得到了血缘的确认和回报。</div></div>
+<div class="char-card"><div class="char-name">费金的手下们</div><div class="char-role">机灵鬼 · 夏洛特 · 塞克斯之流</div><div class="char-desc">狄更斯笔下的伦敦地下世界由一群被社会抛弃的人组成。机灵鬼是贼窝中年龄最小的——他比奥利弗大两岁，已经是个熟练的扒手。他不是邪恶的孩子，而是一个在饥饿中学会了偷窃的孩子。狄更斯写他们，不是让读者恐惧，而是让读者看到：在工业革命的光辉外，还有一群被遗忘的儿童在迷雾中爬行。</div></div>
+</div></section>
+<div class="quote-divider reveal"><blockquote>在这个世界上，<br>一个孩子求助的声音能在多远的距离被听到？<br>在那济贫院的墙上——在那寒冷的长廊——<br>声音被堵回去了。</blockquote><cite>— 关于奥利弗出生时的旁白</cite></div>
+<section class="section"><div class="reveal"><div class="section-tag">Themes</div><h2 class="section-title">善与恶的伦敦地图</h2></div><div class="theme-list">
+<div class="theme-item"><div class="theme-icon">🍲</div><div class="theme-theme"><div class="theme-name">穷人的尊严</div><div class="theme-text">"再添一碗粥"是文学史上最有名的饥饿宣言之一。济贫院的逻辑是：穷人不够努力所以穷，给他们吃的只会助长懒惰。狄更斯以刻骨的愤怒揭露了1834年新济贫法的伪善——济贫院比监狱还可怕。奥利弗只是因为饥饿而请求多一点食物，却被视为"叛逆的祸根"。狄更斯的质问跨越了两个世纪：一个社会怎样对待最弱小的成员，决定了这个社会的文明程度。</div></div></div>
+<div class="theme-item"><div class="theme-icon">🔪</div><div class="theme-theme"><div class="theme-name">犯罪的传染性</div><div class="theme-text">费金的盗贼团伙是一个儿童的犯罪学校。狄更斯没有简单谴责这些孩子——他展示了环境如何把人塑造成罪犯。当奥利弗在贼窝中拒绝偷窃时，费金困惑了："你这孩子真奇怪——你不想赚钱吗？"狄更斯在问：犯罪是人的天性，还是穷困逼出来的选择？</div></div></div>
+<div class="theme-item"><div class="theme-icon">🕯️</div><div class="theme-theme"><div class="theme-name">纯真的力量</div><div class="theme-text">奥利弗的纯真不是软弱的——它有一种不可战胜的力量。他在贼窝中没有被污染，他在塞克斯的暴力面前没有崩溃，他在费金的利诱面前没有动摇。狄更斯证明了：善良不是因为没有经历过恶，而是因为选择不成为恶。奥利弗的纯真是他唯一的武器，而它赢得了所有人的心。</div></div></div>
+<div class="theme-item"><div class="theme-icon">🏛️</div><div class="theme-theme"><div class="theme-name">制度的伪善</div><div class="theme-text">狄更斯在《雾都孤儿》中绘制了维多利亚时代的制度伪善地图：济贫院的管事们穿着长袍、念着祷告，然后把孩子们饿得皮包骨头；教区的委员会一本正经地讨论"穷人应该感激他们得到的一切"；法庭和监狱忙着惩罚那些被他们自己制造出来的罪犯。狄更斯的愤怒贯穿全书——他可以说是英国文学史上最愤怒的作家之一。</div></div></div>
+<div class="theme-item"><div class="theme-icon">👣</div><div class="theme-theme"><div class="theme-name">身份的秘密</div><div class="theme-text">奥利弗是一个"没有身份"的孩子——他没有父亲的名、没有母亲的姓、没有任何能证明他存在的东西。狄更斯的伦敦是一座用血统和财富划分人的城市——一个没父没母的孩子在那里什么都不是。但当奥利弗的身世最终揭晓——他来自一个体面的家庭——狄更斯的安排是有意的：善良和出身无关，但在这个世界里，出身决定了你能否被"看见"。</div></div></div>
+</div></section>
+<div class="quote-divider reveal"><blockquote>请把我带走吧——<br>把我带出这个可怕的地方。<br>不要杀我——我会做一个好孩子的——<br>我从来不想做坏事。</blockquote><cite>— 奥利弗对塞克斯哀求</cite></div>
+<section class="closing reveal"><h2>纯真无价</h2><p>《雾都孤儿》是狄更斯写给工业革命伦敦的一封愤怒的信。<br><br>他看到了那个被金钱和机器碾压的时代——<br>而最被他碾压的，是孩子。<br><br>奥利弗不是真实的——他是狄更斯心中那个永不陨落的理想：<br>一个在污浊中保持纯真的孩子，一个不被恶征服的灵魂。<br><br>狄更斯或许太过乐观了——他让善良有了圆满的结局。<br>但或许，他不是在描述事实，而是在发出祈愿：<br>让所有像奥利弗一样的孩子，都能有一个真正的家。<br><br><em style="color:#4a3a2a;">"先生，我还要多一些。"——为了这句话，世界应该变得更好。</em></p><div class="closing-line"></div><p style="margin-top:2rem;font-size:.8rem;color:#3a2a1a;">查尔斯·狄更斯 · 1812–1870 · 维多利亚时代的声音</p></section>
+<script>
+const canvas=document.getElementById('particles'),ctx=canvas.getContext('2d');let particles=[];const COUNT=45;
+function resize(){canvas.width=innerWidth;canvas.height=innerHeight}resize();addEventListener('resize',resize);
+class Particle{constructor(){this.reset()}reset(){this.x=Math.random()*canvas.width;this.y=Math.random()*canvas.height;this.size=Math.random()*2+.3;this.speedX=(Math.random()-.5)*.1;this.speedY=(Math.random()-.5)*.1;this.opacity=Math.random()*.4+.05}update(){this.x+=this.speedX;this.y+=this.speedY;if(this.x<0||this.x>canvas.width)this.speedX*=-1;if(this.y<0||this.y>canvas.height)this.speedY*=-1}draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fillStyle='rgba(200,180,170,'+this.opacity+')';ctx.fill()}}
+for(let i=0;i<COUNT;i++)particles.push(new Particle);
+function animate(){ctx.clearRect(0,0,canvas.width,canvas.height);particles.forEach(p=>{p.update();p.draw()});for(let i=0;i<particles.length;i++){for(let j=i+1;j<particles.length;j++){const dx=particles[i].x-particles[j].x,dy=particles[i].y-particles[j].y,dist=Math.sqrt(dx*dx+dy*dy);if(dist<120){ctx.beginPath();ctx.moveTo(particles[i].x,particles[i].y);ctx.lineTo(particles[j].x,particles[j].y);ctx.strokeStyle='rgba(200,180,170,'+(.03*(1-dist/120))+')';ctx.lineWidth=.3;ctx.stroke()}}}requestAnimationFrame(animate)}animate();
+const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add('visible')})},{threshold:.08});
+document.querySelectorAll('.reveal,.timeline-item,.char-card,.theme-item').forEach(el=>observer.observe(el));
+</script></body></html>

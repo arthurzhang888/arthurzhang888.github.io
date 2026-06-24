@@ -1,0 +1,81 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>牡丹亭 · 汤显祖</title>
+<style>@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Noto+Serif+SC:wght@300;400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}body{background:#120a0e;color:#d4b8c0;font-family:'Noto Serif SC','Cinzel',serif;overflow-x:hidden}#particles{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.25}
+.hero{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:2rem}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,rgba(120,50,70,.15) 0%,transparent 60%),radial-gradient(ellipse at 70% 80%,rgba(180,100,120,.08) 0%,transparent 60%),radial-gradient(ellipse at 50% 50%,rgba(12,10,14,.6) 0%,transparent 80%);z-index:-1}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:200px;background:linear-gradient(to top,rgba(12,10,14,1),transparent);z-index:-1}
+.hero-badge{font-family:'Cormorant Garamond',serif;font-size:.85rem;letter-spacing:.6em;color:#d4b8c0;text-transform:uppercase;margin-bottom:1.5rem;animation:fadeUp 1.5s ease both}
+.hero h1{font-family:'Cinzel',serif;font-size:clamp(2.5rem,8vw,6rem);font-weight:700;letter-spacing:.1em;background:linear-gradient(135deg,#e8b0c0 0%,#904060 30%,#c07090 60%,#e8b0c0 100%);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.1;animation:fadeUp 1.5s .2s ease both}
+.hero-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(1rem,2vw,1.6rem);font-weight:300;font-style:italic;color:#d4b8c0;margin-top:.5rem;letter-spacing:.3em;animation:fadeUp 1.5s .35s ease both}
+.hero-author{font-size:.9rem;color:#c8a0b0;margin-top:.3rem;letter-spacing:.2em;animation:fadeUp 1.5s .5s ease both}
+.hero-quote{margin-top:3rem;font-size:clamp(1rem,1.8vw,1.3rem);font-style:italic;color:#d4b8c0;max-width:620px;line-height:2;animation:fadeUp 1.5s .6s ease both;position:relative;padding:0 1.5rem}
+.hero-quote::before{content:'\201C';font-size:5rem;position:absolute;top:-2rem;left:-.2rem;color:rgba(144,64,96,.1);font-family:'Cinzel',serif}
+.scroll-indicator{margin-top:4rem;width:1px;height:50px;background:linear-gradient(to bottom,#904060,transparent);animation:pulseDown 2.5s ease-in-out infinite}
+.section-divider{height:2px;max-width:300px;margin:0 auto;background:linear-gradient(to right,transparent,rgba(144,64,96,.12),transparent)}
+.section{max-width:860px;margin:0 auto;padding:5rem 2rem}.section-tag{font-family:'Cormorant Garamond',serif;font-size:.75rem;letter-spacing:.5em;color:#d4b8c0;text-transform:uppercase;margin-bottom:1.2rem}
+.section-title{font-family:'Noto Serif SC',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;color:#d4b8c0;margin-bottom:1rem;line-height:1.2}
+.section-desc{color:#c8a0b0;line-height:2;font-size:1.02rem;margin-bottom:2.5rem}
+.reveal{opacity:0;transform:translateY(40px);transition:all .9s cubic-bezier(.4,0,.2,1)}.reveal.visible{opacity:1;transform:translateY(0)}
+.timeline{position:relative;padding-left:2.8rem}.timeline::before{content:'';position:absolute;left:.7rem;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,rgba(144,64,96,.12),transparent)}
+.timeline-item{position:relative;margin-bottom:3rem;padding-left:1.5rem;opacity:0;transform:translateX(-20px);transition:all .7s ease}.timeline-item.visible{opacity:1;transform:translateX(0)}
+.timeline-item::before{content:'';position:absolute;left:-2.4rem;top:.5rem;width:10px;height:10px;border-radius:50%;background:#904060;border:2px solid #120a0e;box-shadow:0 0 15px rgba(144,64,96,.12)}
+.timeline-item:nth-child(1)::before{background:#e8b0c0}.timeline-item:nth-child(2)::before{background:#c07090}.timeline-item:nth-child(3)::before{background:#a05070}.timeline-item:nth-child(4)::before{background:#804060}
+.timeline-year{font-family:'Cormorant Garamond',serif;font-size:.8rem;letter-spacing:.15em;color:#d4b8c0;margin-bottom:.3rem}.timeline-title{font-family:'Noto Serif SC',serif;font-size:1.1rem;font-weight:700;color:#d4b8c0;margin-bottom:.5rem}.timeline-text{color:#c8a0b0;line-height:1.9;font-size:.93rem}
+.char-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;margin-top:2rem}.char-card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);border-radius:16px;padding:1.5rem;transition:all .4s ease;opacity:0;transform:translateY(20px)}.char-card.visible{opacity:1;transform:translateY(0)}.char-card:hover{background:rgba(255,255,255,.04);border-color:rgba(200,160,176,.2);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.4)}
+.char-name{font-family:'Noto Serif SC',serif;font-size:1.1rem;font-weight:700;color:#d4b8c0;margin-bottom:.2rem}.char-role{font-size:.7rem;letter-spacing:.2em;color:#d4b8c0;text-transform:uppercase;margin-bottom:.7rem}.char-desc{color:#c8a0b0;font-size:.88rem;line-height:1.8}
+.theme-list{margin-top:2rem}.theme-item{padding:1.5rem 0;border-bottom:1px solid rgba(255,255,255,.03);opacity:0;transform:translateY(15px);transition:all .5s ease;display:flex;gap:1.5rem;align-items:flex-start}.theme-item.visible{opacity:1;transform:translateY(0)}.theme-icon{font-size:1.8rem;flex-shrink:0;width:2.5rem;text-align:center;margin-top:.2rem}.theme-name{font-family:'Noto Serif SC',serif;font-size:1rem;font-weight:700;color:#d4b8c0;margin-bottom:.4rem}.theme-text{color:#c8a0b0;font-size:.9rem;line-height:1.8}
+.quote-divider{max-width:680px;margin:0 auto;padding:5rem 2rem;text-align:center}.quote-divider blockquote{font-family:'Cormorant Garamond',serif;font-size:clamp(1.2rem,2.5vw,1.8rem);font-style:italic;color:#c8a0b0;line-height:2}.quote-divider cite{display:block;margin-top:1.5rem;font-size:.85rem;font-style:normal;color:#c8a0b0;letter-spacing:.15em}
+.closing{max-width:700px;margin:0 auto;padding:6rem 2rem 8rem;text-align:center}.closing h2{font-family:'Noto Serif SC',serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:900;background:linear-gradient(135deg,#e8b0c0,#904060);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:2rem;letter-spacing:.05em}.closing p{color:#c8a0b0;line-height:2.2;font-size:1.02rem;margin-bottom:3rem}.closing-line{width:80px;height:1px;background:linear-gradient(to right,transparent,#904060,transparent);margin:0 auto}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}@keyframes pulseDown{0%,100%{opacity:.6;transform:scaleY(1)}50%{opacity:.2;transform:scaleY(.5)}}
+.flower-overlay{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse at 50% 30%,rgba(144,64,96,.02) 0%,transparent 50%)}
+</style></head><body>
+<div id="particles"></div><div class="flower-overlay"></div>
+<div class="hero"><div class="hero-badge">📍 Ming Dynasty · 明代传奇</div>
+<h1>牡丹亭</h1><p class="hero-sub">The Peony Pavilion</p><p class="hero-author">汤显祖 · Tang Xianzu · 1550-1616</p>
+<div class="hero-quote">情不知所起，一往而深，生者可以死，死可以生。</div><div class="scroll-indicator"></div></div>
+
+<div class="section-divider"></div>
+<div class="section" id="timeline"><div class="reveal"><p class="section-tag">📜 剧情脉络</p><h2 class="section-title">梦中之恋，死而复生</h2><p class="section-desc">《牡丹亭》全名《牡丹亭还魂记》，共五十五出，演绎了一场穿越生死的至情传奇。</p></div>
+<div class="timeline">
+<div class="timeline-item"><p class="timeline-year">📖 第一出至第十出 · 惊梦</p><p class="timeline-title">少女怀春，梦中邂逅</p><p class="timeline-text">南安太守杜宝之女杜丽娘，年方十六，久居深闺。春日游园，见姹紫嫣红开遍，感春光易逝，归而困倦。梦中遇书生柳梦梅于牡丹亭畔，两人一见倾心，云雨欢会。梦醒后怅然若失，从此情根深种。</p></div>
+<div class="timeline-item"><p class="timeline-year">📖 第十一出至第二十出 · 寻梦</p><p class="timeline-title">相思成疾，写真留容</p><p class="timeline-text">丽娘重游花园寻梦，不见梦中之人，相思成疾。自知命不久矣，乃自描春容，题诗于上，藏于太湖石底。嘱丫鬟春香将其葬于牡丹亭畔梅树下。中秋之夜，丽娘香消玉殒。杜宝升任淮扬安抚使，临行建梅花庵观守墓。</p></div>
+<div class="timeline-item"><p class="timeline-year">📖 第二十一出至第三十五出 · 幽媾</p><p class="timeline-title">人鬼相恋，开棺回生</p><p class="timeline-text">柳梦梅赴京赶考，病宿梅花庵。偶游花园，拾得丽娘画像，见画中美人似曾相识，日夜呼唤。丽娘幽魂闻声而至，与梦梅夜夜相会。梦梅知其为鬼，却爱意不减。丽娘告以回生之法，梦梅掘坟开棺，丽娘得以复生，二人结为夫妻。</p></div>
+<div class="timeline-item"><p class="timeline-year">📖 第三十六出至第五十五出 · 团圆</p><p class="timeline-title">金榜题名，父女相认</p><p class="timeline-text">柳梦梅携丽娘赴临安应试，状元及第。杜宝拒认复生之女，认为妖孽。皇帝亲自裁决，丽娘当殿对质，以铜镜验明真身。最终父女相认，全家团圆。皇上下旨赐婚，有情人终成眷属，至情感动天地。</p></div>
+</div></div>
+
+<div class="section-divider"></div>
+<div class="section" id="characters"><div class="reveal"><p class="section-tag">🎭 人物群像</p><h2 class="section-title">因情而生，为情而死</h2></div>
+<div class="char-grid">
+<div class="char-card"><p class="char-name">杜丽娘</p><p class="char-role">女主角 · 至情至性</p><p class="char-desc">南安太守之女，才貌双全，自幼受严格闺训。游园惊梦开启了她对爱情与自由的渴望。因情而死，又因情而生，是"至情"理念的化身。她的反抗不是激烈的抗争，而是以梦为媒、以死相搏的决绝。</p></div>
+<div class="char-card"><p class="char-name">柳梦梅</p><p class="char-role">男主角 · 痴情书生</p><p class="char-desc">寒门书生，赴京赶考途中病宿梅花庵。拾得丽娘画像后日夜呼唤，明知对方是鬼魂仍情深不移。他代表了"情之所至"的勇气——不惧人鬼之分、不畏世俗眼光，最终以真诚感动天地，使得爱人死而复生。</p></div>
+<div class="char-card"><p class="char-name">杜宝</p><p class="char-role">杜丽娘之父 · 卫道士</p><p class="char-desc">南安太守，后升任淮扬安抚使。恪守礼教，对女儿管教严厉。在得知女儿复生后拒不相认，认为有辱门风。他是封建礼教的代表，但最终在皇帝的裁决下被迫接受事实，其固执中亦透着父爱的扭曲表达。</p></div>
+<div class="char-card"><p class="char-name">春香</p><p class="char-role">丫鬟 · 天真活泼</p><p class="char-desc">杜丽娘的贴身丫鬟，性格活泼俏皮，是丽娘深闺生活中唯一的亮色。她引导丽娘游园，见证了小姐的相思与离去，又守护着小姐的遗物和墓地。她象征着未被礼教完全驯化的自然人性。</p></div>
+<div class="char-card"><p class="char-name">陈最良</p><p class="char-role">塾师 · 迂腐儒生</p><p class="char-desc">杜府塾师，满口道德文章，迂腐可笑。他教授丽娘《诗经》，却对"关关雎鸠"做了迂腐的解释。他是科举制度和僵化教育的缩影，在剧中既是笑料也是对封建教育的讽刺。</p></div>
+<div class="char-card"><p class="char-name">石道姑</p><p class="char-role">梅花庵主持 · 慈悲助人</p><p class="char-desc">梅花庵的道姑，善良而通情达理。她收留了柳梦梅，又暗中帮助柳梦梅与丽娘幽魂相会，最终参与了开棺回生之事。她代表了一种超越世俗规矩的人间温情。</p></div>
+</div></div>
+
+<div class="section-divider"></div>
+<div class="section" id="themes"><div class="reveal"><p class="section-tag">🌸 主题探讨</p><h2 class="section-title">至情超越生死</h2></div>
+<div class="theme-list">
+<div class="theme-item"><span class="theme-icon">💕</span><div><p class="theme-name">至情观——情之极致</p><p class="theme-text">《牡丹亭》的核心是"情"的哲学。汤显祖在《题词》中写道："情不知所起，一往而深，生者可以死，死可以生。"这种至情超越了生死界限、人鬼之分。丽娘因梦生情、因情而死、因情复生，构成了一个完整的"情之循环"。这不仅是爱情故事，更是对人性本真的哲学探索——情是人的本质，真情可以战胜一切桎梏。</p></div></div>
+<div class="theme-item"><span class="theme-icon">🌺</span><div><p class="theme-name">青春与觉醒——女性意识的萌动</p><p class="theme-text">杜丽娘游园惊梦，是中国文学史上极为深刻的女性觉醒场景。"原来姹紫嫣红开遍，似这般都付与断井颓垣"，她在大好春光中猛然意识到自己青春的流逝和被禁锢的命运。这种觉醒不是通过说教，而是通过对自然之美的身体感知。丽娘的欲望和情感不是罪恶，而是生命的自然冲动。</p></div></div>
+<div class="theme-item"><span class="theme-icon">🎭</span><div><p class="theme-name">梦境与现实——双重世界的建构</p><p class="theme-text">全剧构建了梦境与现实的双重世界。梦中是自由的、真实的、充满生命力的；现实中是压抑的、虚伪的、令人窒息的。丽娘只有通过梦境才能释放真实的自我。这种二分法不仅是戏剧技巧，更是对明代社会现实的深刻批判——真实的生命只能在幻想中绽放。</p></div></div>
+<div class="theme-item"><span class="theme-icon">📜</span><div><p class="theme-name">礼教与人性的对抗</p><p class="theme-text">丽娘的悲剧源于封建礼教对人性的压抑。她的父亲杜宝、塾师陈最良都是礼教的执行者。丽娘生前被要求"不出闺门"，死后父亲仍不认她。柳梦梅掘坟开棺更是对礼教的直接挑战。剧终皇帝出面裁决，虽然是大团圆的结局，却暗示了个人情感在封建社会中只有通过最高权力的认可才能获得合法性。</p></div></div>
+<div class="theme-item"><span class="theme-icon">🖌️</span><div><p class="theme-name">艺术与永恒——画像的象征意义</p><p class="theme-text">丽娘自知死期将近，自描春容，将最美的年华定格在画卷上。这幅画像不仅是遗物，更是她精神的寄托和情感的载体。柳梦梅对画像的呼唤——"美人，美人！姐姐，姐姐！"——是一种艺术对现实的召唤。画中之人最终走出画面，成为活生生的人，隐喻了艺术可以超越死亡、创造生命。</p></div></div>
+</div></div>
+
+<div class="quote-divider"><blockquote>情不知所起，一往而深，生者可以死，死可以生。生而不可与死，死而不可复生者，皆非情之至也。<cite>—— 汤显祖 · 《牡丹亭题词》</cite></blockquote></div>
+<div class="quote-divider"><blockquote>原来姹紫嫣红开遍，似这般都付与断井颓垣。良辰美景奈何天，赏心乐事谁家院？<cite>—— 杜丽娘 · 《惊梦》</cite></blockquote></div>
+<div class="quote-divider"><blockquote>这般花花草草由人恋，生生死死随人愿，便酸酸楚楚无人怨。<cite>—— 杜丽娘 · 《寻梦》</cite></blockquote></div>
+
+<div class="closing"><h2>情之所至 · 生者可以死</h2><p>《牡丹亭》是中国戏曲史上最伟大的爱情传奇之一。汤显祖以如诗如画的文笔，将一个少女的梦演绎成了穿越生死的至情神话。杜丽娘是中国文学中最动人的女性形象之一——她的爱与死、死与生，构成了一曲对人性自由的壮丽颂歌。四百年来，牡丹亭畔的这段情缘，依然让每一个读者心醉神迷。</p><div class="closing-line"></div></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>const scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,.1,1e3),renderer=new THREE.WebGLRenderer({alpha:true,antialias:true});renderer.setSize(window.innerWidth,window.innerHeight);renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));document.getElementById('particles').appendChild(renderer.domElement);
+const geom=new THREE.BufferGeometry(),count=1200;const pos=new Float32Array(count*3);for(let i=0;i<count*3;i++)pos[i]=(Math.random()-.5)*80;geom.setAttribute('position',new THREE.BufferAttribute(pos,3));
+const mat=new THREE.PointsMaterial({color:0xd4b8c0,size:.12,transparent:true,opacity:.5,blending:THREE.AdditiveBlending});const particles=new THREE.Points(geom,mat);scene.add(particles);
+camera.position.z=35;let t=0;function animate(){requestAnimationFrame(animate);t+=.001;particles.rotation.y=Math.sin(t)*.05;particles.rotation.x=Math.sin(t*.7)*.03;renderer.render(scene,camera)}animate();
+window.addEventListener('resize',()=>{camera.aspect=window.innerWidth/window.innerHeight;camera.updateProjectionMatrix();renderer.setSize(window.innerWidth,window.innerHeight)});
+const obs=new IntersectionObserver(e=>{e.forEach(e=>{e.isIntersecting?e.target.classList.add('visible'):e.target.classList.remove('visible')})},{threshold:.1});
+document.querySelectorAll('.reveal,.timeline-item,.char-card,.theme-item').forEach(e=>obs.observe(e));</script>
+</body></html>

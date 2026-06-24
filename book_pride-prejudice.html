@@ -1,0 +1,98 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>傲慢与偏见 · 爱情启示录</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Noto+Serif+SC:wght@300;400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}body{background:#0a0a08;color:#d0c8b8;font-family:'Noto Serif SC','Cinzel',serif;overflow-x:hidden}
+#particles{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.4}
+.hero{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:2rem}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 30%,rgba(60,80,40,.25) 0%,transparent 60%),radial-gradient(ellipse at 70% 80%,rgba(40,50,60,.2) 0%,transparent 60%),radial-gradient(ellipse at 50% 50%,rgba(10,10,8,.6) 0%,transparent 80%);z-index:-1}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:200px;background:linear-gradient(to top,rgba(10,10,8,1),transparent);z-index:-1}
+.hero-badge{font-family:'Cormorant Garamond',serif;font-size:.85rem;letter-spacing:.6em;color:#b8b0a0;text-transform:uppercase;margin-bottom:1.5rem;animation:fadeUp 1.5s ease both}
+.hero h1{font-family:'Cinzel',serif;font-size:clamp(2.5rem,8vw,6rem);font-weight:700;letter-spacing:.08em;background:linear-gradient(135deg,#c0b890 0%,#6a7050 30%,#8a9070 60%,#d0c8a0 100%);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.1;animation:fadeUp 1.5s .2s ease both}
+.hero-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(1rem,2vw,1.6rem);font-weight:300;font-style:italic;color:#b8b0a0;margin-top:.5rem;letter-spacing:.3em;animation:fadeUp 1.5s .35s ease both}
+.hero-author{font-size:.9rem;color:#9a9080;margin-top:.3rem;letter-spacing:.2em;animation:fadeUp 1.5s .5s ease both}
+.hero-quote{margin-top:3rem;font-size:clamp(1rem,1.8vw,1.3rem);font-style:italic;color:#b8b0a0;max-width:640px;line-height:1.9;animation:fadeUp 1.5s .6s ease both;position:relative;padding:0 1.5rem}
+.hero-quote::before{content:'\201C';font-size:5rem;position:absolute;top:-2rem;left:-.2rem;color:rgba(106,112,80,.15);font-family:'Cinzel',serif}
+.scroll-indicator{margin-top:4rem;width:1px;height:50px;background:linear-gradient(to bottom,#6a7050,transparent);animation:pulseDown 2.5s ease-in-out infinite}
+.section-divider{position:relative;z-index:1;height:2px;max-width:300px;margin:0 auto;background:linear-gradient(to right,transparent,rgba(106,112,80,.2),transparent)}
+.section{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:5rem 2rem}
+.section-tag{font-family:'Cormorant Garamond',serif;font-size:.75rem;letter-spacing:.5em;color:#b8b0a0;text-transform:uppercase;margin-bottom:1.2rem}
+.section-title{font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:#b8b0a0;margin-bottom:1rem;line-height:1.2;letter-spacing:.03em}
+.section-desc{color:#9a9080;line-height:2;font-size:1.02rem;margin-bottom:2.5rem}
+.reveal{opacity:0;transform:translateY(40px);transition:all .9s cubic-bezier(.4,0,.2,1)}.reveal.visible{opacity:1;transform:translateY(0)}
+.timeline{position:relative;padding-left:2.8rem}.timeline::before{content:'';position:absolute;left:.7rem;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,rgba(106,112,80,.2),transparent)}
+.timeline-item{position:relative;margin-bottom:3rem;padding-left:1.5rem;opacity:0;transform:translateX(-20px);transition:all .7s ease}.timeline-item.visible{opacity:1;transform:translateX(0)}
+.timeline-item::before{content:'';position:absolute;left:-2.4rem;top:.5rem;width:10px;height:10px;border-radius:50%;background:#6a7050;border:2px solid #1a1a0a;box-shadow:0 0 15px rgba(106,112,80,.2)}
+.timeline-item:nth-child(1)::before{background:#c0b890}.timeline-item:nth-child(2)::before{background:#6a7050}.timeline-item:nth-child(3)::before{background:#8a6070}.timeline-item:nth-child(4)::before{background:#608080}
+.timeline-year{font-family:'Cormorant Garamond',serif;font-size:.8rem;letter-spacing:.15em;color:#b8b0a0;margin-bottom:.3rem}
+.timeline-title{font-size:1.1rem;font-weight:700;color:#b8b0a0;margin-bottom:.5rem}
+.timeline-text{color:#b8b0a0;line-height:1.9;font-size:.93rem}
+.char-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;margin-top:2rem}
+.char-card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);border-radius:16px;padding:1.5rem;transition:all .4s ease;opacity:0;transform:translateY(20px)}.char-card.visible{opacity:1;transform:translateY(0)}
+.char-card:hover{background:rgba(255,255,255,.04);border-color:rgba(180,170,150,.2);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.4)}
+.char-name{font-family:'Cinzel',serif;font-size:1.1rem;font-weight:600;color:#b8b0a0;margin-bottom:.2rem}
+.char-role{font-size:.7rem;letter-spacing:.2em;color:#b8b0a0;text-transform:uppercase;margin-bottom:.7rem}
+.char-desc{color:#b8b0a0;font-size:.88rem;line-height:1.8}
+.theme-list{margin-top:2rem}.theme-item{padding:1.5rem 0;border-bottom:1px solid rgba(255,255,255,.03);opacity:0;transform:translateY(15px);transition:all .5s ease;display:flex;gap:1.5rem;align-items:flex-start}.theme-item.visible{opacity:1;transform:translateY(0)}
+.theme-icon{font-size:1.8rem;flex-shrink:0;width:2.5rem;text-align:center;margin-top:.2rem}
+.theme-name{font-family:'Cinzel',serif;font-size:1rem;font-weight:600;color:#b8b0a0;margin-bottom:.4rem}
+.theme-text{color:#b8b0a0;font-size:.9rem;line-height:1.8}
+.quote-divider{position:relative;z-index:1;max-width:680px;margin:0 auto;padding:5rem 2rem;text-align:center}
+.quote-divider blockquote{font-family:'Cormorant Garamond',serif;font-size:clamp(1.2rem,2.5vw,1.8rem);font-style:italic;color:#9a9080;line-height:1.9}
+.quote-divider cite{display:block;margin-top:1.5rem;font-size:.85rem;font-style:normal;color:#9a9080;letter-spacing:.15em}
+.closing{position:relative;z-index:1;max-width:700px;margin:0 auto;padding:6rem 2rem 8rem;text-align:center}
+.closing h2{font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:700;background:linear-gradient(135deg,#c0b890,#6a7050);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:2rem;letter-spacing:.05em}
+.closing p{color:#b8b0a0;line-height:2;font-size:1.02rem;margin-bottom:3rem}.closing-line{width:80px;height:1px;background:linear-gradient(to right,transparent,#6a7050,transparent);margin:0 auto}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulseDown{0%,100%{opacity:.6;transform:scaleY(1)}50%{opacity:.2;transform:scaleY(.5)}}
+.estate-overlay{position:fixed;inset:0;z-index:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 100px,rgba(106,112,80,.01) 100px,rgba(106,112,80,.01) 101px)}
+@media(max-width:640px){.section{padding:3rem 1.5rem}.timeline{padding-left:1.8rem}.char-grid{grid-template-columns:1fr}}
+</style></head><body>
+<canvas id="particles"></canvas><div class="estate-overlay"></div>
+
+<section class="hero"><div class="hero-badge">Jane Austen · 1813</div><h1>Pride&nbsp;&&nbsp;Prejudice</h1><p class="hero-sub">— 傲慢与偏见 —</p><p class="hero-author">一个关于误解如何转化为理解的爱情故事</p><p class="hero-quote">这是一个举世公认的真理：<br>一个拥有巨额财富的单身男子，<br>一定想要一位太太——<br>至于他本人怎么想、怎么感受，<br>人们全然不在乎。</p><div class="scroll-indicator"></div></section>
+
+<section class="section"><div class="reveal"><div class="section-tag">Synopsis</div><h2 class="section-title">一个关于误解如何转化为理解的爱情故事</h2><p class="section-desc">班纳特家五个女儿的母亲最大的心愿就是把她们嫁出去。当富有的彬格莱先生搬到内瑟菲尔德庄园，并带来了更富有的朋友达西先生时，整个小镇都躁动了。伊丽莎白·班纳特——聪明、活泼、有主见的二女儿——在舞会上对傲慢的达西产生了根深蒂固的偏见。当英俊的军官韦翰向她编造达西"夺走他的遗产"的谎言时，她的偏见更加牢固了。然而随着故事展开，伊丽莎白逐渐看到了达西傲慢外表下的真诚与善良——而达西则被伊丽莎白的机智与独立所征服。在误会、羞耻、表白和反思之后，他们跨越了各自的傲慢与偏见，走到了一起。</p></div></section>
+
+<div class="section-divider"></div>
+
+<section class="section"><div class="reveal"><div class="section-tag">Timeline</div><h2 class="section-title">从误解到理解</h2></div><div class="timeline">
+<div class="timeline-item"><div class="timeline-year">麦里屯的舞会</div><div class="timeline-title">初次相遇 · 傲慢的种子</div><div class="timeline-text">彬格莱先生的舞会上，他立刻被班纳特家的大女儿简吸引。但达西先生不同——他环顾四周，看到伊丽莎白独自坐着的面孔，对彬格莱说："她还可以，但不够漂亮到让我动心。"这话被伊丽莎白听到了。她发誓：即使整个世界最优秀的男子站在她面前，她也绝不会对他有好感。达西在舞会上全程沉默、不愿与人交谈——在小镇居民眼中，这是傲慢；但在他自己看来，这是不会伪装的不自在。当达西开始被伊丽莎白的聪慧吸引时，伊丽莎白已经把他划入了"不可原谅的傲慢之徒"的名单。</div></div>
+<div class="timeline-item"><div class="timeline-year">达西的求婚</div><div class="timeline-title">最糟糕的表白</div><div class="timeline-text">达西在柯林斯牧师的花园中找到了独处的伊丽莎白。他告诉自己她是"社会的底层"，他告诉她自己"在挣扎中爱上了她"，他告诉她"你的家庭地位让我无法忍受"——他以为坦诚就是爱的最高形式。伊丽莎白愤怒地拒绝了他："就算全世界只剩下你一个男人，我也不会嫁给你。"她控诉他拆散了简和彬格莱，控诉他虐待韦翰。达西震惊地离开了。那天晚上他写了一封长信——解释了关于简的真相：他没有拆散他们，他只是看出简对彬格莱不够爱；关于韦翰：他在达西妹妹十五岁时诱拐她私奔以图财产。伊丽莎白读着信，手开始发抖——她意识到自己被他骗了。</div></div>
+<div class="timeline-item"><div class="timeline-year">彭伯利庄园</div><div class="timeline-title">重新认识一个人</div><div class="timeline-text">伊丽莎白随舅父舅母旅行时路过彭伯利——达西的庄园。她以为他不在家，忍不住想去看看。管家带她参观达西的书房、画廊——仆人们都说他是"最好的主人"。达西突然提前回来了，伊丽莎白窘迫万分。但达西的举止完全变了——他礼貌地接待她的舅父母，邀请她的妹妹来钓鱼，甚至主动请求让她妹妹见见他的妹妹。伊丽莎白困惑了：这是那个傲慢的达西吗？就在这时，她收到一封家信：小妹莉迪亚和韦翰私奔了，班纳特家的名声将毁于一旦。伊丽莎白哭着告诉达西这个噩耗——她以为他会就此逃离她。但达西一言不发地离开了——第二天，他找到了莉迪亚和韦翰，用自己的钱说服韦翰娶了莉迪亚，保全了班纳特家的名誉。这一切他从未对任何人提起。</div></div>
+<div class="timeline-item"><div class="timeline-year">尾声 · 朗本</div><div class="timeline-title">终成眷属</div><div class="timeline-text">在彬格莱先生终于向简求婚的喜悦中，达西再次来到朗本。他和伊丽莎白在清晨的田野中散步。上一次他表白时带着居高临下的傲慢，而这一次——他说："我的态度仍然和从前一样——我的心从未改变。"伊丽莎白握住他的手说："我的态度也变了。"她的父亲班纳特先生起初不敢相信——"女儿，你爱他吗？我知道他是个骄傲的人，但我相信你比他更聪明。"伊丽莎白说："我爱他——我爱他的傲慢，因为如果没有它，他就不是达西了。"简·奥斯汀用她特有的反讽结束了故事：达西和伊丽莎白在彭伯利庄园举办了婚礼——她们的母亲班纳特太太说："我亲爱的女儿，你终于嫁了一个了不起的人！"</div></div>
+</div></section>
+
+<div class="quote-divider reveal"><blockquote>我认为你是我见过的最傲慢、最自大的人，<br>你在一瞬间就摧毁了我对你的所有好感。<br>从我们认识的第一刻起，<br>你就向我展示了你性格中的傲慢、自私和轻蔑——</blockquote><cite>— 伊丽莎白对达西的拒绝</cite></div>
+
+<section class="section"><div class="reveal"><div class="section-tag">Characters</div><h2 class="section-title">傲慢与偏见的面孔</h2></div><div class="char-grid">
+<div class="char-card"><div class="char-name">伊丽莎白·班纳特</div><div class="char-role">女主人公</div><div class="char-desc">简·奥斯汀笔下的革命性女主——她不是等待被选中的花朵，而是用自己的判断选择命运的人。伊丽莎白的聪明让她在人群中闪闪发光，但也是她的聪明让她过早地对达西下了判断。她的偏见不是愚蠢，而是自信的副产品——她太相信自己的判断了。当她发现自己错了时，她的羞愧是真实的，她的成长也是真实的。简·奥斯汀通过伊丽莎白宣布：一个女性可以不漂亮、不富有，但绝不可以没有头脑。</div></div>
+<div class="char-card"><div class="char-name">达西先生</div><div class="char-role">彭伯利的主人</div><div class="char-desc">一万英镑的年收入压在他肩上，让他活成了一个孤岛。达西并非天生傲慢——他是不懂得如何与人相处。在社交场合中他的沉默被解读为不屑，他的坦诚被理解为刻薄。他爱伊丽莎白的方式笨拙得令人发笑：他告诉自己"我不该爱她"，然后向她表白；他告诉她自己"在屈尊俯就"——他以为诚实可以抵消冒犯。当伊丽莎白拒绝他之后，他的反思是深刻的：他改写了整个自己。第二次表白时，他不再提阶级、不再提牺牲——他只说"我的心从未改变"。</div></div>
+<div class="char-card"><div class="char-name">简·班纳特</div><div class="char-role">长女 · 善良的化身</div><div class="char-desc">五个姐妹中最美也最温柔的一个。简从不看人坏处——她总是为别人寻找理由。她的善良不是软弱，而是一种选择。当彬格莱不告而别时，她悄悄地伤心，却从不责怪。伊丽莎白说："你对所有人都有好感——即使是最不值得的人。"简微笑着说："那可能是因为我还没有发现他们的优点。"简·奥斯汀用简的善良和伊丽莎白的敏锐告诉读者：这两个品质都不完美，但它们加在一起，就是一个完整的人。</div></div>
+<div class="char-card"><div class="char-name">班纳特先生</div><div class="char-role">父亲 · 讽刺家</div><div class="char-desc">全书中最具奥斯汀腔调的人物——他躲在自己的书房里，以冷眼旁观妻女的愚蠢为乐。他娶了一个愚蠢的妻子，这让他的后半生充满了讽刺的苦涩。他对伊丽莎白的偏爱是明显的——"你是我的女儿中最像我的一个。"在莉迪亚私奔后他的自责令人心碎："我太懒了，在管教女儿这件事上我犯了大错。"然而在伊丽莎白做出选择时，他完全尊重她——"如果你决定嫁给他，我愿意成全你。"他是一个旁观者，但他在最关键的时刻接住了女儿。</div></div>
+<div class="char-card"><div class="char-name">彬格莱先生</div><div class="char-role">受尊敬的绅士</div><div class="char-desc">达西的对照镜——彬格莱开朗、随和、很容易被他人影响。他爱上了简，但达西一劝他就动摇了。他离开内瑟菲尔德时甚至没有告别。但奥斯汀原谅了他——因为他是真心爱着简的，只是缺了那么一点点勇气。当他回来后，他不再犹豫。彬格莱告诉读者：一个好人，即使走了一段弯路，也值得拥有幸福。</div></div>
+<div class="char-card"><div class="char-name">柯林斯先生</div><div class="char-role">牧师 · 马屁精</div><div class="char-desc">文学史上最令人发笑的角色之一。他是班纳特家遗产的继承人，前来选一位班纳特家的小姐"弥补他的继承"。他来到朗本后把注意力从简转到伊丽莎白再转到夏洛特——只用了三天。他的求婚辞是精心排练的："我的理由是：第一……第二……第三……"伊丽莎白拒绝了他，他立刻对夏洛特说："那么我想我就应该转向您了。"最可怕的是夏洛特接受了他——不是为了爱，而是为了"一个体面女人的归宿"。简·奥斯汀用柯林斯完成了对婚姻市场最辛辣的讽刺。</div></div>
+</div></section>
+
+<div class="quote-divider reveal"><blockquote>一个人不管有什么样的才华，<br>如果自尊心受了伤害，<br>他也会因此失去理智。<br>我想，我们的误解，<br>是从各自的自尊心开始的。</blockquote><cite>— 伊丽莎白对达西的反思</cite></div>
+
+<section class="section"><div class="reveal"><div class="section-tag">Themes</div><h2 class="section-title">穿越两百年的爱情哲学</h2></div><div class="theme-list">
+<div class="theme-item"><div class="theme-icon">🎭</div><div class="theme-theme"><div class="theme-name">傲慢与偏见</div><div class="theme-text">书名本身就是一对镜像。达西的傲慢让他不愿在乡间舞会上收敛自己的身份——他用阶级筑起了墙壁。伊丽莎白的偏见让她先入为主地把达西的一切行为看作傲慢——她用误解砌成了堡垒。故事的奇妙之处在于：达西的傲慢有一部分是真的，伊丽莎白的偏见也有一部分是真的。但他们的成长在于：他们学会了分辨"别人展示的人格"和"真实的自我"之间的差距。这场彼此教育的旅程，比任何浪漫情节都更迷人。</div></div></div>
+<div class="theme-item"><div class="theme-icon">💰</div><div class="theme-theme"><div class="theme-name">婚姻的市场</div><div class="theme-text">小说著名的第一句话就是反讽："拥有财富的单身汉必定缺少一位太太。"简·奥斯汀用手术刀般精准的笔触解剖了19世纪英格兰的婚姻市场。班纳特太太的一生目标是把五个女儿嫁出去——因为她们没有继承权。夏洛特嫁给柯林斯——"她需要一个家"。彬格莱的财产让他一出现就成了所有人的猎物。在这张网中，伊丽莎白和达西的爱情是唯一的例外：他们不是因为对方"合适"才相爱，而是因为各自成为了更完整的人之后，选择了彼此。</div></div></div>
+<div class="theme-item"><div class="theme-icon">🏠</div><div class="theme-theme"><div class="theme-name">家与成长</div><div class="theme-text">彭伯利庄园在书中不仅是一栋房产——它象征了达西的"真实自我"。伊丽莎白在看到彭伯利之前一直在通过别人的描述判断达西，而彭伯利本身——壮丽而不浮夸、优美但不做作——向她揭示了达西的真实本质。彭伯利之后，达西不再是一个"傲慢的富人"，而是一个值得尊敬的、有品位的人。简·奥斯汀深知情爱的真理：一个人所创造的空间是他内心的外化——你能通过他选择如何生活，了解他是谁。</div></div></div>
+<div class="theme-item"><div class="theme-icon">👤</div><div class="theme-theme"><div class="theme-name">女性的自主</div><div class="theme-text">伊丽莎白拒绝达西第一次求婚的勇气，在1813年几乎是革命性的。一个年收入仅四十镑的家庭中的女儿，拒绝了年收入一万镑的求婚——因为"我看不起你"。简·奥斯汀自己终身未婚，她通过伊丽莎白表达了一个惊人的观点：女性不是婚姻市场的商品，她们有权利说"不"。更有力的是，达西的第二次求婚并不比第一次更容易被接受——是伊丽莎白选择了改变主意，而不是达西做出了更多让步。她保留了自主权。</div></div></div>
+<div class="theme-item"><div class="theme-icon">💡</div><div class="theme-theme"><div class="theme-name">知与行</div><div class="theme-text">伊丽莎白说："我花了很多时间才学会看清一个人。"达西说："我以前以为坦诚就够了——现在我知道，坦诚加上体贴才够。"他们共同的成长来自对"认知局限"的觉醒。伊丽莎白以为自己的判断力无懈可击——但韦翰的谎言让她看到：聪明人也会被聪明误。达西以为自己只需实话实说——但被拒绝后他意识到：真话如果带着傲慢，就是武器而不是礼物。他们最终学会的，不是如何爱别人，而是如何看清自己。</div></div></div>
+</div></section>
+
+<div class="quote-divider reveal"><blockquote>你让我认识了自己——<br>我从前是一个骄傲的傻瓜，<br>以为只要我的心是真的，<br>言语就不需要温柔。<br>我错了。</blockquote><cite>— 达西向伊丽莎白的剖白</cite></div>
+
+<section class="closing reveal"><h2>他们学会了彼此的语言</h2><p>《傲慢与偏见》的伟大之处不在于它讲述了一个完美的爱情——<br>而在于它讲述了一个"不完美的人如何变成更好的自己"的故事。<br><br>达西没有变成另一个人。他依然是那个骄傲的达西——<br>但他在他的骄傲中加入了温柔。<br>伊丽莎白也没有放弃她的锐利。她依然是那个聪慧的伊丽莎白——<br>但她在她的判断中加入了耐心。<br><br>他们不是彼此的另一半——他们是两个完整的个体，<br>在相遇之后，各自向前迈了一步。<br>在彭伯利庄园的晨光中，他们终于看到了对方的真实面目——<br>然后发现，那正是他们一直寻找的。<br><br><em style="color:#5a5a4a;">"你傲慢，我偏见。我们很相配。"</em></p><div class="closing-line"></div><p style="margin-top:2rem;font-size:.8rem;color:#3a3a2a;">简·奥斯汀 · 1775–1817 · 英国小说的骄傲</p></section>
+
+<script>
+const canvas=document.getElementById('particles'),ctx=canvas.getContext('2d');let particles=[];const COUNT=45;
+function resize(){canvas.width=innerWidth;canvas.height=innerHeight}resize();addEventListener('resize',resize);
+class Particle{constructor(){this.reset()}reset(){this.x=Math.random()*canvas.width;this.y=Math.random()*canvas.height;this.size=Math.random()*2+.3;this.speedX=(Math.random()-.5)*.1;this.speedY=(Math.random()-.5)*.1;this.opacity=Math.random()*.4+.05}update(){this.x+=this.speedX;this.y+=this.speedY;if(this.x<0||this.x>canvas.width)this.speedX*=-1;if(this.y<0||this.y>canvas.height)this.speedY*=-1}draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fillStyle='rgba(200,190,170,'+this.opacity+')';ctx.fill()}}
+for(let i=0;i<COUNT;i++)particles.push(new Particle);
+function animate(){ctx.clearRect(0,0,canvas.width,canvas.height);particles.forEach(p=>{p.update();p.draw()});for(let i=0;i<particles.length;i++){for(let j=i+1;j<particles.length;j++){const dx=particles[i].x-particles[j].x,dy=particles[i].y-particles[j].y,dist=Math.sqrt(dx*dx+dy*dy);if(dist<120){ctx.beginPath();ctx.moveTo(particles[i].x,particles[i].y);ctx.lineTo(particles[j].x,particles[j].y);ctx.strokeStyle='rgba(200,190,170,'+(.03*(1-dist/120))+')';ctx.lineWidth=.3;ctx.stroke()}}}requestAnimationFrame(animate)}animate();
+const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add('visible')})},{threshold:.08});
+document.querySelectorAll('.reveal,.timeline-item,.char-card,.theme-item').forEach(el=>observer.observe(el));
+</script></body></html>

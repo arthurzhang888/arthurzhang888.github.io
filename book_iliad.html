@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>伊利亚特 · 英雄的挽歌</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Noto+Serif+SC:wght@300;400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0a0808; color: #d4cfc8; font-family: 'Noto Serif SC', 'Cinzel', serif; overflow-x: hidden; }
+  #particles { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: .5; }
+  .hero { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 2rem; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 30%, rgba(140,80,40,.35) 0%, transparent 60%), radial-gradient(ellipse at 70% 80%, rgba(40,40,80,.3) 0%, transparent 60%), radial-gradient(ellipse at 50% 50%, rgba(10,8,6,.6) 0%, transparent 80%); z-index: -1; }
+  .hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 200px; background: linear-gradient(to top, rgba(10,8,8,1), transparent); z-index: -1; }
+  .hero-badge { font-family: 'Cormorant Garamond', serif; font-size: .85rem; letter-spacing: .6em; color: #c8b8a0; text-transform: uppercase; margin-bottom: 1.5rem; animation: fadeUp 1.5s ease both; }
+  .hero h1 { font-family: 'Cinzel', serif; font-size: clamp(2.5rem,8vw,6rem); font-weight: 700; letter-spacing: .08em; background: linear-gradient(135deg,#c8a060 0%,#8a4030 30%,#a07040 60%,#d8b080 100%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.1; animation: fadeUp 1.5s .2s ease both; }
+  .hero-sub { font-family: 'Cormorant Garamond', serif; font-size: clamp(1rem,2vw,1.6rem); font-weight: 300; font-style: italic; color: #b8a898; margin-top: .5rem; letter-spacing: .3em; animation: fadeUp 1.5s .35s ease both; }
+  .hero-author { font-size: .9rem; color: #9a8a7a; margin-top: .3rem; letter-spacing: .2em; animation: fadeUp 1.5s .5s ease both; }
+  .hero-quote { margin-top: 3rem; font-size: clamp(1rem,1.8vw,1.3rem); font-style: italic; color: #b8a898; max-width: 640px; line-height: 1.9; animation: fadeUp 1.5s .6s ease both; position: relative; padding: 0 1.5rem; }
+  .hero-quote::before { content: '\201C'; font-size: 5rem; position: absolute; top: -2rem; left: -.2rem; color: rgba(140,80,40,.15); font-family: 'Cinzel', serif; }
+  .scroll-indicator { margin-top: 4rem; width: 1px; height: 50px; background: linear-gradient(to bottom, #5a4a3a, transparent); animation: pulseDown 2.5s ease-in-out infinite; }
+  .section-divider { position: relative; z-index: 1; height: 2px; max-width: 300px; margin: 0 auto; background: linear-gradient(to right, transparent, rgba(140,80,40,.2), transparent); }
+  .section { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; padding: 5rem 2rem; }
+  .section-tag { font-family: 'Cormorant Garamond', serif; font-size: .75rem; letter-spacing: .5em; color: #b8a898; text-transform: uppercase; margin-bottom: 1.2rem; }
+  .section-title { font-family: 'Cinzel', serif; font-size: clamp(1.8rem,4vw,2.8rem); font-weight: 700; color: #b8a898; margin-bottom: 1rem; line-height: 1.2; letter-spacing: .03em; }
+  .section-desc { color: #8a7a6a; line-height: 2; font-size: 1.02rem; margin-bottom: 2.5rem; }
+  .reveal { opacity: 0; transform: translateY(40px); transition: all .9s cubic-bezier(.4,0,.2,1); }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .timeline { position: relative; padding-left: 2.8rem; }
+  .timeline::before { content: ''; position: absolute; left: .7rem; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, rgba(140,80,40,.2), transparent); }
+  .timeline-item { position: relative; margin-bottom: 3rem; padding-left: 1.5rem; opacity: 0; transform: translateX(-20px); transition: all .7s ease; }
+  .timeline-item.visible { opacity: 1; transform: translateX(0); }
+  .timeline-item::before { content: ''; position: absolute; left: -2.4rem; top: .5rem; width: 10px; height: 10px; border-radius: 50%; background: #8a4030; border: 2px solid #2a1a0a; box-shadow: 0 0 15px rgba(138,64,48,.2); }
+  .timeline-item:nth-child(1)::before { background: #c8a060; }
+  .timeline-item:nth-child(2)::before { background: #8a4030; }
+  .timeline-item:nth-child(3)::before { background: #4a3a6a; }
+  .timeline-item:nth-child(4)::before { background: #6a7050; }
+  .timeline-year { font-family: 'Cormorant Garamond', serif; font-size: .8rem; letter-spacing: .15em; color: #b8a898; margin-bottom: .3rem; }
+  .timeline-title { font-size: 1.1rem; font-weight: 700; color: #b8a898; margin-bottom: .5rem; }
+  .timeline-text { color: #b8a898; line-height: 1.9; font-size: .93rem; }
+  .char-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 1.5rem; margin-top: 2rem; }
+  .char-card { background: rgba(255,255,255,.02); border: 1px solid rgba(255,255,255,.04); border-radius: 16px; padding: 1.5rem; transition: all .4s ease; opacity: 0; transform: translateY(20px); }
+  .char-card.visible { opacity: 1; transform: translateY(0); }
+  .char-card:hover { background: rgba(255,255,255,.04); border-color: rgba(150,120,100,.2); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,.4); }
+  .char-name { font-family: 'Cinzel', serif; font-size: 1.1rem; font-weight: 600; color: #b8a898; margin-bottom: .2rem; }
+  .char-role { font-size: .7rem; letter-spacing: .2em; color: #b8a898; text-transform: uppercase; margin-bottom: .7rem; }
+  .char-desc { color: #b8a898; font-size: .88rem; line-height: 1.8; }
+  .theme-list { margin-top: 2rem; }
+  .theme-item { padding: 1.5rem 0; border-bottom: 1px solid rgba(255,255,255,.03); opacity: 0; transform: translateY(15px); transition: all .5s ease; display: flex; gap: 1.5rem; align-items: flex-start; }
+  .theme-item.visible { opacity: 1; transform: translateY(0); }
+  .theme-icon { font-size: 1.8rem; flex-shrink: 0; width: 2.5rem; text-align: center; margin-top: .2rem; }
+  .theme-name { font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 600; color: #b8a898; margin-bottom: .4rem; }
+  .theme-text { color: #b8a898; font-size: .9rem; line-height: 1.8; }
+  .quote-divider { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; padding: 5rem 2rem; text-align: center; }
+  .quote-divider blockquote { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.2rem,2.5vw,1.8rem); font-style: italic; color: #8a7a6a; line-height: 1.9; }
+  .quote-divider cite { display: block; margin-top: 1.5rem; font-size: .85rem; font-style: normal; color: #9a8a7a; letter-spacing: .15em; }
+  .closing { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; padding: 6rem 2rem 8rem; text-align: center; }
+  .closing h2 { font-family: 'Cinzel', serif; font-size: clamp(1.8rem,4vw,3rem); font-weight: 700; background: linear-gradient(135deg,#c8a060,#8a4030); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 2rem; letter-spacing: .05em; }
+  .closing p { color: #b8a898; line-height: 2; font-size: 1.02rem; margin-bottom: 3rem; }
+  .closing-line { width: 80px; height: 1px; background: linear-gradient(to right, transparent, #8a4030, transparent); margin: 0 auto; }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes pulseDown { 0%,100% { opacity:.6; transform:scaleY(1); } 50% { opacity:.2; transform:scaleY(.5); } }
+  .spear-overlay { position: fixed; inset: 0; z-index: 0; pointer-events: none; background: repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(140,80,40,.02) 80px, rgba(140,80,40,.02) 81px); }
+  @media (max-width:640px) { .section { padding:3rem 1.5rem; } .timeline { padding-left:1.8rem; } .char-grid { grid-template-columns:1fr; } }
+</style>
+</head><body>
+<canvas id="particles"></canvas><div class="spear-overlay"></div>
+
+<section class="hero">
+  <div class="hero-badge">Homer · 约公元前8世纪</div>
+  <h1>Iliad</h1>
+  <p class="hero-sub">— 伊利亚特 —</p>
+  <p class="hero-author">英雄的愤怒与命运的交响</p>
+  <p class="hero-quote">歌唱吧，女神！歌唱裴琉斯之子阿喀琉斯的愤怒——<br>那毁灭性的愤怒，给阿开亚人带来了无尽的苦难，<br>把无数豪杰的英魂送入了冥府，<br>而他们的躯体，成了野狗和秃鹫的盛宴。</p>
+  <div class="scroll-indicator"></div>
+</section>
+
+<section class="section">
+  <div class="reveal">
+    <div class="section-tag">Synopsis</div>
+    <h2 class="section-title">英雄的愤怒与命运的交响</h2>
+    <p class="section-desc">《伊利亚特》是西方文学最古老的丰碑，讲述特洛伊战争第十年里短短数十天的故事。它的核心不是一场战争的胜败，而是一个人的愤怒——阿喀琉斯的愤怒。因为女俘布里塞伊斯被统帅阿伽门农夺走，阿喀琉斯愤而退出战场，导致希腊联军节节败退。直到他最亲密的战友帕特罗克洛斯战死，阿喀琉斯才重返战场，杀死特洛伊英雄赫克托尔，并将他的尸体拖在战车后羞辱。史诗在赫克托尔的葬礼中落幕——在愤怒与悲痛之后，是片刻的、属于人类的哀悼与和解。</p>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<section class="section">
+  <div class="reveal">
+    <div class="section-tag">Timeline</div>
+    <h2 class="section-title">十日之怒 · 史诗的脉搏</h2>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-year">第一卷 · 愤怒的起源</div>
+      <div class="timeline-title">阿喀琉斯与阿伽门农的决裂</div>
+      <div class="timeline-text">特洛伊战争第十年，阿波罗祭司克律塞斯来营赎回被俘女儿，阿伽门农粗暴拒绝，阿波罗降瘟疫于希腊军营。阿喀琉斯召集大会逼迫阿伽门农归还女俘，阿伽门农恼羞成怒，夺走阿喀琉斯的女俘布里塞伊斯作为补偿。阿喀琉斯拔剑欲杀阿伽门农，被雅典娜拦下。从此他拒绝出战，坐在营帐中，让希腊人自生自灭。</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">第六卷 · 城下的告别</div>
+      <div class="timeline-title">赫克托尔与安德洛玛刻的诀别</div>
+      <div class="timeline-text">特洛伊人在赫克托尔带领下势如破竹。他短暂回城，在斯凯亚门前与妻子安德洛玛刻和幼子相遇。安德洛玛刻泪流满面恳求他不要出战。他伸手抱儿子，孩子却被青铜头盔吓哭。他摘下头盔将儿子抱在怀中，祈祷他将来"比父亲更强"，然后转身走向战场。安德洛玛刻目送他远去——她知道再也见不到活着的丈夫了。</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">第十六卷 · 致命的模仿</div>
+      <div class="timeline-title">帕特罗克洛斯之死</div>
+      <div class="timeline-text">希腊战船被点燃，帕特罗克洛斯含泪请求阿喀琉斯出战。阿喀琉斯仍然拒绝，但同意让帕特罗克洛斯穿上自己的铠甲率军吓退特洛伊人。帕特罗克洛斯杀入敌阵势不可挡，却忘了界限——在特洛伊城下，他遇上赫克托尔和太阳神阿波罗。阿波罗从背后击晕他，赫克托尔一枪刺穿他的腹部。帕特罗克洛斯倒下时，铠甲从身上脱落，发出铿锵的声响。</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">第二十二卷 · 尾声</div>
+      <div class="timeline-title">赫克托尔之死与葬礼</div>
+      <div class="timeline-text">阿喀琉斯得知帕特罗克洛斯死讯，怒吼着重返战场，绕城三圈追赶赫克托尔。雅典娜化身得伊福波斯站在赫克托尔身旁，当赫克托尔转身迎战时，得伊福波斯消失——他知道自己被神欺骗了。赫克托尔被刺穿喉咙。临死前恳求归还尸体被拒，阿喀琉斯将尸体拖在战车后绕城奔驰。最后一卷，老国王普里阿摩斯在赫尔墨斯指引下深夜潜入敌营，亲吻杀子仇人的双手："想想你的父亲……"阿喀琉斯落泪，归还尸体。特洛伊为赫克托尔举行了庄严的葬礼。</div>
+    </div>
+  </div>
+</section>
+
+<div class="quote-divider reveal">
+  <blockquote>就像树叶的枯荣，人类的世代也是如此。<br>秋风将树叶吹落到地上，春天来临，<br>林中又会萌发新的绿叶——<br>人类也是一代出生，一代凋零。</blockquote>
+  <cite>— 荷马，《伊利亚特》第六卷</cite>
+</div>
+
+<section class="section">
+  <div class="reveal">
+    <div class="section-tag">Characters</div>
+    <h2 class="section-title">神与人的面孔</h2>
+  </div>
+  <div class="char-grid">
+    <div class="char-card"><div class="char-name">阿喀琉斯</div><div class="char-role">希腊第一勇士</div><div class="char-desc">史诗的中心——不是英雄，而是他的愤怒。阿喀琉斯是半神之子，拥有凡人无法企及的力量，却被自己的情绪所驱使。他的愤怒是毁灭性的，却也是极度人性化的：他因爱而痛，因痛而怒，因怒而暴。他在赫克托尔死后令人不寒而栗，但在普里阿摩斯的哀求下流下眼泪，又让人看到愤怒外壳下的赤子之心。他是西方文学中第一个真正立体的英雄。</div></div>
+    <div class="char-card"><div class="char-name">赫克托尔</div><div class="char-role">特洛伊的守护者</div><div class="char-desc">与阿喀琉斯的个人主义形成鲜明对比——赫克托尔是为城邦而战的英雄。他知道特洛伊注定陷落却依然走出城门，不是为荣耀，而是为守护城墙内的妻子、儿子和父老。他与安德洛玛刻的诀别是整部史诗最温柔的篇章。他的死标志着英雄时代的终结——没有众神庇佑的凡人，只能勇敢地赴死。</div></div>
+    <div class="char-card"><div class="char-name">阿伽门农</div><div class="char-role">希腊联军统帅</div><div class="char-desc">权力的象征。阿伽门农拥有最高地位却缺乏最高智慧。他的傲慢和对荣誉的执着引发了整场灾难——夺走阿喀琉斯的女俘，看似维护威严，实则导致联军几乎全军覆没。他后来懊悔不已却为时已晚。阿伽门农让人看清：位置最高的人，不一定最明白事理。</div></div>
+    <div class="char-card"><div class="char-name">帕特罗克洛斯</div><div class="char-role">阿喀琉斯的挚友</div><div class="char-desc">他是阿喀琉斯愤怒以外唯一的温柔。帕特罗克洛斯比阿喀琉斯年长，却始终以谦卑和体贴守护着这位暴烈的朋友。他出战是为了拯救濒临灭绝的希腊人却因此丧命。他的死是整部史诗的转折点——没有他的死，阿喀琉斯永远不会重返战场。他所引发的悲伤，比任何刀剑都更致命地刺穿了阿喀琉斯。</div></div>
+    <div class="char-card"><div class="char-name">普里阿摩斯</div><div class="char-role">特洛伊老国王</div><div class="char-desc">史诗中最动人的形象之一。白发苍苍的老国王在深夜独自潜入敌营，亲吻杀死他儿子的双手。他的眼泪和那句"想想你的父亲，阿喀琉斯"——让不可一世的阿喀琉斯崩溃了。普里阿摩斯不是英雄，只是一个失去儿子的父亲，但他的勇气比任何战场上的冲锋都更令人震撼。</div></div>
+    <div class="char-card"><div class="char-name">安德洛玛刻</div><div class="char-role">赫克托尔的妻子</div><div class="char-desc">她是一个妻子、一个母亲、一个即将失去一切的女人。在城墙上目送丈夫走向战场时她已经预见了结局。她的哭泣是史诗中最真实的声音——不是英雄的呐喊，而是普通人面对失去时的绝望。"你走了，留下我孤零零的，还有这个孩子——他再也长不大，因为他的父亲不在了。"</div></div>
+  </div>
+</section>
+
+<div class="quote-divider reveal">
+  <blockquote>父亲宙斯，众神之王，请让太阳沉落吧！<br>让黑暗笼罩大地——<br>我的儿子，我亲爱的赫克托尔，<br>他不愿在城墙内苟活，他选择了光荣的死亡。</blockquote>
+  <cite>— 普里阿摩斯的祈祷</cite>
+</div>
+
+<section class="section">
+  <div class="reveal">
+    <div class="section-tag">Themes</div>
+    <h2 class="section-title">穿越千年的回响</h2>
+  </div>
+  <div class="theme-list">
+    <div class="theme-item"><div class="theme-icon">🔥</div><div class="theme-theme"><div class="theme-name">愤怒与毁灭</div><div class="theme-text">史诗第一行定下全篇基调——"歌唱吧，女神！歌唱阿喀琉斯的愤怒。"愤怒是核心驱动力：阿喀琉斯的愤怒让希腊人濒临灭亡，帕特罗克洛斯的死引发更狂暴的愤怒，对赫克托尔尸体的凌辱是最极端的表现。荷马追问：愤怒之后留下什么？答案是一片废墟，和一颗空洞的心。</div></div></div>
+    <div class="theme-item"><div class="theme-icon">⚖️</div><div class="theme-theme"><div class="theme-name">荣誉与代价</div><div class="theme-text">英雄时代，荣誉(timē)是一个人存在的意义。阿喀琉斯因荣誉被剥夺而退出战场；赫克托尔因荣誉走出城门迎接死亡。但荷马对此深怀疑问：阿喀琉斯为女俘的荣誉牺牲无数战友，赫克托尔为城邦的荣誉留下孤儿寡母。史诗在荣誉光环上投下沉重阴影："这一切，值得吗？"</div></div></div>
+    <div class="theme-item"><div class="theme-icon">🌿</div><div class="theme-theme"><div class="theme-name">凡人如叶</div><div class="theme-text">"就像树叶的枯荣，人类的世代也是如此。"英雄们奋力战斗以为在创造不朽，但荷马冷静地告知：你们和叶子没有区别。春天发芽，秋天落下。这一主题让整部史诗充满苍凉的悲剧感——在诸神的不朽面前，人的努力徒劳而美丽。</div></div></div>
+    <div class="theme-item"><div class="theme-icon">💀</div><div class="theme-theme"><div class="theme-name">命运的不可逃避</div><div class="theme-text">每个英雄都知道自己的命运。阿喀琉斯知道"要么默默无闻长寿，要么轰轰烈烈早死"；赫克托尔知道特洛伊必将陷落。但他们仍然选择走向战场。这不是愚蠢，而是深刻的清醒——在命运面前，人类唯一能做的是选择如何面对它。荷马的英雄不是与命运抗争，而是戴着命运枷锁跳一支自由的舞蹈。</div></div></div>
+    <div class="theme-item"><div class="theme-icon">🤝</div><div class="theme-theme"><div class="theme-name">和解的可能</div><div class="theme-text">史诗以愤怒开始，以葬礼结束——不是巧合。普里阿摩斯亲吻阿喀琉斯的手，阿喀琉斯流泪。"想想你的父亲"——这句话跨越敌我、跨越仇恨。荷马告诉我们：愤怒毁灭一切，但人类的痛苦是相通的。在死亡面前，敌人也可以互为镜子。《伊利亚特》的结尾不是胜利者的凯歌，而是全体人类的哀悼。</div></div></div>
+  </div>
+</section>
+
+<div class="quote-divider reveal">
+  <blockquote>勇敢些，不要为我的死而过度悲伤。<br>没有人能逃过自己的命运，<br>哪怕是一个勇士——<br>那是从他出生那一天起就注定的。</blockquote>
+  <cite>— 赫克托尔对安德洛玛刻的诀别之语</cite>
+</div>
+
+<section class="closing reveal">
+  <h2>英雄的挽歌</h2>
+  <p>《伊利亚特》不是一部关于战争胜利的史诗。<br>它是一部关于人类如何承受失去的史诗。<br><br>阿喀琉斯失去了布里塞伊斯、失去了帕特罗克洛斯、最终也失去了自己——<br>普里阿摩斯失去了赫克托尔、失去了特洛伊、失去了一切——<br>安德洛玛刻失去了丈夫、失去了儿子、失去了未来——<br><br>在这些失去中，荷马找到了人类共同的语言。<br>三千年来，我们在《伊利亚特》中看到的不是英雄的光环，<br>而是我们自己——愤怒、悲伤、徒劳地挣扎，<br>然后在某个深夜，面对一个同样悲伤的老人，流下眼泪。<br><br><em style="color:#5a4a3a;">"人类如树叶，一代飘落，一代新生。"</em></p>
+  <div class="closing-line"></div>
+  <p style="margin-top:2rem; font-size:.8rem; color:#3a2a1a;">荷马 · 约公元前8世纪 · 西方文学之源</p>
+</section>
+
+<script>
+const canvas=document.getElementById('particles'),ctx=canvas.getContext('2d');let particles=[];const COUNT=65;
+function resize(){canvas.width=innerWidth;canvas.height=innerHeight}resize();addEventListener('resize',resize);
+class Particle{constructor(){this.reset()}reset(){this.x=Math.random()*canvas.width;this.y=Math.random()*canvas.height;this.size=Math.random()*2+.3;this.speedX=(Math.random()-.5)*.12;this.speedY=(Math.random()-.5)*.12;this.opacity=Math.random()*.4+.05}update(){this.x+=this.speedX;this.y+=this.speedY;if(this.x<0||this.x>canvas.width)this.speedX*=-1;if(this.y<0||this.y>canvas.height)this.speedY*=-1}draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fillStyle='rgba(200,180,160,'+this.opacity+')';ctx.fill()}}
+for(let i=0;i<COUNT;i++)particles.push(new Particle);
+function animate(){ctx.clearRect(0,0,canvas.width,canvas.height);particles.forEach(p=>{p.update();p.draw()});for(let i=0;i<particles.length;i++){for(let j=i+1;j<particles.length;j++){const dx=particles[i].x-particles[j].x,dy=particles[i].y-particles[j].y,dist=Math.sqrt(dx*dx+dy*dy);if(dist<120){ctx.beginPath();ctx.moveTo(particles[i].x,particles[i].y);ctx.lineTo(particles[j].x,particles[j].y);ctx.strokeStyle='rgba(180,160,140,'+(.03*(1-dist/120))+')';ctx.lineWidth=.3;ctx.stroke()}}}requestAnimationFrame(animate)}animate();
+const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add('visible')})},{threshold:.08});
+document.querySelectorAll('.reveal,.timeline-item,.char-card,.theme-item').forEach(el=>observer.observe(el));
+</script>
+</body></html>

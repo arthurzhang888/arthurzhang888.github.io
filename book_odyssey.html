@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>奥德赛 · 归乡之旅</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Noto+Serif+SC:wght@300;400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #080a0c; color: #d4cfc8; font-family: 'Noto Serif SC', 'Cinzel', serif; overflow-x: hidden; }
+  #particles { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: .5; }
+  .hero { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 2rem; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 30%, rgba(20,60,80,.35) 0%, transparent 60%), radial-gradient(ellipse at 70% 80%, rgba(10,40,60,.3) 0%, transparent 60%), radial-gradient(ellipse at 50% 50%, rgba(8,10,12,.6) 0%, transparent 80%); z-index: -1; }
+  .hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 200px; background: linear-gradient(to top, rgba(8,10,12,1), transparent); z-index: -1; }
+  .hero-badge { font-family: 'Cormorant Garamond', serif; font-size: .85rem; letter-spacing: .6em; color: #a8c0c8; text-transform: uppercase; margin-bottom: 1.5rem; animation: fadeUp 1.5s ease both; }
+  .hero h1 { font-family: 'Cinzel', serif; font-size: clamp(2.5rem,8vw,6rem); font-weight: 700; letter-spacing: .08em; background: linear-gradient(135deg,#7ab8c8 0%,#2a6a8a 30%,#4a8aaa 60%,#8ac8d8 100%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.1; animation: fadeUp 1.5s .2s ease both; }
+  .hero-sub { font-family: 'Cormorant Garamond', serif; font-size: clamp(1rem,2vw,1.6rem); font-weight: 300; font-style: italic; color: #a8c0c8; margin-top: .5rem; letter-spacing: .3em; animation: fadeUp 1.5s .35s ease both; }
+  .hero-author { font-size: .9rem; color: #8aa8b8; margin-top: .3rem; letter-spacing: .2em; animation: fadeUp 1.5s .5s ease both; }
+  .hero-quote { margin-top: 3rem; font-size: clamp(1rem,1.8vw,1.3rem); font-style: italic; color: #a8c0c8; max-width: 640px; line-height: 1.9; animation: fadeUp 1.5s .6s ease both; position: relative; padding: 0 1.5rem; }
+  .hero-quote::before { content: '\201C'; font-size: 5rem; position: absolute; top: -2rem; left: -.2rem; color: rgba(42,106,138,.15); font-family: 'Cinzel', serif; }
+  .scroll-indicator { margin-top: 4rem; width: 1px; height: 50px; background: linear-gradient(to bottom, #3a6a7a, transparent); animation: pulseDown 2.5s ease-in-out infinite; }
+  .section-divider { position: relative; z-index: 1; height: 2px; max-width: 300px; margin: 0 auto; background: linear-gradient(to right, transparent, rgba(42,106,138,.2), transparent); }
+  .section { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; padding: 5rem 2rem; }
+  .section-tag { font-family: 'Cormorant Garamond', serif; font-size: .75rem; letter-spacing: .5em; color: #a8c0c8; text-transform: uppercase; margin-bottom: 1.2rem; }
+  .section-title { font-family: 'Cinzel', serif; font-size: clamp(1.8rem,4vw,2.8rem); font-weight: 700; color: #a8c0c8; margin-bottom: 1rem; line-height: 1.2; letter-spacing: .03em; }
+  .section-desc { color: #8a9a9a; line-height: 2; font-size: 1.02rem; margin-bottom: 2.5rem; }
+  .reveal { opacity: 0; transform: translateY(40px); transition: all .9s cubic-bezier(.4,0,.2,1); }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .timeline { position: relative; padding-left: 2.8rem; }
+  .timeline::before { content: ''; position: absolute; left: .7rem; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, rgba(42,106,138,.2), transparent); }
+  .timeline-item { position: relative; margin-bottom: 3rem; padding-left: 1.5rem; opacity: 0; transform: translateX(-20px); transition: all .7s ease; }
+  .timeline-item.visible { opacity: 1; transform: translateX(0); }
+  .timeline-item::before { content: ''; position: absolute; left: -2.4rem; top: .5rem; width: 10px; height: 10px; border-radius: 50%; background: #2a6a8a; border: 2px solid #0a1a2a; box-shadow: 0 0 15px rgba(42,106,138,.2); }
+  .timeline-item:nth-child(1)::before { background: #7ab8c8; }
+  .timeline-item:nth-child(2)::before { background: #2a6a8a; }
+  .timeline-item:nth-child(3)::before { background: #c8a060; }
+  .timeline-item:nth-child(4)::before { background: #6a8a6a; }
+  .timeline-year { font-family: 'Cormorant Garamond', serif; font-size: .8rem; letter-spacing: .15em; color: #a8c0c8; margin-bottom: .3rem; }
+  .timeline-title { font-size: 1.1rem; font-weight: 700; color: #a8c0c8; margin-bottom: .5rem; }
+  .timeline-text { color: #a8c0c8; line-height: 1.9; font-size: .93rem; }
+  .char-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 1.5rem; margin-top: 2rem; }
+  .char-card { background: rgba(255,255,255,.02); border: 1px solid rgba(255,255,255,.04); border-radius: 16px; padding: 1.5rem; transition: all .4s ease; opacity: 0; transform: translateY(20px); }
+  .char-card.visible { opacity: 1; transform: translateY(0); }
+  .char-card:hover { background: rgba(255,255,255,.04); border-color: rgba(150,180,200,.2); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,.4); }
+  .char-name { font-family: 'Cinzel', serif; font-size: 1.1rem; font-weight: 600; color: #a8c0c8; margin-bottom: .2rem; }
+  .char-role { font-size: .7rem; letter-spacing: .2em; color: #a8c0c8; text-transform: uppercase; margin-bottom: .7rem; }
+  .char-desc { color: #a8c0c8; font-size: .88rem; line-height: 1.8; }
+  .theme-list { margin-top: 2rem; }
+  .theme-item { padding: 1.5rem 0; border-bottom: 1px solid rgba(255,255,255,.03); opacity: 0; transform: translateY(15px); transition: all .5s ease; display: flex; gap: 1.5rem; align-items: flex-start; }
+  .theme-item.visible { opacity: 1; transform: translateY(0); }
+  .theme-icon { font-size: 1.8rem; flex-shrink: 0; width: 2.5rem; text-align: center; margin-top: .2rem; }
+  .theme-name { font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 600; color: #a8c0c8; margin-bottom: .4rem; }
+  .theme-text { color: #a8c0c8; font-size: .9rem; line-height: 1.8; }
+  .quote-divider { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; padding: 5rem 2rem; text-align: center; }
+  .quote-divider blockquote { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.2rem,2.5vw,1.8rem); font-style: italic; color: #8a9a9a; line-height: 1.9; }
+  .quote-divider cite { display: block; margin-top: 1.5rem; font-size: .85rem; font-style: normal; color: #8aa8b8; letter-spacing: .15em; }
+  .closing { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; padding: 6rem 2rem 8rem; text-align: center; }
+  .closing h2 { font-family: 'Cinzel', serif; font-size: clamp(1.8rem,4vw,3rem); font-weight: 700; background: linear-gradient(135deg,#7ab8c8,#2a6a8a); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 2rem; letter-spacing: .05em; }
+  .closing p { color: #a8c0c8; line-height: 2; font-size: 1.02rem; margin-bottom: 3rem; }
+  .closing-line { width: 80px; height: 1px; background: linear-gradient(to right, transparent, #2a6a8a, transparent); margin: 0 auto; }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes pulseDown { 0%,100% { opacity:.6; transform:scaleY(1); } 50% { opacity:.2; transform:scaleY(.5); } }
+  .wave-overlay { position: fixed; inset: 0; z-index: 0; pointer-events: none; background: repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(42,106,138,.015) 60px, rgba(42,106,138,.015) 61px); }
+  @media (max-width:640px) { .section { padding:3rem 1.5rem; } .timeline { padding-left:1.8rem; } .char-grid { grid-template-columns:1fr; } }
+</style>
+</head><body>
+<canvas id="particles"></canvas><div class="wave-overlay"></div>
+
+<section class="hero">
+  <div class="hero-badge">Homer · 约公元前8世纪</div>
+  <h1>Odyssey</h1>
+  <p class="hero-sub">— 奥德赛 —</p>
+  <p class="hero-author">归乡之路 · 人类智慧的原型之旅</p>
+  <p class="hero-quote">告诉我，缪斯，那位足智多谋的英雄，<br>在攻破特洛伊的神圣城楼后，<br>漂洋过海，历经劫难——<br>他见过众多城邦，了解了他们的思想。</p>
+  <div class="scroll-indicator"></div>
+</section>
+
+<section class="section">
+  <div class="reveal">
+    <div class="section-tag">Synopsis</div>
+    <h2 class="section-title">归乡之路 · 人类智慧的原型之旅</h2>
+    <p class="section-desc">《奥德赛》讲述特洛伊战争结束后，英雄奥德修斯历时十年艰难返乡的故事。当他在海上漂泊时，妻子佩涅洛佩在家乡伊萨卡被一百多个求婚者围困，儿子特勒马科斯踏上寻父之旅。奥德修斯先后遭遇独眼巨人、魔女喀耳刻、海妖塞壬等劫难，最终在法埃西亚人的帮助下回到家乡。他与儿子联手，以智慧和力量杀死所有求婚者，与妻子重聚。与其说这是一部英雄史诗，不如说它是一部关于人类智慧、忍耐与归属感的永恒寓言。</p>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<section class="section">
+  <div class="reveal">
+    <div class="section-tag">Timeline</div>
+    <h2 class="section-title">十年漂泊 · 奥德修斯的旅程</h2>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-year">特勒马科斯篇</div>
+      <div class="timeline-title">寻父之旅</div>
+      <div class="timeline-text">伊萨卡宫中，一百多个求婚者日夜纠缠佩涅洛佩，消耗奥德修斯的家产。雅典娜化作门托尔，鼓励特勒马科斯出海寻父。他前往皮洛斯拜访老英雄涅斯托尔，再到斯巴达见到墨涅拉俄斯——后者告诉他奥德修斯仍活着，被仙女卡吕普索困在岛上。与此同时，求婚者们密谋在特勒马科斯返航途中伏击他。</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">奥德修斯篇 · 上半程</div>
+      <div class="timeline-title">独眼巨人 · 魔女 · 冥界</div>
+      <div class="timeline-text">奥德修斯离开特洛伊后的旅程漫长得如同噩梦。他首先到达食忘忧果者的岛屿，吃了果实的船员忘记了故乡。然后是独眼巨人波吕斐摩斯的洞穴——他谎称自己叫"无人"，灌醉巨人并用烧红的木桩刺瞎他的独眼，逃出时却因骄傲而自报真名，引来海神波塞冬的诅咒。此后他先后经过风神岛的宝袋、食人巨怪的岩礁、魔女喀耳刻的宫殿（船员被变成猪），并在喀耳刻建议下前往冥界，向先知提瑞西阿斯询问归途——在那里，他见到了亡母和众多昔日战友的灵魂。</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">奥德修斯篇 · 下半程</div>
+      <div class="timeline-title">塞壬 · 卡律布狄斯 · 卡吕普索</div>
+      <div class="timeline-text">离开冥界后，奥德修斯面对更艰险的考验：他用蜜蜡堵住船员耳朵，把自己绑在桅杆上穿过塞壬海妖的致命歌声；在墨西拿海峡，他选择靠近旋涡卡律布狄斯而非六头怪斯库拉——六名船员被吞食。到达特里那喀亚岛时，船员违背誓言宰杀了太阳神的牛群，宙斯用雷霆击碎船体，只有奥德修斯一人活下来。他被冲上奥古吉埃岛，仙女卡吕普索将他囚禁七年——"她许诺让他永生，但他的眼睛始终望向大海的尽头。"</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">归乡与复仇</div>
+      <div class="timeline-title">伊萨卡的重逢</div>
+      <div class="timeline-text">宙斯下令放行，奥德修斯乘木筏离开卡吕普索，又被波塞冬的风暴吹散，最终在法埃西亚获得帮助回到伊萨卡。雅典娜将他化作老乞丐，他先见到忠诚的牧猪人欧迈俄斯，又与特勒马科斯父子相认。在宫中，佩涅洛佩提议用奥德修斯的弓箭举行比武——谁能拉开弓射穿十二把斧头，谁就娶她。求婚者们无人能拉开弓，奥德修斯——仍扮作乞丐——拿起弓，轻易射穿十二把斧，然后箭尖转向求婚者们。特勒马科斯拔剑相助，大厅变成了屠宰场。佩涅洛佩最终通过床腿的秘密确认了丈夫的身份——那张床是他用一棵活橄榄树雕刻而成，无法移动，只有他们两人知道。</div>
+    </div>
+  </div>
+</section>
+
+<div class="quote-divider reveal">
+  <blockquote>我要告诉他：那漫长岁月中的痛苦<br>和海上漂泊的辛酸，以及一切的终结——<br>当一个人历经千辛万苦回到故乡，<br>在所有神明眼中，那就是最美的景象。</blockquote>
+  <cite>— 奥德修斯对瑙西卡说</cite>
+</div>
+
+<section class="section">
+  <div class="reveal">
+    <div class="section-tag">Characters</div>
+    <h2 class="section-title">史诗中的人与神</h2>
+  </div>
+  <div class="char-grid">
+    <div class="char-card"><div class="char-name">奥德修斯</div><div class="char-role">英雄 · 流浪者</div><div class="char-desc">他不是凭蛮力而是凭智慧取胜的英雄。奥德修斯的名字本身就是"苦难"的同源词——他经历了凡人能想象的一切考验，每一次都靠计谋而非武力脱困。他谎话连篇、善于伪装，但始终只有一个目标：回家。他的眼泪在听到故乡的歌谣时忍不住流下；他在卡吕普索的怀中望向大海；他扮成老乞丐忍受求婚者的羞辱——只为了回到妻子身边。他是文学史上第一个真正"复杂"的人。</div></div>
+    <div class="char-card"><div class="char-name">佩涅洛佩</div><div class="char-role">伊萨卡王后</div><div class="char-desc">她是奥德修斯在岸上的镜像——同样足智多谋，同样坚韧不拔。二十年来她用计谋拖延求婚者：白天织布，夜晚拆线，称"织完就选新郎"。她的忠贞不是被动的等待，而是主动的选择。当奥德修斯以乞丐身份试探她时，她不动声色地设下床腿的圈套——只有她的丈夫才知道那张床的秘密。她与奥德修斯的重逢，是文学史上最伟大的"认出"场景之一。</div></div>
+    <div class="char-card"><div class="char-name">特勒马科斯</div><div class="char-role">寻父的年轻人</div><div class="char-desc">故事开始时他还是个无助的少年，眼睁睁看着母亲被骚扰却无能为力。在雅典娜的引导下，他踏上寻父之旅——这趟旅程让他从男孩变成了男人。当他从墨涅拉俄斯口中听说了父亲的英勇后，他真正理解了"奥德修斯之子"意味着什么。最终在射杀求婚者时，他站在父亲身旁，不再是孩子，而是一个并肩作战的伙伴。</div></div>
+    <div class="char-card"><div class="char-name">雅典娜</div><div class="char-role">智慧女神 · 庇护者</div><div class="char-desc">她贯穿整部史诗，是奥德修斯最坚定的盟友。她化身门托尔、少女、陌生人，以各种面目引导和保护奥德修斯一家。在天庭会议上她为奥德修斯辩护，在关键时刻她为他指明方向。雅典娜在《奥德赛》中不是冷漠的神，而更像一位智慧而心疼的导师——她欣赏奥德修斯的原因，恰恰是他最像她：智谋、狡猾、忍耐。</div></div>
+    <div class="char-card"><div class="char-name">波吕斐摩斯</div><div class="char-role">独眼巨人</div><div class="char-desc">《奥德赛》中最令人难忘的威胁。这个独目巨人住在洞穴中，不遵守任何待客之道——他把奥德修斯的船员一个个吃掉。奥德修斯用"无人"这个名字骗过他，用红酒灌醉他，用烧红的木桩刺瞎他。但波吕斐摩斯的诅咒——向父亲波塞冬祈祷——成了奥德修斯此后漂泊十年的根源。巨人代表了一个不懂得文明规则的世界，而奥德修斯必须用智谋胜过他。</div></div>
+    <div class="char-card"><div class="char-name">欧迈俄斯</div><div class="char-role">忠实的牧猪人</div><div class="char-desc">全书中最低微也最高贵的角色。他是奥德修斯的奴隶，却对主人忠心耿耿二十年。当奥德修斯扮作乞丐出现在他面前时，他给这个"老流浪汉"食物、庇护和关怀。他没有认出主人，但他的善良和忠诚不需要认出——他是一个好人，不管对方是谁。欧迈俄斯证明了《奥德赛》中一个深刻的主题：真正的身份不是血统决定的，而是行为决定的。</div></div>
+  </div>
+</section>
+
+<div class="quote-divider reveal">
+  <blockquote>我们阿开亚人经历了多少苦难，<br>在辽阔的特洛伊平原上，<br>在无垠的大海上——<br>但最甜美的时刻，是踏上故乡的土地。</blockquote>
+  <cite>— 奥德修斯抵达伊萨卡</cite>
+</div>
+
+<section class="section">
+  <div class="reveal">
+    <div class="section-tag">Themes</div>
+    <h2 class="section-title">归乡的永恒意义</h2>
+  </div>
+  <div class="theme-list">
+    <div class="theme-item"><div class="theme-icon">⛵</div><div class="theme-theme"><div class="theme-name">归乡 · nostos</div><div class="theme-text">"Nostos"是《奥德赛》的核心主题——返乡、归家。奥德修斯拒绝了永生、拒绝了仙女的爱情、拒绝了无忧无虑的岛屿生活，只为了回到伊萨卡那块嶙峋的礁石。史诗的每一个情节都在追问：为什么"回家"是人类最深层的渴望？答案不是故乡本身，而是"归属"。奥德修斯寻找的不是地方，而是他在世界中的位置。</div></div></div>
+    <div class="theme-item"><div class="theme-icon">🦉</div><div class="theme-theme"><div class="theme-name">智慧 vs 蛮力</div><div class="theme-text">与《伊利亚特》中阿喀琉斯凭蛮力征服一切不同，《奥德赛》赞美的核心品质是"metis"——机巧、智慧、计谋。奥德修斯从不正面硬碰：他用木马计攻破特洛伊，用假名骗过巨人，用蜡堵住水手耳朵对付塞壬。荷马似乎在说：真正的英雄不是最能打的，而是最聪明、最耐心的。</div></div></div>
+    <div class="theme-item"><div class="theme-icon">🏛️</div><div class="theme-theme"><div class="theme-name">待客之道 · xenia</div><div class="theme-text">古希腊人最重视的礼仪——xenia，即宾主之道。在《奥德赛》中，尊重xenia的人（法埃西亚人、欧迈俄斯）得到祝福，违反xenia的人（求婚者、独眼巨人）遭到惩罚。奥德修斯在旅途中的命运几乎完全取决于遇到的人是否遵循待客之道。这一主题是整部史诗的道德罗盘。</div></div></div>
+    <div class="theme-item"><div class="theme-icon">👑</div><div class="theme-theme"><div class="theme-name">忍耐与等待</div><div class="theme-text">二十年的分离——奥德修斯等待了七年才离开卡吕普索；佩涅洛佩等待了二十年织了拆、拆了织；特勒马科斯等待了二十年才见到父亲；老狗阿尔戈斯等在粪堆上，终于听到主人的声音后安静地死去。《奥德赛》中每一个角色都在等待。荷马告诉我们：真正的英雄不是行动者，而是忍耐者。</div></div></div>
+    <div class="theme-item"><div class="theme-icon">🔍</div><div class="theme-theme"><div class="theme-name">认出 · anagnorisis</div><div class="theme-text">《奥德赛》充满"认出"的场景：奧德修斯被老保姆欧律克勒亚通过伤疤认出；被父亲拉厄尔忒斯通过果园的秘密认出；被佩涅洛佩通过床腿的秘密认出。每一次认出都是一次情感的爆发。亚里士多德在《诗学》中认为，《奥德赛》是所有叙事中最善用"突转与认启"的典范——因为认出，不仅是知道了一个人的名字，更是确认了一段关系的存在。</div></div></div>
+  </div>
+</section>
+
+<div class="quote-divider reveal">
+  <blockquote>陌生人，无论你是谁，来到这里的人都是客人——<br>在这世上，没有比漂泊者更珍贵的了。<br>所有的陌生人和乞丐都来自宙斯。</blockquote>
+  <cite>— 欧迈俄斯对扮作乞丐的奥德修斯</cite>
+</div>
+
+<section class="closing reveal">
+  <h2>归乡，是所有漂泊的终点</h2>
+  <p>《奥德赛》从某种意义上说不是一部史诗——<br>它是一部关于"活着"的指南。<br><br>活着，就像奥德修斯一样——<br>在每一次诱惑面前，还记得回家的方向；<br>在每一次挫折之后，还能重新起航；<br>在面目全非、受人羞辱的时刻，<br>仍然相信二十年后的重逢。<br><br>如果《伊利亚特》告诉我们在愤怒中如何毁灭，<br>那么《奥德赛》告诉我们的则是：<br>在漫长的漂泊中，如何保持灵魂的完整。<br><br><em style="color:#3a5a6a;">"人在旅途，心在故乡。"</em></p>
+  <div class="closing-line"></div>
+  <p style="margin-top:2rem; font-size:.8rem; color:#2a4a5a;">荷马 · 约公元前8世纪 · 归乡之诗的源头</p>
+</section>
+
+<script>
+const canvas=document.getElementById('particles'),ctx=canvas.getContext('2d');let particles=[];const COUNT=50;
+function resize(){canvas.width=innerWidth;canvas.height=innerHeight}resize();addEventListener('resize',resize);
+class Particle{constructor(){this.reset()}reset(){this.x=Math.random()*canvas.width;this.y=Math.random()*canvas.height;this.size=Math.random()*2+.3;this.speedX=(Math.random()-.5)*.1;this.speedY=(Math.random()-.5)*.1;this.opacity=Math.random()*.4+.05}update(){this.x+=this.speedX;this.y+=this.speedY;if(this.x<0||this.x>canvas.width)this.speedX*=-1;if(this.y<0||this.y>canvas.height)this.speedY*=-1}draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fillStyle='rgba(180,200,210,'+this.opacity+')';ctx.fill()}}
+for(let i=0;i<COUNT;i++)particles.push(new Particle);
+function animate(){ctx.clearRect(0,0,canvas.width,canvas.height);particles.forEach(p=>{p.update();p.draw()});for(let i=0;i<particles.length;i++){for(let j=i+1;j<particles.length;j++){const dx=particles[i].x-particles[j].x,dy=particles[i].y-particles[j].y,dist=Math.sqrt(dx*dx+dy*dy);if(dist<120){ctx.beginPath();ctx.moveTo(particles[i].x,particles[i].y);ctx.lineTo(particles[j].x,particles[j].y);ctx.strokeStyle='rgba(180,200,210,'+(.03*(1-dist/120))+')';ctx.lineWidth=.3;ctx.stroke()}}}requestAnimationFrame(animate)}animate();
+const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add('visible')})},{threshold:.08});
+document.querySelectorAll('.reveal,.timeline-item,.char-card,.theme-item').forEach(el=>observer.observe(el));
+</script>
+</body></html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>堂吉诃德 · 最后的骑士</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Noto+Serif+SC:wght@300;400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}body{background:#0a0806;color:#d4cfc8;font-family:'Noto Serif SC','Cinzel',serif;overflow-x:hidden}
+#particles{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5}
+.hero{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:2rem}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 30%,rgba(120,80,30,.35) 0%,transparent 60%),radial-gradient(ellipse at 70% 80%,rgba(60,30,10,.3) 0%,transparent 60%),radial-gradient(ellipse at 50% 50%,rgba(10,8,6,.6) 0%,transparent 80%);z-index:-1}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:200px;background:linear-gradient(to top,rgba(10,8,6,1),transparent);z-index:-1}
+.hero-badge{font-family:'Cormorant Garamond',serif;font-size:.85rem;letter-spacing:.6em;color:#c8b098;text-transform:uppercase;margin-bottom:1.5rem;animation:fadeUp 1.5s ease both}
+.hero h1{font-family:'Cinzel',serif;font-size:clamp(2.5rem,8vw,6rem);font-weight:700;letter-spacing:.08em;background:linear-gradient(135deg,#d8a860 0%,#8a6030 30%,#b88040 60%,#e0c080 100%);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.1;animation:fadeUp 1.5s .2s ease both}
+.hero-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(1rem,2vw,1.6rem);font-weight:300;font-style:italic;color:#b8a898;margin-top:.5rem;letter-spacing:.3em;animation:fadeUp 1.5s .35s ease both}
+.hero-author{font-size:.9rem;color:#9a8a7a;margin-top:.3rem;letter-spacing:.2em;animation:fadeUp 1.5s .5s ease both}
+.hero-quote{margin-top:3rem;font-size:clamp(1rem,1.8vw,1.3rem);font-style:italic;color:#b8a898;max-width:640px;line-height:1.9;animation:fadeUp 1.5s .6s ease both;position:relative;padding:0 1.5rem}
+.hero-quote::before{content:'\201C';font-size:5rem;position:absolute;top:-2rem;left:-.2rem;color:rgba(120,80,30,.15);font-family:'Cinzel',serif}
+.scroll-indicator{margin-top:4rem;width:1px;height:50px;background:linear-gradient(to bottom,#5a4a3a,transparent);animation:pulseDown 2.5s ease-in-out infinite}
+.section-divider{position:relative;z-index:1;height:2px;max-width:300px;margin:0 auto;background:linear-gradient(to right,transparent,rgba(120,80,30,.2),transparent)}
+.section{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:5rem 2rem}
+.section-tag{font-family:'Cormorant Garamond',serif;font-size:.75rem;letter-spacing:.5em;color:#b8a898;text-transform:uppercase;margin-bottom:1.2rem}
+.section-title{font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:#b8a898;margin-bottom:1rem;line-height:1.2;letter-spacing:.03em}
+.section-desc{color:#8a7a6a;line-height:2;font-size:1.02rem;margin-bottom:2.5rem}
+.reveal{opacity:0;transform:translateY(40px);transition:all .9s cubic-bezier(.4,0,.2,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.timeline{position:relative;padding-left:2.8rem}
+.timeline::before{content:'';position:absolute;left:.7rem;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,rgba(120,80,30,.2),transparent)}
+.timeline-item{position:relative;margin-bottom:3rem;padding-left:1.5rem;opacity:0;transform:translateX(-20px);transition:all .7s ease}
+.timeline-item.visible{opacity:1;transform:translateX(0)}
+.timeline-item::before{content:'';position:absolute;left:-2.4rem;top:.5rem;width:10px;height:10px;border-radius:50%;background:#8a6030;border:2px solid #2a1a0a;box-shadow:0 0 15px rgba(138,96,48,.2)}
+.timeline-year{font-family:'Cormorant Garamond',serif;font-size:.8rem;letter-spacing:.15em;color:#b8a898;margin-bottom:.3rem}
+.timeline-title{font-size:1.1rem;font-weight:700;color:#b8a898;margin-bottom:.5rem}
+.timeline-text{color:#b8a898;line-height:1.9;font-size:.93rem}
+.char-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;margin-top:2rem}
+.char-card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);border-radius:16px;padding:1.5rem;transition:all .4s ease;opacity:0;transform:translateY(20px)}
+.char-card.visible{opacity:1;transform:translateY(0)}
+.char-card:hover{background:rgba(255,255,255,.04);border-color:rgba(150,120,100,.2);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.4)}
+.char-name{font-family:'Cinzel',serif;font-size:1.1rem;font-weight:600;color:#b8a898;margin-bottom:.2rem}
+.char-role{font-size:.7rem;letter-spacing:.2em;color:#b8a898;text-transform:uppercase;margin-bottom:.7rem}
+.char-desc{color:#b8a898;font-size:.88rem;line-height:1.8}
+.theme-list{margin-top:2rem}
+.theme-item{padding:1.5rem 0;border-bottom:1px solid rgba(255,255,255,.03);opacity:0;transform:translateY(15px);transition:all .5s ease;display:flex;gap:1.5rem;align-items:flex-start}
+.theme-item.visible{opacity:1;transform:translateY(0)}
+.theme-icon{font-size:1.8rem;flex-shrink:0;width:2.5rem;text-align:center;margin-top:.2rem}
+.theme-name{font-family:'Cinzel',serif;font-size:1rem;font-weight:600;color:#b8a898;margin-bottom:.4rem}
+.theme-text{color:#b8a898;font-size:.9rem;line-height:1.8}
+.quote-divider{position:relative;z-index:1;max-width:680px;margin:0 auto;padding:5rem 2rem;text-align:center}
+.quote-divider blockquote{font-family:'Cormorant Garamond',serif;font-size:clamp(1.2rem,2.5vw,1.8rem);font-style:italic;color:#8a7a6a;line-height:1.9}
+.quote-divider cite{display:block;margin-top:1.5rem;font-size:.85rem;font-style:normal;color:#9a8a7a;letter-spacing:.15em}
+.closing{position:relative;z-index:1;max-width:700px;margin:0 auto;padding:6rem 2rem 8rem;text-align:center}
+.closing h2{font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:700;background:linear-gradient(135deg,#d8a860,#8a6030);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:2rem;letter-spacing:.05em}
+.closing p{color:#b8a898;line-height:2;font-size:1.02rem;margin-bottom:3rem}
+.closing-line{width:80px;height:1px;background:linear-gradient(to right,transparent,#8a6030,transparent);margin:0 auto}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulseDown{0%,100%{opacity:.6;transform:scaleY(1)}50%{opacity:.2;transform:scaleY(.5)}}
+.windmill-overlay{position:fixed;inset:0;z-index:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 70px,rgba(120,80,30,.012) 70px,rgba(120,80,30,.012) 71px),repeating-linear-gradient(90deg,transparent,transparent 70px,rgba(60,30,10,.008) 70px,rgba(60,30,10,.008) 71px)}
+@media(max-width:640px){.section{padding:3rem 1.5rem}.timeline{padding-left:1.8rem}.char-grid{grid-template-columns:1fr}}
+</style></head><body>
+<canvas id="particles"></canvas><div class="windmill-overlay"></div>
+
+<section class="hero"><div class="hero-badge">Miguel de Cervantes · 1605–1615</div><h1>Don&nbsp;Quixote</h1><p class="hero-sub">— 堂吉诃德 —</p><p class="hero-author">最狂的梦 · 最真的人</p><p class="hero-quote">在一个地方——我不愿说出它的名字——<br>住着一位绅士，他每天读骑士小说，<br>读得入了迷，以至于他卖掉了许多亩好地，<br>换来一屋子骑士小说。</p><div class="scroll-indicator"></div></section>
+
+<section class="section"><div class="reveal"><div class="section-tag">Synopsis</div><h2 class="section-title">最狂的梦 · 最真的人</h2><p class="section-desc">拉曼查的一位穷绅士阿隆索·吉哈诺，因沉迷骑士小说而走火入魔，自封"堂吉诃德·德·拉曼查"，骑上一匹瘦马驽骍难得，带上忠厚农民桑丘·潘沙当侍从，踏上了复兴骑士精神的征途。他把风车当巨人、把旅店当城堡、把羊群当军队——在旁人眼中他是个疯子，但在他的世界里，他是最后的骑士。这部小说分为两部：第一部1605年出版，堂吉诃德经历一系列荒诞冒险后被人装进笼子带回家中；第二部1615年出版，更加阴郁而深刻——堂吉诃德和桑丘在一次次被愚弄中逐渐走向清醒，最后他终于"清醒"过来，却悲哀地死去。这是现代小说的开山之作，也是关于理想与现实的永恒对话。</p></div></section>
+
+<div class="section-divider"></div>
+
+<section class="section"><div class="reveal"><div class="section-tag">Timeline</div><h2 class="section-title">骑士的征途</h2></div><div class="timeline">
+<div class="timeline-item"><div class="timeline-year">第一卷 · 第一次出征</div><div class="timeline-title">受封骑士 · 风车之战</div><div class="timeline-text">堂吉诃德擦亮曾祖留下的锈盔甲，骑上驽骍难得，悄悄出发。他来到一家旅店——在他眼中这是一座城堡——请店主为他"封授"骑士称号。店主无奈地在一本账册上念完假经文，让两个妓女为他佩剑，仪式荒诞又感人。随后他遭遇了最著名的场景：田野中的三十多架风车，被他认定为巨人，挺枪冲了上去——枪头卡在风车叶片中，他被甩飞到半空中。桑丘·潘沙在旁边喊着："我不是跟您说过那是风车吗？"堂吉诃德擦着脸上的泥土说："一定是法师弗里亚斯把巨人变成了风车。"</div></div>
+<div class="timeline-item"><div class="timeline-year">第一卷 · 旅店与羊群</div><div class="timeline-title">被愚弄的骑士</div><div class="timeline-text">堂吉诃德把羊群当成两支交战的军队，冲进去乱刺一通，被牧羊人用石子打掉了几颗牙。夜晚在一家旅店（他眼中另一座城堡）中，一位女仆摸错了房间爬到他的床上，他以为是一位公主前来示爱——混乱中演变成一场大混战。最后他被"施了魔法"——实际上是被同村人装进牛笼，关在牛车上运回家中。他的外甥女和管家婆烧掉了他的骑士书，用砖头堵上了他的书房门，告诉他"法师把书房搬走了"。</div></div>
+<div class="timeline-item"><div class="timeline-year">第二卷 · 公爵的恶作剧</div><div class="timeline-title">桑丘的岛屿</div><div class="timeline-text">第二卷中，堂吉诃德的名声已经传开。公爵夫妇为了取乐，将他们请进城堡，假装相信堂吉诃德是真正的骑士，安排了一系列恶作剧。最精彩的是"桑丘的总督体验"——公爵将一个村庄伪装成岛屿，让桑丘去当总督。桑丘上任后断案公正、妙语连珠，但第七天就被"敌军"的假进攻吓得逃回了公爵府。他在堂吉诃德面前说："我生来不是当总督的料——我宁可靠双脚走路，也不想被人抬着昏头转向。"这是全书中桑丘最闪光的时刻。</div></div>
+<div class="timeline-item"><div class="timeline-year">落幕 · 清醒与死亡</div><div class="timeline-title">最后的骑士</div><div class="timeline-text">在巴塞罗那，白月骑士（同村大学生卡拉斯科假扮）在决斗中击败堂吉诃德，命令他回家。堂吉诃德遵守骑士规则，返乡后发了一场高烧。在病床上他突然清醒了："我以前是个疯子。现在，感谢上帝的慈悲，我恢复理智了。"他立下遗嘱——将遗产分给桑丘——然后安静地死去。塞万提斯用一种令人心碎的平静结束了这个故事。"他得到了最后的安息——摆脱了他的疯狂，摆脱了他的虔诚，摆脱了这个世界。"</div></div>
+</div></section>
+
+<div class="quote-divider reveal"><blockquote>自由是上天赐予人类最宝贵的礼物之一；<br>关在笼子里的金丝雀，不如在田野上自由飞翔的乌鸦。</blockquote><cite>— 堂吉诃德对桑丘谈论自由</cite></div>
+
+<section class="section"><div class="reveal"><div class="section-tag">Characters</div><h2 class="section-title">疯癫与智慧的面孔</h2></div><div class="char-grid">
+<div class="char-card"><div class="char-name">堂吉诃德</div><div class="char-role">拉曼查的骑士</div><div class="char-desc">他是文学史上最矛盾的角色——一个可笑的人和一个伟大的人在同一个身体里。他瘦骨嶙峋、年过半百，却自封骑士游侠。他把世界改造成自己能理解的样子：风车是巨人，旅店是城堡，村姑是公主。但当他谈论诗歌、自由、正义的时候，他的话语充满智慧。塞万提斯创造的不仅是一个疯癫的老头——他创造了那个在每一个时代都会出现的、拒绝接受平庸世界的理想主义者。</div></div>
+<div class="char-card"><div class="char-name">桑丘·潘沙</div><div class="char-role">忠实的侍从</div><div class="char-desc">他是堂吉诃德的影子——矮胖、务实、贪吃、爱说谚语。他跟着主人不是为了荣耀，而是为了一个虚无缥缈的"岛屿总督"的承诺。但在漫长的旅程中，他逐渐爱上了这个疯老头。他深知堂吉诃德的荒唐，却始终没有丢下他。当他作为"总督"断案如神时，他展现出了超越阶级的智慧。堂吉诃德需要桑丘——因为桑丘是他在这个世界上的锚，是他与现实之间唯一的连接。</div></div>
+<div class="char-card"><div class="char-name">杜尔西内娅</div><div class="char-role">想象中的公主</div><div class="char-desc">她的真名是阿尔东萨·洛伦佐——一个粗壮的村姑，胸口长着汗毛，能扛起一袋麦子。但在堂吉诃德眼中，她是"杜尔西内娅·德尔·托博索"，世界上最美的公主。她至始至终没有在故事中真正现身——她只存在于堂吉诃德的想象中。这恰恰是塞万提斯最绝妙的讽刺：堂吉诃德为之战斗的"爱情"，是一个完全虚构的对象。但这也最动人——因为他真心地相信着。</div></div>
+<div class="char-card"><div class="char-name">参孙·卡拉斯科</div><div class="char-role">同村大学生</div><div class="char-desc">他是理性的化身，也是塞万提斯对"清醒"的冷峻态度。卡拉斯科两次假扮骑士——镜骑士和白月骑士——试图用堂吉诃德的语言打败他，迫使他回家。他成功了，但成功之后呢？堂吉诃德醒了，他意识到自己是个糟老头子，然后他死了。卡拉斯科的手段是善意的，但善意能不能成为打破别人美好幻觉的理由？塞万提斯没有给出简单的答案。</div></div>
+<div class="char-card"><div class="char-name">公爵夫妇</div><div class="char-role">贵族的残忍</div><div class="char-desc">第二卷中最黑暗的角色。公爵和公爵夫人用恶作剧招待堂吉诃德和桑丘——他们不是恶人，只是无聊。他们用残忍的玩笑消磨了漫长的午后时光。他们把桑丘放在"岛屿"上给予他权力，桑丘做到了公正——这反而映照出公爵夫妇自身的虚伪。塞万提斯通过他们批判了贵族的冷漠：他们或许不杀人，但他们以他人的尊严为乐。</div></div>
+<div class="char-card"><div class="char-name">阿尔东萨·洛伦佐</div><div class="char-role">被爱而不自知</div><div class="char-desc">她是那个被堂吉诃德选为"公主"的村姑。她毫不知情，也从不在乎。当堂吉诃德派桑丘去送情书时，桑丘发现她在田里筛麦子。桑丘跪下来说"您就是杜尔西内娅公主"，她举起筛子打了他一下。这个场景是塞万提斯式讽刺的完美缩影：最崇高的事物和最卑微的现实发生碰撞，碰撞出来的不是悲剧，而是笑声——但笑声中有温柔。</div></div>
+</div></section>
+
+<div class="quote-divider reveal"><blockquote>桑丘，你要明白，在这个世界上，<br>人们不是因为事物本身是好的而追求它，<br>而是因为人们错误地以为它是好的。</blockquote><cite>— 堂吉诃德对桑丘谈论荣誉</cite></div>
+
+<section class="section"><div class="reveal"><div class="section-tag">Themes</div><h2 class="section-title">笑中带泪的永恒</h2></div><div class="theme-list">
+<div class="theme-item"><div class="theme-icon">🎭</div><div class="theme-theme"><div class="theme-name">理想与现实</div><div class="theme-text">《堂吉诃德》的核心张力在于堂吉诃德看到的世界与他人看到的世界完全不同。风车是风车还是巨人？旅店是旅店还是城堡？塞万提斯不给出答案——他让堂吉诃德在被打得鼻青脸肿后依然爬起来。这不仅仅是一个疯子的故事，而是一个关于信念的寓言：现实到底是由什么构成的？是物理事实，还是我们选择相信的东西？</div></div></div>
+<div class="theme-item"><div class="theme-icon">😄</div><div class="theme-theme"><div class="theme-name">笑的哲学</div><div class="theme-text">塞万提斯用笑声包裹了最严肃的主题。堂吉诃德的冒险让人捧腹，但笑完之后，心里留下的不是轻蔑，而是一种奇特的温暖。为什么我们嘲笑一个善良的疯子？因为在他身上我们看到了自己的影子——每一个不被理解的人、每一个与风车作战的理想主义者。《堂吉诃德》教会我们：笑，可以是一种最温柔的认同。</div></div></div>
+<div class="theme-item"><div class="theme-icon">📖</div><div class="theme-theme"><div class="theme-name">虚构与现实</div><div class="theme-text">《堂吉诃德》是关于"小说"本身的小说——它是现代元叙事(metafiction)的鼻祖。第二卷中的人物已经读过第一卷，堂吉诃德本人在故事中遇到了阅读他故事的人。塞万提斯甚至让一个假续作的作者阿维利亚内达出现在书中，堂吉诃德和桑丘愤怒地驳斥那本仿作中的冒牌货。塞万提斯在告诉他那个时代也告诉我们：虚构是关于世界的讨论，而不是对世界的逃避。</div></div></div>
+<div class="theme-item"><div class="theme-icon">🧠</div><div class="theme-theme"><div class="theme-name">清醒与疯癫的边界</div><div class="theme-text">堂吉诃德在大多数事情上完全理智——他谈吐斯文、博学善辩——只有在谈到骑士道时才会"疯"。疯癫成为他抵抗平庸世界的方式。当他最终"清醒"过来时，他做的第一件事是立遗嘱、安排后事——他准备好死了。塞万提斯提出了一个惊人的命题：有时候，疯癫比清醒更接近生命的本质。当世界不值得认真对待时，疯狂可能是最高形式的理智。</div></div></div>
+<div class="theme-item"><div class="theme-icon">🤝</div><div class="theme-theme"><div class="theme-name">友谊的悖论</div><div class="theme-text">堂吉诃德和桑丘之间的关系是文学史上最伟大的友谊之一。他们不是平等的人——一个是疯癫贵族，一个是贪吃农民。但他们在一起走过了漫长的路：堂吉诃德给了桑丘做梦的勇气，桑丘给了堂吉诃德踩在地上的双脚。当堂吉诃德临终时，桑丘哭着说："您不要死啊，我求您了……也许我们下一次遇到的不是风车，而是真正的巨人。"</div></div></div>
+</div></section>
+
+<div class="quote-divider reveal"><blockquote>我生来就是要活着——<br>我要么轰轰烈烈地死，要么开开心心地活。<br>一个人如果连想象都不被允许，<br>活着还有什么意思？</blockquote><cite>— 堂吉诃德</cite></div>
+
+<section class="closing reveal"><h2>他的疯癫，是他的尊严</h2><p>堂吉诃德是在一个失去了神话的时代，<br>执意要成为骑士的人。<br><br>他知道风车是风车——但他选择看到巨人。<br>他知道阿尔东萨是村姑——但他选择看见公主。<br>他知道自己是个糟老头子——但他选择成为骑士。<br><br>这不是愚蠢。这是一种比清醒更难的勇敢。<br>是因为看清了世界的平庸，<br>所以决定用想象把它变得值得活下去。<br><br>堂吉诃德败给了现实，但他没有输。<br>因为在他倒下的地方，<br>一个理想主义者曾经站立过。<br><br><em style="color:#5a4a3a;">"我是堂吉诃德·德·拉曼查——<br>即使全世界的风车都是风车，<br>我也相信其中有一个是巨人。"</em></p><div class="closing-line"></div><p style="margin-top:2rem;font-size:.8rem;color:#3a2a1a;">塞万提斯 · 1547–1616 · 现代小说之父</p></section>
+
+<script>
+const canvas=document.getElementById('particles'),ctx=canvas.getContext('2d');let particles=[];const COUNT=50;
+function resize(){canvas.width=innerWidth;canvas.height=innerHeight}resize();addEventListener('resize',resize);
+class Particle{constructor(){this.reset()}reset(){this.x=Math.random()*canvas.width;this.y=Math.random()*canvas.height;this.size=Math.random()*2+.3;this.speedX=(Math.random()-.5)*.1;this.speedY=(Math.random()-.5)*.1;this.opacity=Math.random()*.4+.05}update(){this.x+=this.speedX;this.y+=this.speedY;if(this.x<0||this.x>canvas.width)this.speedX*=-1;if(this.y<0||this.y>canvas.height)this.speedY*=-1}draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fillStyle='rgba(200,180,160,'+this.opacity+')';ctx.fill()}}
+for(let i=0;i<COUNT;i++)particles.push(new Particle);
+function animate(){ctx.clearRect(0,0,canvas.width,canvas.height);particles.forEach(p=>{p.update();p.draw()});for(let i=0;i<particles.length;i++){for(let j=i+1;j<particles.length;j++){const dx=particles[i].x-particles[j].x,dy=particles[i].y-particles[j].y,dist=Math.sqrt(dx*dx+dy*dy);if(dist<120){ctx.beginPath();ctx.moveTo(particles[i].x,particles[i].y);ctx.lineTo(particles[j].x,particles[j].y);ctx.strokeStyle='rgba(200,180,160,'+(.03*(1-dist/120))+')';ctx.lineWidth=.3;ctx.stroke()}}}requestAnimationFrame(animate)}animate();
+const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add('visible')})},{threshold:.08});
+document.querySelectorAll('.reveal,.timeline-item,.char-card,.theme-item').forEach(el=>observer.observe(el));
+</script></body></html>

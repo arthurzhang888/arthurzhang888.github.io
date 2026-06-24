@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>神曲 · 灵魂的旅程</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Noto+Serif+SC:wght@300;400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #080608; color: #d4cfc8; font-family: 'Noto Serif SC', 'Cinzel', serif; overflow-x: hidden; }
+  #particles { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: .5; }
+  .hero { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 2rem; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 20%, rgba(80,20,20,.4) 0%, transparent 60%), radial-gradient(ellipse at 70% 50%, rgba(20,20,80,.3) 0%, transparent 60%), radial-gradient(ellipse at 40% 80%, rgba(80,80,20,.2) 0%, transparent 50%); z-index: -1; }
+  .hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 200px; background: linear-gradient(to top, rgba(8,6,8,1), transparent); z-index: -1; }
+  .hero-badge { font-family: 'Cormorant Garamond', serif; font-size: .85rem; letter-spacing: .6em; color: #c8b8a0; text-transform: uppercase; margin-bottom: 1.5rem; animation: fadeUp 1.5s ease both; }
+  .hero h1 { font-family: 'Cinzel', serif; font-size: clamp(2.5rem,8vw,6rem); font-weight: 700; letter-spacing: .08em; background: linear-gradient(135deg,#c8a060 0%,#6a2040 30%,#8a4060 60%,#c8a060 100%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.1; animation: fadeUp 1.5s .2s ease both; }
+  .hero-sub { font-family: 'Cormorant Garamond', serif; font-size: clamp(1rem,2vw,1.6rem); font-weight: 300; font-style: italic; color: #b8a898; margin-top: .5rem; letter-spacing: .3em; animation: fadeUp 1.5s .35s ease both; }
+  .hero-author { font-size: .9rem; color: #9a8a7a; margin-top: .3rem; letter-spacing: .2em; animation: fadeUp 1.5s .5s ease both; }
+  .hero-quote { margin-top: 3rem; font-size: clamp(1rem,1.8vw,1.3rem); font-style: italic; color: #b8a898; max-width: 640px; line-height: 1.9; animation: fadeUp 1.5s .6s ease both; position: relative; padding: 0 1.5rem; }
+  .hero-quote::before { content: '\201C'; font-size: 5rem; position: absolute; top: -2rem; left: -.2rem; color: rgba(106,32,64,.15); font-family: 'Cinzel', serif; }
+  .scroll-indicator { margin-top: 4rem; width: 1px; height: 50px; background: linear-gradient(to bottom, #4a2a3a, transparent); animation: pulseDown 2.5s ease-in-out infinite; }
+  .section-divider { position: relative; z-index: 1; height: 2px; max-width: 300px; margin: 0 auto; background: linear-gradient(to right, transparent, rgba(106,32,64,.2), transparent); }
+  .section { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; padding: 5rem 2rem; }
+  .section-tag { font-family: 'Cormorant Garamond', serif; font-size: .75rem; letter-spacing: .5em; color: #b8a898; text-transform: uppercase; margin-bottom: 1.2rem; }
+  .section-title { font-family: 'Cinzel', serif; font-size: clamp(1.8rem,4vw,2.8rem); font-weight: 700; color: #b8a898; margin-bottom: 1rem; line-height: 1.2; letter-spacing: .03em; }
+  .section-desc { color: #9a8a7a; line-height: 2; font-size: 1.02rem; margin-bottom: 2.5rem; }
+  .reveal { opacity: 0; transform: translateY(40px); transition: all .9s cubic-bezier(.4,0,.2,1); }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .timeline { position: relative; padding-left: 2.8rem; }
+  .timeline::before { content: ''; position: absolute; left: .7rem; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, rgba(106,32,64,.2), transparent); }
+  .timeline-item { position: relative; margin-bottom: 3rem; padding-left: 1.5rem; opacity: 0; transform: translateX(-20px); transition: all .7s ease; }
+  .timeline-item.visible { opacity: 1; transform: translateX(0); }
+  .timeline-item::before { content: ''; position: absolute; left: -2.4rem; top: .5rem; width: 10px; height: 10px; border-radius: 50%; background: #6a2040; border: 2px solid #2a0a1a; box-shadow: 0 0 15px rgba(106,32,64,.2); }
+  .timeline-item:nth-child(1)::before { background: #c84040; }
+  .timeline-item:nth-child(2)::before { background: #404080; }
+  .timeline-item:nth-child(3)::before { background: #c8a040; }
+  .timeline-year { font-family: 'Cormorant Garamond', serif; font-size: .8rem; letter-spacing: .15em; color: #b8a898; margin-bottom: .3rem; }
+  .timeline-title { font-size: 1.1rem; font-weight: 700; color: #b8a898; margin-bottom: .5rem; }
+  .timeline-text { color: #b8a898; line-height: 1.9; font-size: .93rem; }
+  .char-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 1.5rem; margin-top: 2rem; }
+  .char-card { background: rgba(255,255,255,.02); border: 1px solid rgba(255,255,255,.04); border-radius: 16px; padding: 1.5rem; transition: all .4s ease; opacity: 0; transform: translateY(20px); }
+  .char-card.visible { opacity: 1; transform: translateY(0); }
+  .char-card:hover { background: rgba(255,255,255,.04); border-color: rgba(150,120,100,.2); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,.4); }
+  .char-name { font-family: 'Cinzel', serif; font-size: 1.1rem; font-weight: 600; color: #b8a898; margin-bottom: .2rem; }
+  .char-role { font-size: .7rem; letter-spacing: .2em; color: #b8a898; text-transform: uppercase; margin-bottom: .7rem; }
+  .char-desc { color: #b8a898; font-size: .88rem; line-height: 1.8; }
+  .theme-list { margin-top: 2rem; }
+  .theme-item { padding: 1.5rem 0; border-bottom: 1px solid rgba(255,255,255,.03); opacity: 0; transform: translateY(15px); transition: all .5s ease; display: flex; gap: 1.5rem; align-items: flex-start; }
+  .theme-item.visible { opacity: 1; transform: translateY(0); }
+  .theme-icon { font-size: 1.8rem; flex-shrink: 0; width: 2.5rem; text-align: center; margin-top: .2rem; }
+  .theme-name { font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 600; color: #b8a898; margin-bottom: .4rem; }
+  .theme-text { color: #b8a898; font-size: .9rem; line-height: 1.8; }
+  .quote-divider { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; padding: 5rem 2rem; text-align: center; }
+  .quote-divider blockquote { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.2rem,2.5vw,1.8rem); font-style: italic; color: #8a7a6a; line-height: 1.9; }
+  .quote-divider cite { display: block; margin-top: 1.5rem; font-size: .85rem; font-style: normal; color: #9a8a7a; letter-spacing: .15em; }
+  .closing { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; padding: 6rem 2rem 8rem; text-align: center; }
+  .closing h2 { font-family: 'Cinzel', serif; font-size: clamp(1.8rem,4vw,3rem); font-weight: 700; background: linear-gradient(135deg,#c8a060,#6a2040); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 2rem; letter-spacing: .05em; }
+  .closing p { color: #b8a898; line-height: 2; font-size: 1.02rem; margin-bottom: 3rem; }
+  .closing-line { width: 80px; height: 1px; background: linear-gradient(to right, transparent, #6a2040, transparent); margin: 0 auto; }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes pulseDown { 0%,100% { opacity:.6; transform:scaleY(1); } 50% { opacity:.2; transform:scaleY(.5); } }
+  .triad-overlay { position: fixed; inset: 0; z-index: 0; pointer-events: none; background: repeating-linear-gradient(0deg, transparent, transparent 80px, rgba(106,32,64,.012) 80px, rgba(106,32,64,.012) 81px), repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(40,40,80,.008) 80px, rgba(40,40,80,.008) 81px); }
+  @media (max-width:640px) { .section { padding:3rem 1.5rem; } .timeline { padding-left:1.8rem; } .char-grid { grid-template-columns:1fr; } }
+</style>
+</head><body>
+<canvas id="particles"></canvas><div class="triad-overlay"></div>
+
+<section class="hero">
+  <div class="hero-badge">Dante Alighieri · 1308–1321</div>
+  <h1>Divine&nbsp;Comedy</h1>
+  <p class="hero-sub">— 神曲 —</p>
+  <p class="hero-author">从地狱到天堂 · 灵魂的朝圣之旅</p>
+  <p class="hero-quote">在人生旅程的中途，<br>我发现自己身处一片幽暗的森林——<br>因为正确的道路已经迷失。<br>啊，要描述那森林是多么艰难，<br>那片荒野、崎岖而令人生畏的森林！</p>
+  <div class="scroll-indicator"></div>
+</section>
+
+<section class="section">
+  <div class="reveal">
+    <div class="section-tag">Synopsis</div>
+    <h2 class="section-title">从地狱到天堂 · 灵魂的朝圣之旅</h2>
+    <p class="section-desc">《神曲》是但丁用意大利语写成的长诗，分为《地狱》《炼狱》《天堂》三篇。三十五岁的但丁在幽暗森林中迷路，古罗马诗人维吉尔的灵魂受贝雅特丽齐之托前来引导他。他们穿越地狱九层——目睹各类罪人承受永恒的惩罚；攀登炼狱山七层——亡魂们在痛苦中洗净罪孽；最后在贝雅特丽齐的引领下飞升九重天——见证圣父圣子圣灵三位一体的至高光辉。这不仅仅是一次灵魂之旅，更是中世纪知识体系、政治理想与柏拉图式爱情的最壮美融合。</p>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<section class="section">
+  <div class="reveal">
+    <div class="section-tag">Timeline</div>
+    <h2 class="section-title">三界之旅 · 灵魂的阶梯</h2>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-year">地狱篇 · Inferno</div>
+      <div class="timeline-title">穿过苦难之门</div>
+      <div class="timeline-text">但丁在黑暗森林中被三只猛兽阻挡去路，维吉尔应贝雅特丽齐之托前来拯救。他们穿过地狱之门——门上铭刻着"进入此门者，请放弃一切希望"——开始向下攀行。地狱呈漏斗形共九层：从第一层林波（未受洗的贤者，包括荷马、苏格拉底）到第九层科奇忒斯冰湖（叛徒犹大、布鲁图斯被撒旦的三张大口咀嚼）。途经第二层（风中的淫欲者——弗兰齐斯嘉和保罗在狂风中紧紧相拥）、第七层（自杀者的荆棘林）、第八层（贪污者的沥青湖）。但丁以血泪写下了人类对罪恶最骇人又最悲悯的想象。</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">炼狱篇 · Purgatorio</div>
+      <div class="timeline-title">从黑暗到光明</div>
+      <div class="timeline-text">黎明时分，维吉尔和但丁从地心攀出，在南半球的炼狱山脚下仰望星空。炼狱山共七层，对应七宗罪。亡魂怀着喜悦接受净化——傲慢者背着巨石弯腰行走，嫉妒者眼皮被铁丝缝合，愤怒者在浓烟中穿行……每一层罪孽被洗净后，天使会在额头擦去一个P字（peccatum, 罪）。山顶的地上乐园中，维吉尔完成了使命——他作为"理性"的代表，只能引导但丁走完人类智慧能到达的极限。贝雅特丽齐乘着仙车降临，斥责但丁的迷途，但丁哭泣忏悔。</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">天堂篇 · Paradiso</div>
+      <div class="timeline-title">凝视至高的光</div>
+      <div class="timeline-text">贝雅特丽齐带领但丁飞升九重天——月球天（未守誓约者）、水星天（追求荣耀者）、金星天（多情者）、太阳天（智慧之师）、火星天（为信仰牺牲者）、木星天（正义之君）、土星天（沉思之修）、恒星天（基督与圣母）、原动天（天使的排列）。最终在净火天——"玫瑰天"——但丁看到了所有被拯救的灵魂组成的白色玫瑰，以及三位一体的至高之光。他的视觉融入了那光中——"在那里，我的头脑被那闪电击中，我的意志和欲望像均匀转动的轮子，被那爱推动——那爱推动太阳和其他的星辰。"</div>
+    </div>
+  </div>
+</section>
+
+<div class="quote-divider reveal">
+  <blockquote>爱，在温柔的心中迅速生根，<br>攫住了我，使我的容颜愉悦难违——<br>你看，它至今仍不肯将我抛弃。<br>爱，把我们引向同一个死亡。</blockquote>
+  <cite>— 弗兰齐斯嘉对但丁讲述她的爱情（地狱第五歌）</cite>
+</div>
+
+<section class="section">
+  <div class="reveal">
+    <div class="section-tag">Characters</div>
+    <h2 class="section-title">引路人与灵魂</h2>
+  </div>
+  <div class="char-grid">
+    <div class="char-card"><div class="char-name">但丁</div><div class="char-role">朝圣者 · 诗人</div><div class="char-desc">他是每一个人——迷路的、恐惧的、渴望的、爱过的、犯了错的人。但丁在诗中既是一个具体的个人（佛罗伦萨流放者、贝雅特丽齐的爱人），也是一个普遍的象征（人类灵魂寻找归途）。他在地狱中昏厥、在炼狱中哭泣、在天堂中目眩——他的脆弱让他真实，他的追问让他伟大。</div></div>
+    <div class="char-card"><div class="char-name">维吉尔</div><div class="char-role">理性的化身</div><div class="char-desc">罗马最伟大的诗人，在《神曲》中代表人类理性所能达到的最高智慧。他带领但丁穿越地狱和炼狱，耐心解答每一个问题，在但丁恐惧时给予勇气。但在炼狱山顶，他悄然离去——因为理性只能把人带到信仰的门前，却无法进入。维吉尔是但丁对古典世界最深情的致敬。</div></div>
+    <div class="char-card"><div class="char-name">贝雅特丽齐</div><div class="char-role">神学的化身 · 永恒之爱</div><div class="char-desc">但丁九岁时初见、终生未能相守的女性。在《神曲》中她升华为神学与神圣之爱的象征。她从天国降下，派维吉尔拯救但丁；在炼狱山顶她严厉责备但丁的迷途，又在天堂中温柔地引导他。贝雅特丽齐是文学史上最伟大的女性意象之一——她不是一个人物，而是但丁对"爱能引领人类抵达神"这一信念的化身。</div></div>
+    <div class="char-card"><div class="char-name">弗兰齐斯嘉</div><div class="char-role">地狱中的永恒恋人</div><div class="char-desc">她只在《神曲》第五歌中出现，却成了全诗最令人难忘的灵魂。她和保罗因阅读亚瑟王传说而坠入情网，被丈夫发现后杀害。在地狱的狂风中，这对恋人永远紧紧相拥。但丁听完她的故事后"昏倒如尸体倒下一般"——这是全诗第一次显示出但丁对被惩罚者的悲悯，也是他对"不该如此残酷"的爱情之悲叹。</div></div>
+    <div class="char-card"><div class="char-name">尤利西斯</div><div class="char-role">求知欲的悲剧</div><div class="char-desc">但丁笔下的尤利西斯不是荷马中的归乡英雄，而是一个被求知欲驱使、越过赫拉克勒斯之柱驶向未知大海的航海者。他在地狱第八层的欺诈者中被火焰包裹。他激励水手们的演说——"你们生来不是为了像野兽一样活着，而是为了追求美德和知识"——是《神曲》中最振奋又最悲壮的话语。但丁在斥责他的僭越的同时，无法掩饰对他的敬意。</div></div>
+    <div class="char-card"><div class="char-name">卢齐菲罗</div><div class="char-role">撒旦 · 地狱之主</div><div class="char-desc">他被冻在科奇忒斯冰湖中，三张面孔、六只翅膀扇出冰风——但丁的撒旦不是火焰中的暴君，而是寒冷中的囚徒。他吞噬着犹大、布鲁图斯和卡西乌斯，他自己也是最悲惨的囚犯。但丁和维吉尔从撒旦身上的毛发攀爬而下，从地心反转方向，看见了南半球的星空——这个画面或许是但丁最伟大的诗学创造：在罪恶的最深处，出口就藏在它的背面。</div></div>
+  </div>
+</section>
+
+<div class="quote-divider reveal">
+  <blockquote>你们生来不是为了像野兽一样活着，<br>而是为了追求美德和知识。</blockquote>
+  <cite>— 尤利西斯对水手们说（地狱第二十六歌）</cite>
+</div>
+
+<section class="section">
+  <div class="reveal">
+    <div class="section-tag">Themes</div>
+    <h2 class="section-title">永恒的三位一体</h2>
+  </div>
+  <div class="theme-list">
+    <div class="theme-item"><div class="theme-icon">✝️</div><div class="theme-theme"><div class="theme-name">罪与赎</div><div class="theme-text">《神曲》是一幅中世纪道德宇宙的完整地图。但丁将罪分为三类：放纵、暴力和欺诈，在三界的结构中精确对应不同的惩罚和净化方式。但令人深思的是，但丁对罪人的态度并非一律谴责——他在地狱中为弗兰齐斯嘉落泪，对尤利西斯暗含敬意，甚至对某些贪婪的教皇也给予了出乎意料的悲悯。对他而言，罪不是标签，而是人类自由意志的悲剧性选择。</div></div></div>
+    <div class="theme-item"><div class="theme-icon">✨</div><div class="theme-theme"><div class="theme-name">爱 · 从尘世到神圣</div><div class="theme-text">但丁的全部诗学根植于一个字——"amore"（爱）。在地狱中，爱是被扭曲的；在炼狱中，爱是被净化的；在天堂中，爱是圆满的。全诗最后一行——"那爱推动太阳和其他的星辰"——将整部史诗收束在一个字上。爱从一场九岁的邂逅开始，最终成为推动宇宙的力量。没有比这更宏大的爱情故事了。</div></div></div>
+    <div class="theme-item"><div class="theme-icon">📜</div><div class="theme-theme"><div class="theme-name">三体结构 · 数字的奥秘</div><div class="theme-text">《神曲》全书一百歌，三篇各三十三歌加序歌。每篇三行押韵(terza rima)，每层三组的对称结构。但丁在形式的每个角落嵌入数字"三"——圣父、圣子、圣灵的象征。这不是装饰，而是信仰的数学化表达：宇宙的真理在结构本身就已被昭示。</div></div></div>
+    <div class="theme-item"><div class="theme-icon">🏛️</div><div class="theme-theme"><div class="theme-name">政教理想</div><div class="theme-text">但丁是佛罗伦萨的政治流放者，他用整部《神曲》写了一份对14世纪意大利政治的血泪控诉。他在炼狱和天堂中多次斥责贪婪的教皇和腐败的教会，将教皇尼各老三世倒栽在地狱的火焰窟中。但丁的理想是政教分离、帝国统一下的世界和平——在《帝政论》和《神曲》中，这一理想被铸成了中世纪政治思想最锋利的剑。</div></div></div>
+    <div class="theme-item"><div class="theme-icon">🌌</div><div class="theme-theme"><div class="theme-name">肉眼所见 · 灵眼所悟</div><div class="theme-text">但丁将托勒密的宇宙体系诗化了。九层地狱对应九重天堂，地心是罪恶的深渊，净火天是神的光辉。但丁旅行的每一步都是向上的——从黑暗到光明，从复杂到纯粹，从语言到沉默。天堂篇对光的描绘不再依赖比喻——因为"语言已无法企及"。《神曲》结束于语言失效之处，但丁的视觉直接融入了神的光。</div></div></div>
+  </div>
+</section>
+
+<div class="quote-divider reveal">
+  <blockquote>我的羽翼无法承受如此高飞，<br>一道闪电击中了我的头脑——<br>我的意志和欲望像均匀转动的轮子，<br>被那爱推动——那爱推动太阳和其他的星辰。</blockquote>
+  <cite>— 但丁，《神曲·天堂篇》终结</cite>
+</div>
+
+<section class="closing reveal">
+  <h2>从黑暗森林到永恒之光</h2>
+  <p>《神曲》是一个人在中年危机中写下的自救之书。<br><br>但丁失去了故乡、失去了爱人、失去了政治理想——<br>他几乎失去了一切。然而他选择用一种不可能的<br>方式来拯救自己：写下宇宙。<br><br>他用三界的旅程回答了三个终极问题：<br>痛苦有什么意义？罪如何被原谅？爱能走多远？<br><br>七百年来，《神曲》一直被阅读，因为每个人<br>都在某一段旅程的"中途"——<br>迷失在属于自己的黑暗森林里。<br>而但丁说：不要害怕。走下去。光在深处。<br><br><em style="color:#4a2a3a;">"进入此门者，请放弃一切希望"——<br>但走过地狱的人，最终会看见星辰。</em></p>
+  <div class="closing-line"></div>
+  <p style="margin-top:2rem; font-size:.8rem; color:#3a1a2a;">但丁 · 1265–1321 · 意大利文学之父</p>
+</section>
+
+<script>
+const canvas=document.getElementById('particles'),ctx=canvas.getContext('2d');let particles=[];const COUNT=55;
+function resize(){canvas.width=innerWidth;canvas.height=innerHeight}resize();addEventListener('resize',resize);
+class Particle{constructor(){this.reset()}reset(){this.x=Math.random()*canvas.width;this.y=Math.random()*canvas.height;this.size=Math.random()*2+.3;this.speedX=(Math.random()-.5)*.12;this.speedY=(Math.random()-.5)*.12;this.opacity=Math.random()*.4+.05}update(){this.x+=this.speedX;this.y+=this.speedY;if(this.x<0||this.x>canvas.width)this.speedX*=-1;if(this.y<0||this.y>canvas.height)this.speedY*=-1}draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fillStyle='rgba(200,180,160,'+this.opacity+')';ctx.fill()}}
+for(let i=0;i<COUNT;i++)particles.push(new Particle);
+function animate(){ctx.clearRect(0,0,canvas.width,canvas.height);particles.forEach(p=>{p.update();p.draw()});for(let i=0;i<particles.length;i++){for(let j=i+1;j<particles.length;j++){const dx=particles[i].x-particles[j].x,dy=particles[i].y-particles[j].y,dist=Math.sqrt(dx*dx+dy*dy);if(dist<120){ctx.beginPath();ctx.moveTo(particles[i].x,particles[i].y);ctx.lineTo(particles[j].x,particles[j].y);ctx.strokeStyle='rgba(200,180,160,'+(.03*(1-dist/120))+')';ctx.lineWidth=.3;ctx.stroke()}}}requestAnimationFrame(animate)}animate();
+const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add('visible')})},{threshold:.08});
+document.querySelectorAll('.reveal,.timeline-item,.char-card,.theme-item').forEach(el=>observer.observe(el));
+</script>
+</body></html>
