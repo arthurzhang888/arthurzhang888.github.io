@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>世界文学 · 海报画廊</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Serif+SC:wght@300;400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box}body{background:#0a0a0f;color:#e8e4de;font-family:"Noto Serif SC","Playfair Display",serif;overflow-x:hidden}#particles{position:fixed;inset:0;z-index:0;pointer-events:none}.header{position:relative;z-index:1;text-align:center;padding:6rem 2rem 3rem}.header h1{font-family:"Playfair Display",serif;font-size:clamp(2.5rem,6vw,5rem);font-weight:700;background:linear-gradient(135deg,#f5e6d3,#c9b39b,#e8d5c0);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.2;animation:fadeUp 1s ease both}.header p{color:#b8a898;font-size:1.1rem;margin-top:1rem;font-family:"Cormorant Garamond",serif;font-style:italic;letter-spacing:.2em;animation:fadeUp 1s .2s ease both}.header .count{display:inline-block;margin-top:1.5rem;padding:.4rem 1.2rem;border:1px solid rgba(200,180,160,.15);border-radius:20px;font-size:.85rem;color:#b8a898;font-family:"Cormorant Garamond",serif;letter-spacing:.15em;animation:fadeUp 1s .4s ease both}.filters{position:relative;z-index:1;display:flex;justify-content:center;gap:.8rem;flex-wrap:wrap;padding:2rem;max-width:800px;margin:0 auto}.filter-btn{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:#b8a898;padding:.5rem 1.2rem;border-radius:24px;cursor:pointer;font-size:.9rem;transition:all .3s ease}.filter-btn:hover{background:rgba(255,255,255,.08);color:#e8d5c0}.filter-btn.active{background:rgba(200,180,160,.12);border-color:#c9a87c;color:#f0e6d8}.search-wrap{position:relative;z-index:1;max-width:400px;margin:0 auto 2rem;padding:0 2rem}.search-wrap input{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:#e8e4de;padding:.8rem 1.2rem .8rem 2.8rem;border-radius:24px;font-size:.9rem;font-family:"Noto Serif SC",serif;outline:none}.search-wrap input:focus{border-color:#c9a87c}.search-wrap input::placeholder{color:#5a4a3a}.search-icon{position:absolute;left:2.8rem;top:50%;transform:translateY(-50%);color:#5a4a3a;font-size:.9rem;pointer-events:none}.grid{position:relative;z-index:1;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:2rem;max-width:1400px;margin:0 auto;padding:1rem 2rem 4rem}.card{text-decoration:none;color:inherit;display:flex;flex-direction:column;border-radius:16px;overflow:hidden;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);transition:all .5s cubic-bezier(.4,0,.2,1);opacity:0;transform:translateY(30px)}.card.visible{animation:fadeUp .6s ease forwards}.card:hover{transform:translateY(-8px);border-color:rgba(200,180,160,.25);box-shadow:0 20px 60px rgba(0,0,0,.5)}.card-img-wrap{width:100%;aspect-ratio:3/4;overflow:hidden;background:#0a0a0f}.card-img-wrap img{width:100%;height:100%;object-fit:cover;transition:all .6s ease}.card:hover .card-img-wrap img{transform:scale(1.05)}.card-info{padding:1.2rem 1.2rem 1.5rem}.card-title{font-size:1.1rem;font-weight:700;color:#f0e6d8;margin-bottom:.2rem;line-height:1.3}.card-en{font-family:"Cormorant Garamond",serif;font-size:.85rem;font-style:italic;color:#b8a898;margin-bottom:.5rem}.card-author{font-size:.8rem;color:#c8b8a0;margin-bottom:.4rem}.card-tagline{font-size:.75rem;color:#7a6a5a;line-height:1.5;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}.no-results{grid-column:1/-1;text-align:center;padding:4rem 2rem;color:#5a4a3a;font-family:"Cormorant Garamond",serif;font-style:italic;font-size:1.3rem}.footer{text-align:center;padding:3rem 2rem;color:#3a2a1a;font-size:.8rem;font-family:"Cormorant Garamond",serif;letter-spacing:.15em}@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}@media(max-width:600px){.grid{grid-template-columns:repeat(2,1fr);gap:1rem;padding:1rem}.header{padding:4rem 1rem 2rem}.card-info{padding:.8rem}.card-title{font-size:.9rem}.card-en{font-size:.7rem}.card-tagline{display:none}}</style>
+</head>
+<body>
+<canvas id="particles"></canvas>
+<header class="header">
+  <h1>世界文学 · 海报画廊</h1>
+  <p>98 部不朽名著 · 一页尽览</p>
+  <div class="count">📚 共 98 部作品</div>
+</header>
+<div class="filters" id="filters">
+  <button class="filter-btn active" data-filter="all">全部 (98)</button>
+  <button class="filter-btn" data-filter="欧美">🌍 欧美 (32)</button>
+  <button class="filter-btn" data-filter="中国">🏮 中国 (34)</button>
+  <button class="filter-btn" data-filter="日本">🌸 日本 (32)</button>
+</div>
+<div class="search-wrap">
+  <span class="search-icon">🔍</span>
+  <input type="text" id="search" placeholder="搜索书名、作者…" autocomplete="off">
+</div>
+<div class="grid" id="grid">
+<a href="book_dream-red-chamber.html" class="card" data-region="中国" style="animation-delay:0s">
+  <div class="card-img-wrap"><img src="poster_hongloumeng.png" alt="红楼梦" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">红楼梦</h3>
+    <p class="card-en">Dream of the Red Chamber</p>
+    <p class="card-author">🏮 Cao Xueqin · 曹雪芹</p>
+    
+  </div>
+</a>
+<a href="book_white-deer-plain.html" class="card" data-region="中国" style="animation-delay:0.03s">
+  <div class="card-img-wrap"><img src="poster_bailuyuan.png" alt="白鹿原" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">白鹿原</h3>
+    <p class="card-en">White Deer Plain</p>
+    <p class="card-author">🏮 Chen Zhongshi · 陈忠实</p>
+    
+  </div>
+</a>
+<a href="book_border-town.html" class="card" data-region="中国" style="animation-delay:0.06s">
+  <div class="card-img-wrap"><img src="poster_biancheng.png" alt="边城" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">边城</h3>
+    <p class="card-en">Border Town</p>
+    <p class="card-author">🏮 Shen Congwen · 沈从文</p>
+    
+  </div>
+</a>
+<a href="book_to-live.html" class="card" data-region="中国" style="animation-delay:0.09s">
+  <div class="card-img-wrap"><img src="poster_huozhe.png" alt="活着" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">活着</h3>
+    <p class="card-en">To Live</p>
+    <p class="card-author">🏮 Yu Hua · 余华</p>
+    
+  </div>
+</a>
+<a href="book_family.html" class="card" data-region="中国" style="animation-delay:0.12s">
+  <div class="card-img-wrap"><img src="poster_jia.png" alt="家" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">家</h3>
+    <p class="card-en">The Family</p>
+    <p class="card-author">🏮 Ba Jin · 巴金</p>
+    
+  </div>
+</a>
+<a href="book_rickshaw-boy.html" class="card" data-region="中国" style="animation-delay:0.15s">
+  <div class="card-img-wrap"><img src="poster_luotuoxiangzi.png" alt="骆驼祥子" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">骆驼祥子</h3>
+    <p class="card-en">Rickshaw Boy</p>
+    <p class="card-author">🏮 Lao She · 老舍</p>
+    
+  </div>
+</a>
+<a href="book_fallen-city.html" class="card" data-region="中国" style="animation-delay:0.18s">
+  <div class="card-img-wrap"><img src="poster_qingchengzhilian.png" alt="倾城之恋" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">倾城之恋</h3>
+    <p class="card-en">Love in a Fallen City</p>
+    <p class="card-author">🏮 Zhang Ailing · 张爱玲</p>
+    
+  </div>
+</a>
+<a href="book_scholars.html" class="card" data-region="中国" style="animation-delay:0.21s">
+  <div class="card-img-wrap"><img src="poster_rulinwaishi.png" alt="儒林外史" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">儒林外史</h3>
+    <p class="card-en">The Scholars</p>
+    <p class="card-author">🏮 Wu Jingzi · 吴敬梓</p>
+    
+  </div>
+</a>
+<a href="book_three-kingdoms.html" class="card" data-region="中国" style="animation-delay:0.24s">
+  <div class="card-img-wrap"><img src="poster_sanguoyanyi.png" alt="三国演义" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">三国演义</h3>
+    <p class="card-en">Romance of the Three Kingdoms</p>
+    <p class="card-author">🏮 Luo Guanzhong · 罗贯中</p>
+    
+  </div>
+</a>
+<a href="book_water-margin.html" class="card" data-region="中国" style="animation-delay:0.27s">
+  <div class="card-img-wrap"><img src="poster_shuihuzhuan.png" alt="水浒传" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">水浒传</h3>
+    <p class="card-en">Water Margin</p>
+    <p class="card-author">🏮 Shi Nai'an · 施耐庵</p>
+    
+  </div>
+</a>
+<a href="book_fortress-besieged.html" class="card" data-region="中国" style="animation-delay:0.3s">
+  <div class="card-img-wrap"><img src="poster_weicheng.png" alt="围城" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">围城</h3>
+    <p class="card-en">Fortress Besieged</p>
+    <p class="card-author">🏮 Qian Zhongshu · 钱钟书</p>
+    
+  </div>
+</a>
+<a href="book_journey-west.html" class="card" data-region="中国" style="animation-delay:0.33s">
+  <div class="card-img-wrap"><img src="poster_xiyouji.png" alt="西游记" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">西游记</h3>
+    <p class="card-en">Journey to the West</p>
+    <p class="card-author">🏮 Wu Cheng'en · 吴承恩</p>
+    
+  </div>
+</a>
+<a href="book_tao-te-ching.html" class="card" data-region="中国" style="animation-delay:0.36s">
+  <div class="card-img-wrap"><img src="poster_daodejing.png" alt="道德经" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">道德经</h3>
+    <p class="card-en">Tao Te Ching</p>
+    <p class="card-author">🏮 Laozi · 老子</p>
+    
+  </div>
+</a>
+<a href="book_analects.html" class="card" data-region="中国" style="animation-delay:0.39s">
+  <div class="card-img-wrap"><img src="poster_lunyu.png" alt="论语" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">论语</h3>
+    <p class="card-en">The Analects</p>
+    <p class="card-author">🏮 Confucius · 孔子</p>
+    
+  </div>
+</a>
+<a href="book_call-to-arms.html" class="card" data-region="中国" style="animation-delay:0.42s">
+  <div class="card-img-wrap"><img src="poster_gatsby.png" alt="呐喊" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">呐喊</h3>
+    <p class="card-en">Call to Arms</p>
+    <p class="card-author">🏮 Lu Xun · 鲁迅</p>
+    
+  </div>
+</a>
+<a href="book_teahouse.html" class="card" data-region="中国" style="animation-delay:0.45s">
+  <div class="card-img-wrap"><img src="poster_war_peace.png" alt="茶馆" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">茶馆</h3>
+    <p class="card-en">Teahouse</p>
+    <p class="card-author">🏮 Lao She · 老舍</p>
+    
+  </div>
+</a>
+<a href="book_thunderstorm.html" class="card" data-region="中国" style="animation-delay:0.48s">
+  <div class="card-img-wrap"><img src="poster_karamazov.png" alt="雷雨" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">雷雨</h3>
+    <p class="card-en">Thunderstorm</p>
+    <p class="card-author">🏮 Cao Yu · 曹禺</p>
+    
+  </div>
+</a>
+<a href="book_hulan-river.html" class="card" data-region="中国" style="animation-delay:0.51s">
+  <div class="card-img-wrap"><img src="poster_gone_wind.png" alt="呼兰河传" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">呼兰河传</h3>
+    <p class="card-en">Tales of Hulan River</p>
+    <p class="card-author">🏮 Xiao Hong · 萧红</p>
+    
+  </div>
+</a>
+<a href="book_golden-cangue.html" class="card" data-region="中国" style="animation-delay:0.54s">
+  <div class="card-img-wrap"><img src="poster_proust.png" alt="金锁记" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">金锁记</h3>
+    <p class="card-en">The Golden Cangue</p>
+    <p class="card-author">🏮 Zhang Ailing · 张爱玲</p>
+    
+  </div>
+</a>
+<a href="book_lisao.html" class="card" data-region="中国" style="animation-delay:0.57s">
+  <div class="card-img-wrap"><img src="poster_lisao.png" alt="离骚" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">离骚</h3>
+    <p class="card-en">Li Sao</p>
+    <p class="card-author">🏮 Qu Yuan · 屈原</p>
+    
+  </div>
+</a>
+<a href="book_liaozhai.html" class="card" data-region="中国" style="animation-delay:0s">
+  <div class="card-img-wrap"><img src="poster_liaozhai.png" alt="聊斋志异" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">聊斋志异</h3>
+    <p class="card-en">Strange Tales from a Chinese Studio</p>
+    <p class="card-author">🏮 Pu Songling · 蒲松龄</p>
+    
+  </div>
+</a>
+<a href="book_records-historian.html" class="card" data-region="中国" style="animation-delay:0.03s">
+  <div class="card-img-wrap"><img src="poster_shiji.png" alt="史记" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">史记</h3>
+    <p class="card-en">Records of the Grand Historian</p>
+    <p class="card-author">🏮 Sima Qian · 司马迁</p>
+    
+  </div>
+</a>
+<a href="book_300-tang-poems.html" class="card" data-region="中国" style="animation-delay:0.06s">
+  <div class="card-img-wrap"><img src="poster_tangshi.png" alt="唐诗三百首" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">唐诗三百首</h3>
+    <p class="card-en">Three Hundred Tang Poems</p>
+    <p class="card-author">🏮 Sun Zhu · 孙洙</p>
+    
+  </div>
+</a>
+<a href="book_book-of-songs.html" class="card" data-region="中国" style="animation-delay:0.09s">
+  <div class="card-img-wrap"><img src="poster_shijing.png" alt="诗经" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">诗经</h3>
+    <p class="card-en">Book of Songs</p>
+    <p class="card-author">🏮 Anonymous · 佚名</p>
+    
+  </div>
+</a>
+<a href="book_three-body.html" class="card" data-region="中国" style="animation-delay:0.12s">
+  <div class="card-img-wrap"><img src="poster_three_body.png" alt="三体" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">三体</h3>
+    <p class="card-en">The Three-Body Problem</p>
+    <p class="card-author">🏮 Liu Cixin · 刘慈欣</p>
+    <p class="card-tagline">Give civilization to time, not time to civilization</p>
+  </div>
+</a>
+<a href="book_condor-heroes.html" class="card" data-region="中国" style="animation-delay:0.15s">
+  <div class="card-img-wrap"><img src="poster_shediaoyingxiong.png" alt="射雕英雄传" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">射雕英雄传</h3>
+    <p class="card-en">The Legend of the Condor Heroes</p>
+    <p class="card-author">🏮 Jin Yong · 金庸</p>
+    <p class="card-tagline">A true hero serves his country and his people</p>
+  </div>
+</a>
+<a href="book_ordinary-world.html" class="card" data-region="中国" style="animation-delay:0.18s">
+  <div class="card-img-wrap"><img src="poster_pingfandeshijie.png" alt="平凡的世界" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">平凡的世界</h3>
+    <p class="card-en">The Ordinary World</p>
+    <p class="card-author">🏮 Lu Yao · 路遥</p>
+    
+  </div>
+</a>
+<a href="book_dark-night-passing.html" class="card" data-region="日本" style="animation-delay:0.21s">
+  <div class="card-img-wrap"><img src="poster_dark_night.png" alt="暗夜行路" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">暗夜行路</h3>
+    <p class="card-en">Dark Night's Passing</p>
+    <p class="card-author">🌸 Shiga Naoya · 志贺直哉</p>
+    
+  </div>
+</a>
+<a href="book_sound-of-waves.html" class="card" data-region="日本" style="animation-delay:0.24s">
+  <div class="card-img-wrap"><img src="poster_shiosai.png" alt="潮騒" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">潮騒</h3>
+    <p class="card-en">The Sound of Waves</p>
+    <p class="card-author">🌸 Mishima Yukio · 三島由紀夫</p>
+    
+  </div>
+</a>
+<a href="book_shunkin.html" class="card" data-region="日本" style="animation-delay:0.27s">
+  <div class="card-img-wrap"><img src="poster_shunkinsho.png" alt="春琴抄" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">春琴抄</h3>
+    <p class="card-en">A Portrait of Shunkin</p>
+    <p class="card-author">🌸 Tanizaki Junichiro · 谷崎潤一郎</p>
+    
+  </div>
+</a>
+<a href="book_hell-screen.html" class="card" data-region="日本" style="animation-delay:0.3s">
+  <div class="card-img-wrap"><img src="poster_jigokuhen.png" alt="地獄変" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">地獄変</h3>
+    <p class="card-en">Hell Screen</p>
+    <p class="card-author">🌸 Akutagawa Ryunosuke · 芥川龍之介</p>
+    
+  </div>
+</a>
+<a href="book_confessions-of-a-mask.html" class="card" data-region="日本" style="animation-delay:0.33s">
+  <div class="card-img-wrap"><img src="poster_kamen.png" alt="仮面の告白" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">仮面の告白</h3>
+    <p class="card-en">Confessions of a Mask</p>
+    <p class="card-author">🌸 Mishima Yukio · 三島由紀夫</p>
+    
+  </div>
+</a>
+<a href="book_hojoki.html" class="card" data-region="日本" style="animation-delay:0.36s">
+  <div class="card-img-wrap"><img src="poster_hojoki.png" alt="方丈記" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">方丈記</h3>
+    <p class="card-en">Hōjōki</p>
+    <p class="card-author">🌸 Kamo no Chomei · 鴨長明</p>
+    
+  </div>
+</a>
+<a href="book_botchan.html" class="card" data-region="日本" style="animation-delay:0.39s">
+  <div class="card-img-wrap"><img src="poster_botchan.png" alt="坊っちゃん" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">坊っちゃん</h3>
+    <p class="card-en">Botchan</p>
+    <p class="card-author">🌸 Natsume Soseki · 夏目漱石</p>
+    
+  </div>
+</a>
+<a href="book_takasebune.html" class="card" data-region="日本" style="animation-delay:0.42s">
+  <div class="card-img-wrap"><img src="poster_takasebune.png" alt="高瀬舟" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">高瀬舟</h3>
+    <p class="card-en">Takasebune</p>
+    <p class="card-author">🌸 Mori Ogai · 森鴎外</p>
+    
+  </div>
+</a>
+<a href="book_old-capital.html" class="card" data-region="日本" style="animation-delay:0.45s">
+  <div class="card-img-wrap"><img src="poster_koto.png" alt="古都" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">古都</h3>
+    <p class="card-en">The Old Capital</p>
+    <p class="card-author">🌸 Kawabata Yasunari · 川端康成</p>
+    
+  </div>
+</a>
+<a href="book_golden-pavilion.html" class="card" data-region="日本" style="animation-delay:0.48s">
+  <div class="card-img-wrap"><img src="poster_kinkakuji.png" alt="金閣寺" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">金閣寺</h3>
+    <p class="card-en">The Temple of the Golden Pavilion</p>
+    <p class="card-author">🌸 Mishima Yukio · 三島由紀夫</p>
+    
+  </div>
+</a>
+<a href="book_rashomon.html" class="card" data-region="日本" style="animation-delay:0.51s">
+  <div class="card-img-wrap"><img src="poster_rashomon.png" alt="羅生門" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">羅生門</h3>
+    <p class="card-en">Rashōmon</p>
+    <p class="card-author">🌸 Akutagawa Ryunosuke · 芥川龍之介</p>
+    <p class="card-tagline">Under the Rashomon gate, in the rain</p>
+  </div>
+</a>
+<a href="book_lemon.html" class="card" data-region="日本" style="animation-delay:0.54s">
+  <div class="card-img-wrap"><img src="poster_lemon.png" alt="檸檬" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">檸檬</h3>
+    <p class="card-en">Lemon</p>
+    <p class="card-author">🌸 Kajii Motojiro · 梶井基次郎</p>
+    
+  </div>
+</a>
+<a href="book_no-longer-human.html" class="card" data-region="日本" style="animation-delay:0.57s">
+  <div class="card-img-wrap"><img src="poster_ningen.png" alt="人間失格" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">人間失格</h3>
+    <p class="card-en">No Longer Human</p>
+    <p class="card-author">🌸 Dazai Osamu · 太宰治</p>
+    <p class="card-tagline">I have lost the right to call myself a human being</p>
+  </div>
+</a>
+<a href="book_woman-in-dunes.html" class="card" data-region="日本" style="animation-delay:0s">
+  <div class="card-img-wrap"><img src="poster_sand_woman.png" alt="砂の女" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">砂の女</h3>
+    <p class="card-en">The Woman in the Dunes</p>
+    <p class="card-author">🌸 Abe Kobo · 安部公房</p>
+    
+  </div>
+</a>
+<a href="book_tsurezuregusa.html" class="card" data-region="日本" style="animation-delay:0.03s">
+  <div class="card-img-wrap"><img src="poster_tsurezuregusa.png" alt="徒然草" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">徒然草</h3>
+    <p class="card-en">Essays in Idleness</p>
+    <p class="card-author">🌸 Yoshida Kenko · 吉田兼好</p>
+    
+  </div>
+</a>
+<a href="book_i-am-a-cat.html" class="card" data-region="日本" style="animation-delay:0.06s">
+  <div class="card-img-wrap"><img src="poster_wagahaineko.png" alt="吾輩は猫である" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">吾輩は猫である</h3>
+    <p class="card-en">I Am a Cat</p>
+    <p class="card-author">🌸 Natsume Soseki · 夏目漱石</p>
+    <p class="card-tagline">I am a cat. I have no name yet.</p>
+  </div>
+</a>
+<a href="book_maihime.html" class="card" data-region="日本" style="animation-delay:0.09s">
+  <div class="card-img-wrap"><img src="poster_maihime.png" alt="舞姫" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">舞姫</h3>
+    <p class="card-en">The Dancing Girl</p>
+    <p class="card-author">🌸 Mori Ogai · 森鴎外</p>
+    
+  </div>
+</a>
+<a href="book_makioka-sisters.html" class="card" data-region="日本" style="animation-delay:0.12s">
+  <div class="card-img-wrap"><img src="poster_sasameyuki.png" alt="細雪" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">細雪</h3>
+    <p class="card-en">The Makioka Sisters</p>
+    <p class="card-author">🌸 Tanizaki Junichiro · 谷崎潤一郎</p>
+    
+  </div>
+</a>
+<a href="book_setting-sun.html" class="card" data-region="日本" style="animation-delay:0.15s">
+  <div class="card-img-wrap"><img src="poster_shayo.png" alt="斜陽" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">斜陽</h3>
+    <p class="card-en">The Setting Sun</p>
+    <p class="card-author">🌸 Dazai Osamu · 太宰治</p>
+    
+  </div>
+</a>
+<a href="book_snow-country.html" class="card" data-region="日本" style="animation-delay:0.18s">
+  <div class="card-img-wrap"><img src="poster_yukiguni.png" alt="雪国" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">雪国</h3>
+    <p class="card-en">Snow Country</p>
+    <p class="card-author">🌸 Kawabata Yasunari · 川端康成</p>
+    <p class="card-tagline">The train came out of the long tunnel into the snow country</p>
+  </div>
+</a>
+<a href="book_izu-dancer.html" class="card" data-region="日本" style="animation-delay:0.21s">
+  <div class="card-img-wrap"><img src="poster_izunodancer.png" alt="伊豆の踊子" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">伊豆の踊子</h3>
+    <p class="card-en">The Izu Dancer</p>
+    <p class="card-author">🌸 Kawabata Yasunari · 川端康成</p>
+    
+  </div>
+</a>
+<a href="book_in-praise-of-shadows.html" class="card" data-region="日本" style="animation-delay:0.24s">
+  <div class="card-img-wrap"><img src="poster_inyoraisan.png" alt="陰翳礼讃" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">陰翳礼讃</h3>
+    <p class="card-en">In Praise of Shadows</p>
+    <p class="card-author">🌸 Tanizaki Junichiro · 谷崎潤一郎</p>
+    
+  </div>
+</a>
+<a href="book_galactic-railroad.html" class="card" data-region="日本" style="animation-delay:0.27s">
+  <div class="card-img-wrap"><img src="poster_gingatetsudo.png" alt="銀河鉄道の夜" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">銀河鉄道の夜</h3>
+    <p class="card-en">Night on the Galactic Railroad</p>
+    <p class="card-author">🌸 Miyazawa Kenji · 宮沢賢治</p>
+    
+  </div>
+</a>
+<a href="book_tale-of-genji.html" class="card" data-region="日本" style="animation-delay:0.3s">
+  <div class="card-img-wrap"><img src="poster_genjimonogatari.png" alt="源氏物語" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">源氏物語</h3>
+    <p class="card-en">The Tale of Genji</p>
+    <p class="card-author">🌸 Murasaki Shikibu · 紫式部</p>
+    <p class="card-tagline">The shining prince, born of a concubine</p>
+  </div>
+</a>
+<a href="book_pillow-book.html" class="card" data-region="日本" style="animation-delay:0.33s">
+  <div class="card-img-wrap"><img src="poster_makuranosoushi.png" alt="枕草子" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">枕草子</h3>
+    <p class="card-en">The Pillow Book</p>
+    <p class="card-author">🌸 Sei Shonagon · 清少納言</p>
+    
+  </div>
+</a>
+<a href="book_spider-thread.html" class="card" data-region="日本" style="animation-delay:0.36s">
+  <div class="card-img-wrap"><img src="poster_kumonoito.png" alt="蜘蛛の糸" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">蜘蛛の糸</h3>
+    <p class="card-en">The Spider's Thread</p>
+    <p class="card-author">🌸 Akutagawa Ryunosuke · 芥川龍之介</p>
+    
+  </div>
+</a>
+<a href="book_restaurant-orders.html" class="card" data-region="日本" style="animation-delay:0.39s">
+  <div class="card-img-wrap"><img src="poster_chumon.png" alt="注文の多い料理店" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">注文の多い料理店</h3>
+    <p class="card-en">The Restaurant of Many Orders</p>
+    <p class="card-author">🌸 Miyazawa Kenji · 宮沢賢治</p>
+    
+  </div>
+</a>
+<a href="book_run-melos.html" class="card" data-region="日本" style="animation-delay:0.42s">
+  <div class="card-img-wrap"><img src="poster_hashiremerosu.png" alt="走れメロス" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">走れメロス</h3>
+    <p class="card-en">Run, Melos!</p>
+    <p class="card-author">🌸 Dazai Osamu · 太宰治</p>
+    
+  </div>
+</a>
+<a href="book_kokoro.html" class="card" data-region="日本" style="animation-delay:0.45s">
+  <div class="card-img-wrap"><img src="poster_kokoro.png" alt="こころ" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">こころ</h3>
+    <p class="card-en">Kokoro</p>
+    <p class="card-author">🌸 Natsume Soseki · 夏目漱石</p>
+    <p class="card-tagline">The heart - what is it?</p>
+  </div>
+</a>
+<a href="book_norwegian-wood.html" class="card" data-region="日本" style="animation-delay:0.48s">
+  <div class="card-img-wrap"><img src="poster_norwegian_wood.png" alt="ノルウェイの森" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">ノルウェイの森</h3>
+    <p class="card-en">Norwegian Wood</p>
+    <p class="card-author">🌸 Murakami Haruki · 村上春樹</p>
+    <p class="card-tagline">Death is not the opposite of life but a part of it</p>
+  </div>
+</a>
+<a href="book_naomi.html" class="card" data-region="日本" style="animation-delay:0.51s">
+  <div class="card-img-wrap"><img src="poster_naomi.png" alt="痴人の愛" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">痴人の愛</h3>
+    <p class="card-en">Naomi</p>
+    <p class="card-author">🌸 Tanizaki Junichiro · 谷崎潤一郎</p>
+    
+  </div>
+</a>
+<a href="book_chrysanthemum-grave.html" class="card" data-region="日本" style="animation-delay:0.54s">
+  <div class="card-img-wrap"><img src="poster_nogiku.png" alt="野菊の墓" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">野菊の墓</h3>
+    <p class="card-en">Chrysanthemum Grave</p>
+    <p class="card-author">🌸 Ito Sachio · 伊藤左千夫</p>
+    
+  </div>
+</a>
+<a href="book_nineteen-eighty-four.html" class="card" data-region="欧美" style="animation-delay:0.57s">
+  <div class="card-img-wrap"><img src="poster_nineteen_eighty_four.png" alt="1984" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">1984</h3>
+    <p class="card-en">Nineteen Eighty-Four</p>
+    <p class="card-author">🌍 George Orwell · 乔治·奥威尔</p>
+    <p class="card-tagline">Big Brother is watching you</p>
+  </div>
+</a>
+<a href="book_anna-karenina.html" class="card" data-region="欧美" style="animation-delay:0s">
+  <div class="card-img-wrap"><img src="poster_anna_karenina.png" alt="安娜·卡列尼娜" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">安娜·卡列尼娜</h3>
+    <p class="card-en">Anna Karenina</p>
+    <p class="card-author">🌍 Leo Tolstoy · 列夫·托尔斯泰</p>
+    <p class="card-tagline">All happy families are alike</p>
+  </div>
+</a>
+<a href="book_pride-prejudice.html" class="card" data-region="欧美" style="animation-delay:0.03s">
+  <div class="card-img-wrap"><img src="poster_pride_prejudice.png" alt="傲慢与偏见" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">傲慢与偏见</h3>
+    <p class="card-en">Pride and Prejudice</p>
+    <p class="card-author">🌍 Jane Austen · 简·奥斯汀</p>
+    <p class="card-tagline">It is a truth universally acknowledged</p>
+  </div>
+</a>
+<a href="book_odyssey.html" class="card" data-region="欧美" style="animation-delay:0.06s">
+  <div class="card-img-wrap"><img src="poster_odyssey.png" alt="奥德赛" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">奥德赛</h3>
+    <p class="card-en">The Odyssey</p>
+    <p class="card-author">🌍 Homer · 荷马</p>
+    <p class="card-tagline">The journey home is the greatest adventure</p>
+  </div>
+</a>
+<a href="book_moby-dick.html" class="card" data-region="欧美" style="animation-delay:0.09s">
+  <div class="card-img-wrap"><img src="poster_moby_dick.png" alt="白鲸" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">白鲸</h3>
+    <p class="card-en">Moby-Dick</p>
+    <p class="card-author">🌍 Herman Melville · 梅尔维尔</p>
+    <p class="card-tagline">Call me Ishmael</p>
+  </div>
+</a>
+<a href="book_hundred-years-of-solitude.html" class="card" data-region="欧美" style="animation-delay:0.12s">
+  <div class="card-img-wrap"><img src="poster_hundred_years.png" alt="百年孤独" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">百年孤独</h3>
+    <p class="card-en">One Hundred Years of Solitude</p>
+    <p class="card-author">🌍 Gabriel Garcia Marquez · 马尔克斯</p>
+    <p class="card-tagline">Many years later, as he faced the firing squad</p>
+  </div>
+</a>
+<a href="book_madame-bovary.html" class="card" data-region="欧美" style="animation-delay:0.15s">
+  <div class="card-img-wrap"><img src="poster_madame_bovary.png" alt="包法利夫人" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">包法利夫人</h3>
+    <p class="card-en">Madame Bovary</p>
+    <p class="card-author">🌍 Gustave Flaubert · 福楼拜</p>
+    <p class="card-tagline">Madame Bovary, c'est moi</p>
+  </div>
+</a>
+<a href="book_les-miserables.html" class="card" data-region="欧美" style="animation-delay:0.18s">
+  <div class="card-img-wrap"><img src="poster_les_miserables.png" alt="悲惨世界" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">悲惨世界</h3>
+    <p class="card-en">Les Misérables</p>
+    <p class="card-author">🌍 Victor Hugo · 雨果</p>
+    <p class="card-tagline">To love another person is to see the face of God</p>
+  </div>
+</a>
+<a href="book_dorian-gray.html" class="card" data-region="欧美" style="animation-delay:0.21s">
+  <div class="card-img-wrap"><img src="poster_dorian_gray.png" alt="道林·格雷的画像" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">道林·格雷的画像</h3>
+    <p class="card-en">The Picture of Dorian Gray</p>
+    <p class="card-author">🌍 Oscar Wilde · 王尔德</p>
+    <p class="card-tagline">The only way to get rid of a temptation is to yield to it</p>
+  </div>
+</a>
+<a href="book_tess.html" class="card" data-region="欧美" style="animation-delay:0.24s">
+  <div class="card-img-wrap"><img src="poster_tess.png" alt="德伯家的苔丝" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">德伯家的苔丝</h3>
+    <p class="card-en">Tess of the d'Urbervilles</p>
+    <p class="card-author">🌍 Thomas Hardy · 托马斯·哈代</p>
+    <p class="card-tagline">A pure woman faithfully presented</p>
+  </div>
+</a>
+<a href="book_frankenstein.html" class="card" data-region="欧美" style="animation-delay:0.27s">
+  <div class="card-img-wrap"><img src="poster_frankenstein.png" alt="弗兰肯斯坦" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">弗兰肯斯坦</h3>
+    <p class="card-en">Frankenstein</p>
+    <p class="card-author">🌍 Mary Shelley · 玛丽·雪莱</p>
+    <p class="card-tagline">It was on a dreary night of November</p>
+  </div>
+</a>
+<a href="book_hamlet.html" class="card" data-region="欧美" style="animation-delay:0.3s">
+  <div class="card-img-wrap"><img src="poster_hamlet.png" alt="哈姆雷特" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">哈姆雷特</h3>
+    <p class="card-en">Hamlet</p>
+    <p class="card-author">🌍 William Shakespeare · 莎士比亚</p>
+    <p class="card-tagline">To be, or not to be</p>
+  </div>
+</a>
+<a href="book_wuthering-heights.html" class="card" data-region="欧美" style="animation-delay:0.33s">
+  <div class="card-img-wrap"><img src="poster_wuthering_heights.png" alt="呼啸山庄" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">呼啸山庄</h3>
+    <p class="card-en">Wuthering Heights</p>
+    <p class="card-author">🌍 Emily Brontë · 艾米莉·勃朗特</p>
+    <p class="card-tagline">Whatever our souls are made of, his and mine are the same</p>
+  </div>
+</a>
+<a href="book_monte-cristo.html" class="card" data-region="欧美" style="animation-delay:0.36s">
+  <div class="card-img-wrap"><img src="poster_monte_cristo.png" alt="基督山伯爵" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">基督山伯爵</h3>
+    <p class="card-en">The Count of Monte Cristo</p>
+    <p class="card-author">🌍 Alexandre Dumas · 大仲马</p>
+    <p class="card-tagline">Wait and hope</p>
+  </div>
+</a>
+<a href="book_jane-eyre.html" class="card" data-region="欧美" style="animation-delay:0.39s">
+  <div class="card-img-wrap"><img src="poster_jane_eyre.png" alt="简·爱" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">简·爱</h3>
+    <p class="card-en">Jane Eyre</p>
+    <p class="card-author">🌍 Charlotte Brontë · 夏洛蒂·勃朗特</p>
+    <p class="card-tagline">Reader, I married him</p>
+  </div>
+</a>
+<a href="book_brothers-karamazov.html" class="card" data-region="欧美" style="animation-delay:0.42s">
+  <div class="card-img-wrap"><img src="poster_brothers_karamazov.png" alt="卡拉马佐夫兄弟" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">卡拉马佐夫兄弟</h3>
+    <p class="card-en">The Brothers Karamazov</p>
+    <p class="card-author">🌍 Fyodor Dostoevsky · 陀思妥耶夫斯基</p>
+    <p class="card-tagline">If there is no God, everything is permitted</p>
+  </div>
+</a>
+<a href="book_old-man-and-sea.html" class="card" data-region="欧美" style="animation-delay:0.45s">
+  <div class="card-img-wrap"><img src="poster_old_man_sea.png" alt="老人与海" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">老人与海</h3>
+    <p class="card-en">The Old Man and the Sea</p>
+    <p class="card-author">🌍 Ernest Hemingway · 海明威</p>
+    <p class="card-tagline">A man can be destroyed but not defeated</p>
+  </div>
+</a>
+<a href="book_great-gatsby.html" class="card" data-region="欧美" style="animation-delay:0.48s">
+  <div class="card-img-wrap"><img src="poster_great_gatsby.png" alt="了不起的盖茨比" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">了不起的盖茨比</h3>
+    <p class="card-en">The Great Gatsby</p>
+    <p class="card-author">🌍 F. Scott Fitzgerald · 菲茨杰拉德</p>
+    <p class="card-tagline">So we beat on, boats against the current</p>
+  </div>
+</a>
+<a href="book_romeo-juliet.html" class="card" data-region="欧美" style="animation-delay:0.51s">
+  <div class="card-img-wrap"><img src="poster_romeo_juliet.png" alt="罗密欧与朱丽叶" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">罗密欧与朱丽叶</h3>
+    <p class="card-en">Romeo and Juliet</p>
+    <p class="card-author">🌍 William Shakespeare · 莎士比亚</p>
+    <p class="card-tagline">What's in a name? That which we call a rose</p>
+  </div>
+</a>
+<a href="book_gone-with-wind.html" class="card" data-region="欧美" style="animation-delay:0.54s">
+  <div class="card-img-wrap"><img src="poster_gone_with_wind.png" alt="飘" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">飘</h3>
+    <p class="card-en">Gone with the Wind</p>
+    <p class="card-author">🌍 Margaret Mitchell · 玛格丽特·米切尔</p>
+    <p class="card-tagline">Tomorrow is another day</p>
+  </div>
+</a>
+<a href="book_kill-mockingbird.html" class="card" data-region="欧美" style="animation-delay:0.57s">
+  <div class="card-img-wrap"><img src="poster_kill_mockingbird.png" alt="杀死一只知更鸟" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">杀死一只知更鸟</h3>
+    <p class="card-en">To Kill a Mockingbird</p>
+    <p class="card-author">🌍 Harper Lee · 哈珀·李</p>
+    <p class="card-tagline">You never really understand a person until you consider things from his point of view</p>
+  </div>
+</a>
+<a href="book_divine-comedy.html" class="card" data-region="欧美" style="animation-delay:0s">
+  <div class="card-img-wrap"><img src="poster_divine_comedy.png" alt="神曲" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">神曲</h3>
+    <p class="card-en">The Divine Comedy</p>
+    <p class="card-author">🌍 Dante Alighieri · 但丁</p>
+    <p class="card-tagline">Abandon all hope, ye who enter here</p>
+  </div>
+</a>
+<a href="book_tale-two-cities.html" class="card" data-region="欧美" style="animation-delay:0.03s">
+  <div class="card-img-wrap"><img src="poster_tale_two_cities.png" alt="双城记" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">双城记</h3>
+    <p class="card-en">A Tale of Two Cities</p>
+    <p class="card-author">🌍 Charles Dickens · 狄更斯</p>
+    <p class="card-tagline">It was the best of times, it was the worst of times</p>
+  </div>
+</a>
+<a href="book_don-quixote.html" class="card" data-region="欧美" style="animation-delay:0.06s">
+  <div class="card-img-wrap"><img src="poster_don_quixote.png" alt="堂吉诃德" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">堂吉诃德</h3>
+    <p class="card-en">Don Quixote</p>
+    <p class="card-author">🌍 Miguel de Cervantes · 塞万提斯</p>
+    <p class="card-tagline">Too much sanity may be madness</p>
+  </div>
+</a>
+<a href="book_oliver-twist.html" class="card" data-region="欧美" style="animation-delay:0.09s">
+  <div class="card-img-wrap"><img src="poster_oliver_twist.png" alt="雾都孤儿" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">雾都孤儿</h3>
+    <p class="card-en">Oliver Twist</p>
+    <p class="card-author">🌍 Charles Dickens · 狄更斯</p>
+    <p class="card-tagline">Please, sir, I want some more</p>
+  </div>
+</a>
+<a href="book_little-prince.html" class="card" data-region="欧美" style="animation-delay:0.12s">
+  <div class="card-img-wrap"><img src="poster_little_prince.png" alt="小王子" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">小王子</h3>
+    <p class="card-en">The Little Prince</p>
+    <p class="card-author">🌍 Antoine de Saint-Exupery · 圣埃克苏佩里</p>
+    <p class="card-tagline">What is essential is invisible to the eye</p>
+  </div>
+</a>
+<a href="book_iliad.html" class="card" data-region="欧美" style="animation-delay:0.15s">
+  <div class="card-img-wrap"><img src="poster_iliad.png" alt="伊利亚特" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">伊利亚特</h3>
+    <p class="card-en">The Iliad</p>
+    <p class="card-author">🌍 Homer · 荷马</p>
+    <p class="card-tagline">Sing, O goddess, the anger of Achilles</p>
+  </div>
+</a>
+<a href="book_ulysses.html" class="card" data-region="欧美" style="animation-delay:0.18s">
+  <div class="card-img-wrap"><img src="poster_ulysses.png" alt="尤利西斯" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">尤利西斯</h3>
+    <p class="card-en">Ulysses</p>
+    <p class="card-author">🌍 James Joyce · 詹姆斯·乔伊斯</p>
+    <p class="card-tagline">Yes I said yes I will Yes</p>
+  </div>
+</a>
+<a href="book_war-and-peace.html" class="card" data-region="欧美" style="animation-delay:0.21s">
+  <div class="card-img-wrap"><img src="poster_war_and_peace.png" alt="战争与和平" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">战争与和平</h3>
+    <p class="card-en">War and Peace</p>
+    <p class="card-author">🌍 Leo Tolstoy · 列夫·托尔斯泰</p>
+    <p class="card-tagline">Everything depends on everything else</p>
+  </div>
+</a>
+<a href="book_search-lost-time.html" class="card" data-region="欧美" style="animation-delay:0.24s">
+  <div class="card-img-wrap"><img src="poster_in_search_lost_time.png" alt="追忆似水年华" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">追忆似水年华</h3>
+    <p class="card-en">In Search of Lost Time</p>
+    <p class="card-author">🌍 Marcel Proust · 普鲁斯特</p>
+    <p class="card-tagline">The real voyage of discovery consists not in seeking new landscapes</p>
+  </div>
+</a>
+<a href="book_crime-and-punishment.html" class="card" data-region="欧美" style="animation-delay:0.27s">
+  <div class="card-img-wrap"><img src="poster_crime_punishment.png" alt="罪与罚" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">罪与罚</h3>
+    <p class="card-en">Crime and Punishment</p>
+    <p class="card-author">🌍 Fyodor Dostoevsky · 陀思妥耶夫斯基</p>
+    <p class="card-tagline">Man gets used to everything, the scoundrel!</p>
+  </div>
+</a>
+<a href="book_red-and-black.html" class="card" data-region="欧美" style="animation-delay:0.3s">
+  <div class="card-img-wrap"><img src="poster_red-black.png" alt="红与黑" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">红与黑</h3>
+    <p class="card-en">Le Rouge et le Noir</p>
+    <p class="card-author">🌍 Stendhal · 司汤达</p>
+    <p class="card-tagline">The pursuit of happiness, at the cost of one's soul</p>
+  </div>
+</a>
+<a href="book_ahq.html" class="card" data-region="中国" style="animation-delay:0.33s">
+  <div class="card-img-wrap"><img src="poster_aqzhengzhuan.png" alt="阿Q正传" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">阿Q正传</h3>
+    <p class="card-en">The True Story of Ah Q</p>
+    <p class="card-author">🏮 Lu Xun · 鲁迅</p>
+    <p class="card-tagline">Son of a bitch! The son beats the father!</p>
+  </div>
+</a>
+<a href="book_kuangren-riji.html" class="card" data-region="中国" style="animation-delay:0.36s">
+  <div class="card-img-wrap"><img src="poster_kuangrenriji.png" alt="狂人日记" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">狂人日记</h3>
+    <p class="card-en">A Madman's Diary</p>
+    <p class="card-author">🏮 Lu Xun · 鲁迅</p>
+    <p class="card-tagline">The history books are full of 'benevolence and righteousness' - but between the lines, only two words: 'eat people'</p>
+  </div>
+</a>
+<a href="book_chenai-luoding.html" class="card" data-region="中国" style="animation-delay:0.39s">
+  <div class="card-img-wrap"><img src="poster_chenailuoding.png" alt="尘埃落定" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">尘埃落定</h3>
+    <p class="card-en">The Dust Settles (Chen Ai Luo Ding)</p>
+    <p class="card-author">🏮 Alai · 阿来</p>
+    
+  </div>
+</a>
+<a href="book_hongyan.html" class="card" data-region="中国" style="animation-delay:0.42s">
+  <div class="card-img-wrap"><img src="poster_hongyan.png" alt="红岩" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">红岩</h3>
+    <p class="card-en">Red Crag</p>
+    <p class="card-author">🏮 Luo Guangbin · 罗广斌, Yang Yiyan · 杨益言</p>
+    
+  </div>
+</a>
+<a href="book_qinqiang.html" class="card" data-region="中国" style="animation-delay:0.45s">
+  <div class="card-img-wrap"><img src="poster_qinqiang.png" alt="秦腔" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">秦腔</h3>
+    <p class="card-en">Shaanxi Opera</p>
+    <p class="card-author">🏮 Jia Pingwa · 贾平凹</p>
+    
+  </div>
+</a>
+<a href="book_tianlong-babu.html" class="card" data-region="中国" style="animation-delay:0.48s">
+  <div class="card-img-wrap"><img src="poster_tianlongbabu.png" alt="天龙八部" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">天龙八部</h3>
+    <p class="card-en">The Demi-Gods and Semi-Devils</p>
+    <p class="card-author">🏮 Jin Yong · 金庸</p>
+    <p class="card-tagline">All living beings suffer; unattainable desire is the greatest suffering</p>
+  </div>
+</a>
+<a href="book_xiaoao-jianghu.html" class="card" data-region="中国" style="animation-delay:0.51s">
+  <div class="card-img-wrap"><img src="poster_xiaoaojianghu.png" alt="笑傲江湖" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">笑傲江湖</h3>
+    <p class="card-en">The Smiling, Proud Wanderer</p>
+    <p class="card-author">🏮 Jin Yong · 金庸</p>
+    <p class="card-tagline">To practice the divine skill, first castrate yourself</p>
+  </div>
+</a>
+<a href="book_peony-pavilion.html" class="card" data-region="中国" style="animation-delay:0.53s">
+  <div class="card-img-wrap"><img src="poster_peony-pavilion.png" alt="牡丹亭" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">牡丹亭</h3>
+    <p class="card-en">The Peony Pavilion</p>
+    <p class="card-author">🏮 Tang Xianzu · 汤显祖</p>
+    <p class="card-tagline">情不知所起，一往而深，生者可以死，死可以生</p>
+  </div>
+</a>
+<a href="book_west-chamber.html" class="card" data-region="中国" style="animation-delay:0.55s">
+  <div class="card-img-wrap"><img src="poster_west-chamber.png" alt="西厢记" loading="lazy"></div>
+  <div class="card-info">
+    <h3 class="card-title">西厢记</h3>
+    <p class="card-en">Romance of the Western Chamber</p>
+    <p class="card-author">🏮 Wang Shifu · 王实甫</p>
+    <p class="card-tagline">愿天下有情人终成眷属</p>
+  </div>
+</a>
+</div>
+<div class="footer">世界文学画廊 · 100 部作品</div>
+<script>
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+let ps = [];
+function rs() { canvas.width = innerWidth; canvas.height = innerHeight; }
+rs(); addEventListener("resize", rs);
+class P { constructor() { this.reset(); } reset() { this.x=Math.random()*canvas.width; this.y=Math.random()*canvas.height; this.s=Math.random()*2+.5; this.vx=(Math.random()-.5)*.3; this.vy=(Math.random()-.5)*.3; this.o=Math.random()*.5+.1; } u() { this.x+=this.vx; this.y+=this.vy; if(this.x<0||this.x>canvas.width)this.vx*=-1; if(this.y<0||this.y>canvas.height)this.vy*=-1; } d() { ctx.beginPath(); ctx.arc(this.x,this.y,this.s,0,Math.PI*2); ctx.fillStyle="rgba(200,180,160,"+this.o+")"; ctx.fill(); } }
+for(let i=0;i<50;i++) ps.push(new P());
+function a() {
+  ctx.clearRect(0,0,canvas.width,canvas.height); ps.forEach(p=>{p.u();p.d()});
+  for(let i=0;i<ps.length;i++) for(let j=i+1;j<ps.length;j++) { const dx=ps[i].x-ps[j].x,dy=ps[i].y-ps[j].y,d=Math.sqrt(dx*dx+dy*dy); if(d<150) { ctx.beginPath(); ctx.moveTo(ps[i].x,ps[i].y); ctx.lineTo(ps[j].x,ps[j].y); ctx.strokeStyle="rgba(200,180,160,"+(.06*(1-d/150))+")"; ctx.lineWidth=.5; ctx.stroke(); }}
+  requestAnimationFrame(a);
+}
+a();
+let curFilter="all"; const grid=document.getElementById("grid"),search=document.getElementById("search");
+function filter() {
+  const cards=grid.querySelectorAll(".card"),term=search.value.toLowerCase().trim(); let vis=0;
+  cards.forEach(c=>{const r=c.dataset.region,t=c.textContent.toLowerCase().trim(),mf=curFilter==="all"||r===curFilter,ms=!term||t.includes(term);c.style.display=mf&&ms?"":"none";if(mf&&ms)vis++});
+  let nr=grid.querySelector(".no-results");if(vis===0&&!nr){nr=document.createElement("div");nr.className="no-results";nr.textContent="没有找到匹配的作品";grid.appendChild(nr)}else if(vis>0&&nr)nr.remove();
+}
+search.addEventListener("input",filter);
+document.querySelectorAll(".filter-btn").forEach(btn=>{btn.addEventListener("click",function(){document.querySelectorAll(".filter-btn").forEach(b=>b.classList.remove("active"));this.classList.add("active");curFilter=this.dataset.filter;filter()})});
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add("visible")})},{threshold:.05});
+document.querySelectorAll(".card").forEach(c=>obs.observe(c));
+</script>
+</body>
+</html>
